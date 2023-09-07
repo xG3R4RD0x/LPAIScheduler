@@ -2,6 +2,33 @@ import os
 import pkg_resources
 import subprocess
 
+# Nombre del directorio del entorno virtual (ajusta esto según tu configuración)
+root_dir = os.path.dirname(__file__)
+venv_name = "venv"
+virtualenv_dir = os.path.join(root_dir, venv_name)
+
+# Verificar si el entorno virtual ya existe
+if not os.path.exists(virtualenv_dir):
+    print("Entorno virtual no existe")
+    # create virtual enviroment in new directory
+    subprocess.run(["virtualenv", virtualenv_dir])
+    print("Entorno virtual creado.")
+else:
+    print("El entorno virtual ya existe.")
+
+
+# Comando para activar el entorno virtual en Windows
+activate_script = os.path.join(virtualenv_dir, "Scripts", "activate")
+
+subprocess.run(activate_script, shell=True)
+
+
+if 'VIRTUAL_ENV' in os.environ:
+    print("El entorno virtual está activado.")
+else:
+    print("El entorno virtual no está activado.")
+
+
 # Obtén una lista de todas las bibliotecas instaladas en el entorno actual
 installed_packages = {
     pkg.key: pkg.version for pkg in pkg_resources.working_set}
@@ -17,13 +44,16 @@ for root, _, files in os.walk(project_root):
     for file in files:
         if file.endswith(".py"):
             file_path = os.path.join(root, file)
-            with open(file_path, "r") as f:
-                lines = f.readlines()
-                for line in lines:
-                    if line.startswith("import ") or line.startswith("from "):
-                        libraries = line.split()
-                        for lib in libraries[1:]:
-                            used_libraries.add(lib.split(".")[0])
+
+            # Verifica si la ruta contiene "venv"
+            if "venv" not in file_path:
+                with open(file_path, "r") as f:
+                    lines = f.readlines()
+                    for line in lines:
+                        if line.startswith("import ") or line.startswith("from "):
+                            libraries = line.split()
+                            for lib in libraries[1:]:
+                                used_libraries.add(lib.split(".")[0])
 
 # Filtra las bibliotecas utilizadas que están instaladas
 used_libraries = {lib: installed_packages.get(
