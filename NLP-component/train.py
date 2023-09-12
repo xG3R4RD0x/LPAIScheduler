@@ -130,7 +130,7 @@ data = {
     "tags": tags
 }
 
-FILE = "data.pth"
+FILE = "./NLP-component/data.pth"
 torch.save(data, FILE)
 
 print(f'training complete, file saved to {FILE}')
