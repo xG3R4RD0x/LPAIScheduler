@@ -3,12 +3,30 @@
         {
             "tag": "greeting",
             "patterns": [
-                "Hi",
-                "Hey",
-                "How are you",
-                "Is anyone there?",
-                "Hello",
-                "Good day"
+                {
+                    "text": "Hi",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Hey",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "How are you",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Is anyone there?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Hello",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Good day",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "Hey :-)",
@@ -20,9 +38,18 @@
         {
             "tag": "goodbye",
             "patterns": [
-                "Bye",
-                "See you later",
-                "Goodbye"
+                {
+                    "text": "Bye",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "See you later",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Goodbye",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "See you later, thanks for visiting",
@@ -33,10 +60,22 @@
         {
             "tag": "thanks",
             "patterns": [
-                "Thanks",
-                "Thank you",
-                "That's helpful",
-                "Thank's a lot!"
+                {
+                    "text": "Thanks",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Thank you",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "That's helpful",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Thank's a lot!",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "Happy to help!",
@@ -47,9 +86,18 @@
         {
             "tag": "items",
             "patterns": [
-                "Which items do you have?",
-                "What kinds of items are there?",
-                "What do you sell?"
+                {
+                    "text": "Which items do you have?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "What kinds of items are there?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "What do you sell?",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "We sell coffee and tea",
@@ -59,10 +107,22 @@
         {
             "tag": "payments",
             "patterns": [
-                "Do you take credit cards?",
-                "Do you accept Mastercard?",
-                "Can I pay with Paypal?",
-                "Are you cash only?"
+                {
+                    "text": "Do you take credit cards?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Do you accept Mastercard?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Can I pay with Paypal?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Are you cash only?",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "We accept VISA, Mastercard and Paypal",
@@ -72,9 +132,18 @@
         {
             "tag": "delivery",
             "patterns": [
-                "How long does delivery take?",
-                "How long does shipping take?",
-                "When do I get my delivery?"
+                {
+                    "text": "How long does delivery take?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "How long does shipping take?",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "When do I get my delivery?",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "Delivery takes 2-4 days",
@@ -84,9 +153,18 @@
         {
             "tag": "funny",
             "patterns": [
-                "Tell me a joke!",
-                "Tell me something funny!",
-                "Do you know a joke?"
+                {
+                    "text": "Tell me a joke!",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Tell me something funny!",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Do you know a joke?",
+                    "constraint_type": "none"
+                }
             ],
             "responses": [
                 "Why did the hipster burn his mouth? He drank the coffee before it was cool.",

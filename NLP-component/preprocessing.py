@@ -7,21 +7,6 @@ import numpy as np
 nlp = spacy.load("en_core_web_sm")
 
 
-# def tokenize(sentence):
-
-#     doc = nlp(sentence)
-
-#     tokens = []
-#     for token in doc:
-#         tokens.append(token.text)
-
-#     return tokens
-
-
-# def lemmatize(token):
-#     return token.lemma_.lower()
-
-
 def preprocess_text(sentence):
     # Procesar el texto del usuario
     doc = nlp(sentence)
