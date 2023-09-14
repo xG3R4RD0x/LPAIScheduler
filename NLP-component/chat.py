@@ -4,7 +4,7 @@ import torch
 from model import NeuralNet
 from preprocessing import bag_of_words, preprocess_text
 
-device = torch.device('cude' if torch.cuda.is_available() else 'cpu')
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open('./NLP-component/intents.json', 'r') as f:
     intents = json.load(f)
@@ -15,12 +15,16 @@ data = torch.load(FILE)
 
 input_size = data["input_size"]
 hidden_size = data["hidden_size"]
-output_size = data["output_size"]
+output_size_intent = data["output_size_intent"]
+output_size_constraint = data["output_size_constraint"]
 all_words = data["all_words"]
 tags = data["tags"]
+# Agrega esto para cargar los tipos de restricción
+constraint_types = data["constraint_types"]
 model_state = data["model_state"]
 
-model = NeuralNet(input_size, hidden_size, output_size).to(device)
+model = NeuralNet(input_size, hidden_size, output_size_intent,
+                  output_size_constraint).to(device)
 model.load_state_dict(model_state)
 model.eval()
 
@@ -38,17 +42,26 @@ while True:
     x = x.reshape(1, x.shape[0])
     x = torch.from_numpy(x).to(device)
 
-    output = model(x)
-    _, predicted = torch.max(output, dim=1)
-    tag = tags[predicted.item()]
+    intent_output, constraint_output = model(x)
+    _, predicted_intent = torch.max(intent_output, dim=1)
+    intent_tag = tags[predicted_intent.item()]
+
+    _, predicted_constraint = torch.max(constraint_output, dim=1)
+    # Obtén el tipo de restricción
+    constraint_type = constraint_types[predicted_constraint.item()]
 
     # check the probabilities
-    probs = torch.softmax(output, dim=1)
-    prob = probs[0][predicted.item()]
+    intent_probs = torch.softmax(intent_output, dim=1)
+    intent_prob = intent_probs[0][predicted_intent.item()]
 
-    if prob.item() > 0.75:
+    # Revisa las probabilidades para el tipo de restricción
+    constraint_probs = torch.softmax(constraint_output, dim=1)
+    constraint_prob = constraint_probs[0][predicted_constraint.item()]
+
+    if intent_prob.item() > 0.75:
         for intent in intents["intents"]:
-            if tag == intent["tag"]:
-                print(f"{botname}: {random.choice(intent['responses'])}")
+            if intent_tag == intent["tag"]:
+                print(
+                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
     else:
         print(f"{botname}: Sorry... I didn't get that")

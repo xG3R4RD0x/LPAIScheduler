@@ -5,15 +5,15 @@
             "patterns": [
                 {
                     "text": "Hi",
-                    "constraint_type": "none"
+                    "constraint_type": "weak"
                 },
                 {
                     "text": "Hey",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "How are you",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Is anyone there?",
