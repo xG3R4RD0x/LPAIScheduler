@@ -1,60 +1,270 @@
 {
     "intents": [
         {
-            "tag": "greeting",
+            "tag": "Duration of the schedule",
             "patterns": [
                 {
-                    "text": "Hi",
-                    "constraint_type": "weak"
-                },
-                {
-                    "text": "Hey",
+                    "text": "My study plan spans 8 months",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "How are you",
+                    "text": "I'm committed to studying for 9 months",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Is anyone there?",
-                    "constraint_type": "none"
+                    "text": "I have allocated 12 months for my studies",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "Hello",
-                    "constraint_type": "none"
+                    "text": "I intend to study for a short 3 months",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "Good day",
-                    "constraint_type": "none"
+                    "text": "I want to complete my studies in just 2 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 6 months",
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
-                "Hey :-)",
-                "Hello, thanks for visiting",
-                "Hi there, what can I do for you?",
-                "Hi there, how can I help?"
+                "Your study plan is set for a duration of 8 months.",
+                "You're planning a short but intense study period of 3 months.",
+                "We can discuss a study plan that suits you.",
+                "nice! Let's explore your options.",
+                "No worries, we can adjust the plan based on your preferences."
             ]
         },
         {
-            "tag": "goodbye",
+            "tag": "Number of Subjects",
             "patterns": [
                 {
-                    "text": "Bye",
+                    "text": "I'll be studying 5 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning to tackle 7 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have 3 courses to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll study for 3 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have 3 exams to study for",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to prepare for 5 exams",
+                    "constraint_type": "strong"
+                }
+            ],
+            "responses": [
+                "great!",
+                "awesome!",
+                "We can work it out :)"
+            ]
+        },
+        {
+            "tag": "Number of Units in a Subject",
+            "patterns": [
+                {
+                    "text": "This subject has 5 units to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm taking a course with 8 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not sure yet, maybe 3-4 units",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "A subject with that many units means a structured plan; we'll create one.",
+                "Handling those units requires careful scheduling; we're here to assist.",
+                "No problem; we'll adapt based on the number of units you choose."
+            ]
+        },
+        {
+            "tag": "Average Time per Unit",
+            "patterns": [
+                {
+                    "text": "I usually spend a week on each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It takes me about 10 days per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm flexible, so maybe 5-7 days per unit",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "that time per unit provides a good pace; we'll plan accordingly.",
+                "Allowing that many hourse per unit gives flexibility; we'll adapt the plan.",
+                "Flexibility is great; we can create a customized schedule."
+            ]
+        },
+        {
+            "tag": "Duration of Each Study Hour",
+            "patterns": [
+                {
+                    "text": "I study for 45 minutes per hour",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Each session is around 60 minutes",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer shorter sessions, 30 minutes per hour",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "Studying for 45 minutes per hour is effective; we'll plan accordingly.",
+                "60-minute sessions can work well; we'll incorporate them into your plan.",
+                "Shorter sessions at 30 minutes each are manageable; we'll adapt the plan."
+            ]
+        },
+        {
+            "tag": "Subject or Project Name",
+            "patterns": [
+                {
+                    "text": "I have to study for Calculus",
                     "constraint_type": "none"
                 },
                 {
-                    "text": "See you later",
+                    "text": "My exam is on Algebra",
                     "constraint_type": "none"
                 },
                 {
-                    "text": "Goodbye",
+                    "text": "I need to work on my History project",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Tomorrow is my Chemistry exam",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "I'm focusing on Biology",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "This week, it's all about Physics",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "I'll be preparing for the Physics exam",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Time to study Geography",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "I need to finish my English project",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Chemistry is on my to-do list",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "I'm focusing on Statistics",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Working on my Math assignment",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Preparing for the History test",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "Studying for the Biology quiz",
                     "constraint_type": "none"
                 }
             ],
             "responses": [
-                "See you later, thanks for visiting",
-                "Have a nice day",
-                "Bye! Come back again soon."
+                "Noted, you'll be studying or working on {{subject}}.",
+                "Great, {{subject}} is on your agenda; we'll plan accordingly."
+            ]
+        },
+        {
+            "tag": "Days Unavailable for Studying",
+            "patterns": [
+                {
+                    "text": "I can't study on weekends",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mondays and Wednesdays are unavailable for me",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have some flexibility; it varies",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "Weekends off? No problem; we'll plan around your availability.",
+                "Noted, Mondays and Wednesdays are blocked; we'll create a schedule.",
+                "Flexibility is good; we'll adapt based on your varying availability."
+            ]
+        },
+        {
+            "tag": "Hours Unavailable for Studying in a Day",
+            "patterns": [
+                {
+                    "text": "I can't study after 7 PM",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mornings are my study time; I'm not available in the evenings",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm available all day; no specific restrictions",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "No studying after 7 PM? We'll create a schedule accordingly.",
+                "Mornings work well; we'll plan your study sessions accordingly.",
+                "Great, your availability allows for a flexible schedule."
+            ]
+        },
+        {
+            "tag": "Event Recurrence",
+            "patterns": [
+                {
+                    "text": "This is a one-time event; no recurrence",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It's a weekly meeting, so it recurs every week",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not sure about recurrence; it may vary",
+                    "constraint_type": "weak"
+                }
+            ],
+            "responses": [
+                "Got it, no recurrence for this event; we'll plan accordingly.",
+                "Weekly recurrence noted; we'll adjust the schedule for you.",
+                "No worries; we'll adapt based on the recurrence of your events."
             ]
         },
         {
@@ -81,94 +291,6 @@
                 "Happy to help!",
                 "Any time!",
                 "My pleasure"
-            ]
-        },
-        {
-            "tag": "items",
-            "patterns": [
-                {
-                    "text": "Which items do you have?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "What kinds of items are there?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "What do you sell?",
-                    "constraint_type": "none"
-                }
-            ],
-            "responses": [
-                "We sell coffee and tea",
-                "We have coffee and tea"
-            ]
-        },
-        {
-            "tag": "payments",
-            "patterns": [
-                {
-                    "text": "Do you take credit cards?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "Do you accept Mastercard?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "Can I pay with Paypal?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "Are you cash only?",
-                    "constraint_type": "none"
-                }
-            ],
-            "responses": [
-                "We accept VISA, Mastercard and Paypal",
-                "We accept most major credit cards, and Paypal"
-            ]
-        },
-        {
-            "tag": "delivery",
-            "patterns": [
-                {
-                    "text": "How long does delivery take?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "How long does shipping take?",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "When do I get my delivery?",
-                    "constraint_type": "none"
-                }
-            ],
-            "responses": [
-                "Delivery takes 2-4 days",
-                "Shipping takes 2-4 days"
-            ]
-        },
-        {
-            "tag": "funny",
-            "patterns": [
-                {
-                    "text": "Tell me a joke!",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "Tell me something funny!",
-                    "constraint_type": "none"
-                },
-                {
-                    "text": "Do you know a joke?",
-                    "constraint_type": "none"
-                }
-            ],
-            "responses": [
-                "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
-                "What did the buffalo say when his son left for college? Bison."
             ]
         }
     ]

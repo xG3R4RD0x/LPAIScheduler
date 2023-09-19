@@ -4,7 +4,23 @@ import numpy as np
 # nlp = spacy.load("es_core_news_sm")
 
 # load pre trained tokenization English model
+# in command line
+# python -m spacy download en_core_web_sm
+
 nlp = spacy.load("en_core_web_sm")
+
+
+def tag_text(sentence):
+    doc = nlp(sentence)
+    # for ent in doc.ents:
+    #     print(f"Entidad: {ent.text}, Tipo de Entidad: {ent.label_}")
+
+    # for token in doc:
+    #    print(f"Palabra: {token.text}, Etiqueta de Dependencia: {token.dep_}")
+
+    for token in doc:
+        print(
+            f"Palabra: {token.text}, Lema: {token.lemma_}, Etiqueta POS: {token.pos_}, Etiqueta de dependencia: {token.dep_} ")
 
 
 def preprocess_text(sentence):
@@ -39,3 +55,7 @@ def bag_of_words(tokenized_sentence, all_words):
         if w in tokenized_sentence:
             bag[idx] = 1.0
     return bag
+
+
+sentence = "Literature, Math, Chemistry and English"
+tag_text(sentence)

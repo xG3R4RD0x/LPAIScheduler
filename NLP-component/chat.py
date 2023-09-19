@@ -19,6 +19,8 @@ output_size_intent = data["output_size_intent"]
 output_size_constraint = data["output_size_constraint"]
 all_words = data["all_words"]
 tags = data["tags"]
+
+
 # Agrega esto para cargar los tipos de restricción
 constraint_types = data["constraint_types"]
 model_state = data["model_state"]
@@ -60,6 +62,21 @@ while True:
 
     if intent_prob.item() > 0.75:
         for intent in intents["intents"]:
+            # aquí debo poner el codigo para las subpreguntas para las materias y horas con un if
+            # puedo hacer que entre a un estado de subpregunta con un while true y salir si con una intent de salir de la subpregunta (gracias u otra materia)
+
+            ###
+            # if intent_tag == materias:
+            # ***entrar a las subpreguntas de materias
+            # if intent_tag == días que no se pueden || horas que no se pueden
+            # *** preguntar si es un evento recurrente
+            # ** else que siga normal
+            if intent_tag == "Number of Subjects":
+                print(
+                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+                print(
+                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+
             if intent_tag == intent["tag"]:
                 print(
                     f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")

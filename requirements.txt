@@ -1,3 +1,5 @@
-pulp==2.7.0
-pandas==2.1.0
 spacy==3.6.1
+torch==2.0.1
+numpy==1.25.2
+pandas==2.1.0
+pulp==2.7.0
