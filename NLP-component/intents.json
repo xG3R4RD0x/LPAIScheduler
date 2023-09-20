@@ -2,6 +2,7 @@
     "intents": [
         {
             "tag": "Duration of the schedule",
+            "context": "None",
             "patterns": [
                 {
                     "text": "My study plan spans 8 months",
@@ -38,6 +39,7 @@
         },
         {
             "tag": "Number of Subjects",
+            "context": "Number of Subjects",
             "patterns": [
                 {
                     "text": "I'll be studying 5 subjects",
@@ -65,13 +67,14 @@
                 }
             ],
             "responses": [
-                "great!",
-                "awesome!",
-                "We can work it out :)"
+                "Great!, Is there any information you can give me about the names of the courses or projects you want to be a part of?",
+                "Awesome!, Can you tell me the names of the courses or projects you want to work with?",
+                "Nice!, would you please give a name to each subject?"
             ]
         },
         {
-            "tag": "Number of Units in a Subject",
+            "tag": "Number of Units",
+            "context": "Number of Units",
             "patterns": [
                 {
                     "text": "This subject has 5 units to complete",
@@ -82,18 +85,27 @@
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm not sure yet, maybe 3-4 units",
-                    "constraint_type": "weak"
+                    "text": "I'm taking a course with 8 chapters",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course has 5 main topics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The exam covers 3 chapters of the book",
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
-                "A subject with that many units means a structured plan; we'll create one.",
-                "Handling those units requires careful scheduling; we're here to assist.",
-                "No problem; we'll adapt based on the number of units you choose."
+                "A subject with that many units means a structured plan; we'll create one. \n Do you know the average time it takes you to finish a Unit?",
+                "Handling those units requires careful scheduling; we're here to assist.\n Do you know the average time it takes you per chapter?",
+                "No problem; we'll adapt based on the number of units you choose.\n Do you know the average time it takes you per Unit?"
             ]
         },
         {
             "tag": "Average Time per Unit",
+            "context": "Number of Units",
             "patterns": [
                 {
                     "text": "I usually spend a week on each unit",
@@ -104,8 +116,16 @@
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm flexible, so maybe 5-7 days per unit",
-                    "constraint_type": "weak"
+                    "text": "I'm studying 4 hours per Unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "A chapter takes me 2 hours to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I can study an Unit in 2 days",
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
@@ -116,6 +136,7 @@
         },
         {
             "tag": "Duration of Each Study Hour",
+            "context": "None",
             "patterns": [
                 {
                     "text": "I study for 45 minutes per hour",
@@ -127,73 +148,74 @@
                 },
                 {
                     "text": "I prefer shorter sessions, 30 minutes per hour",
-                    "constraint_type": "weak"
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
-                "Studying for 45 minutes per hour is effective; we'll plan accordingly.",
-                "60-minute sessions can work well; we'll incorporate them into your plan.",
-                "Shorter sessions at 30 minutes each are manageable; we'll adapt the plan."
+                "We'll plan the hours accordingly.",
+                "Those sessions can work well; we'll incorporate them into your plan.",
+                "Those sessions are manageable; we'll adapt the plan."
             ]
         },
         {
             "tag": "Subject or Project Name",
+            "context": "Name of the Courses",
             "patterns": [
                 {
                     "text": "I have to study for Calculus",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "My exam is on Algebra",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "I need to work on my History project",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Tomorrow is my Chemistry exam",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "I'm focusing on Biology",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "This week, it's all about Physics",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "I'll be preparing for the Physics exam",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Time to study Geography",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "I need to finish my English project",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Chemistry is on my to-do list",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "I'm focusing on Statistics",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Working on my Math assignment",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Preparing for the History test",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 },
                 {
                     "text": "Studying for the Biology quiz",
-                    "constraint_type": "none"
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
@@ -203,6 +225,7 @@
         },
         {
             "tag": "Days Unavailable for Studying",
+            "context": "None",
             "patterns": [
                 {
                     "text": "I can't study on weekends",
@@ -213,62 +236,66 @@
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I have some flexibility; it varies",
+                    "text": "I have some flexibility; but I don't like to study on Wednesday",
                     "constraint_type": "weak"
+                },
+                {
+                    "text": "I wont be able to study on Weekends",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer not to study on Mondays",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I can't study next Tuesday",
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
-                "Weekends off? No problem; we'll plan around your availability.",
-                "Noted, Mondays and Wednesdays are blocked; we'll create a schedule.",
+                "No problem; we'll plan around your availability.",
+                "Noted, we'll create a schedule.",
                 "Flexibility is good; we'll adapt based on your varying availability."
             ]
         },
         {
             "tag": "Hours Unavailable for Studying in a Day",
+            "context": "None",
             "patterns": [
                 {
                     "text": "I can't study after 7 PM",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Mornings are my study time; I'm not available in the evenings",
+                    "text": "I won't be able to study from 10 AM to 11 PM",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm available all day; no specific restrictions",
+                    "text": "I can't study from 3 PM to 4 PM",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer not to study after 11 AM",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I would rather not study from 2 PM to 3 PM",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I would like not to study from 1 PM to 2 PM",
                     "constraint_type": "weak"
                 }
             ],
             "responses": [
-                "No studying after 7 PM? We'll create a schedule accordingly.",
-                "Mornings work well; we'll plan your study sessions accordingly.",
+                "We'll create a schedule accordingly.",
+                "We'll plan your study sessions accordingly.",
                 "Great, your availability allows for a flexible schedule."
             ]
         },
         {
-            "tag": "Event Recurrence",
-            "patterns": [
-                {
-                    "text": "This is a one-time event; no recurrence",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "It's a weekly meeting, so it recurs every week",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm not sure about recurrence; it may vary",
-                    "constraint_type": "weak"
-                }
-            ],
-            "responses": [
-                "Got it, no recurrence for this event; we'll plan accordingly.",
-                "Weekly recurrence noted; we'll adjust the schedule for you.",
-                "No worries; we'll adapt based on the recurrence of your events."
-            ]
-        },
-        {
             "tag": "thanks",
+            "context": "None",
             "patterns": [
                 {
                     "text": "Thanks",

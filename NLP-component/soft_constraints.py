@@ -2,7 +2,7 @@ class no_study_day:
     def __init__(self):
         self.data = {
             "day": None,  # Has to be a string with the Name of the day
-            "dates"
+            "dates": None,
             "repeating_event": False
         }
 

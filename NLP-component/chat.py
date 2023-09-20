@@ -71,11 +71,11 @@ while True:
             # if intent_tag == días que no se pueden || horas que no se pueden
             # *** preguntar si es un evento recurrente
             # ** else que siga normal
-            if intent_tag == "Number of Subjects":
-                print(
-                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
-                print(
-                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+            # if intent_tag == "Number of Subjects":
+            #     print(
+            #         f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+            #     print(
+            #         f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
 
             if intent_tag == intent["tag"]:
                 print(
