@@ -82,3 +82,6 @@ while True:
                     f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
     else:
         print(f"{botname}: Sorry... I didn't get that")
+
+    # TODO hacer que deje de usar las responses del .json sino que haga responses basadas
+    # en los datos que faltan de llenar para el problema

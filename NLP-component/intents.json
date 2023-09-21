@@ -27,6 +27,14 @@
                 {
                     "text": "I'm considering a study duration of 6 months",
                     "constraint_type": "strong"
+                },
+                {
+                    "text": "My Exams are in 6 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 6 months",
+                    "constraint_type": "strong"
                 }
             ],
             "responses": [
@@ -130,7 +138,7 @@
             ],
             "responses": [
                 "that time per unit provides a good pace; we'll plan accordingly.",
-                "Allowing that many hourse per unit gives flexibility; we'll adapt the plan.",
+                "Allowing that many hours per unit gives flexibility; we'll adapt the plan.",
                 "Flexibility is great; we can create a customized schedule."
             ]
         },
@@ -249,6 +257,18 @@
                 },
                 {
                     "text": "I can't study next Tuesday",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not available from July 15th to July 20th",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have an event on August 5th",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I won't be able to study during my vacation from September 10th to September 25th",
                     "constraint_type": "strong"
                 }
             ],
