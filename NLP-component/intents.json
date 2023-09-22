@@ -2,7 +2,7 @@
     "intents": [
         {
             "tag": "Duration of the schedule",
-            "context": "None",
+            "context": "Main",
             "patterns": [
                 {
                     "text": "My study plan spans 8 months",
@@ -47,7 +47,7 @@
         },
         {
             "tag": "Number of Subjects",
-            "context": "Number of Subjects",
+            "context": "Subject",
             "patterns": [
                 {
                     "text": "I'll be studying 5 subjects",
@@ -82,7 +82,7 @@
         },
         {
             "tag": "Number of Units",
-            "context": "Number of Units",
+            "context": "Unit",
             "patterns": [
                 {
                     "text": "This subject has 5 units to complete",
@@ -113,7 +113,7 @@
         },
         {
             "tag": "Average Time per Unit",
-            "context": "Number of Units",
+            "context": "Unit Time",
             "patterns": [
                 {
                     "text": "I usually spend a week on each unit",
@@ -144,7 +144,7 @@
         },
         {
             "tag": "Duration of Each Study Hour",
-            "context": "None",
+            "context": "Main",
             "patterns": [
                 {
                     "text": "I study for 45 minutes per hour",
@@ -167,7 +167,7 @@
         },
         {
             "tag": "Subject or Project Name",
-            "context": "Name of the Courses",
+            "context": "Name",
             "patterns": [
                 {
                     "text": "I have to study for Calculus",
@@ -233,7 +233,7 @@
         },
         {
             "tag": "Days Unavailable for Studying",
-            "context": "None",
+            "context": "Main",
             "patterns": [
                 {
                     "text": "I can't study on weekends",
@@ -280,7 +280,7 @@
         },
         {
             "tag": "Hours Unavailable for Studying in a Day",
-            "context": "None",
+            "context": "Main",
             "patterns": [
                 {
                     "text": "I can't study after 7 PM",
@@ -315,7 +315,7 @@
         },
         {
             "tag": "thanks",
-            "context": "None",
+            "context": "Main",
             "patterns": [
                 {
                     "text": "Thanks",

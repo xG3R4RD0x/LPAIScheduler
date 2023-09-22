@@ -3,7 +3,8 @@ import json
 import torch
 from model import NeuralNet
 from preprocessing import bag_of_words, preprocess_text
-
+from problem_data import ProblemData
+import chat_util as cu
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open('./NLP-component/intents.json', 'r') as f:
@@ -32,7 +33,11 @@ model.eval()
 
 botname = "LPAIbot"
 
+current_context = "Main"
+
 print("Let's chat!, tell me what you need")
+
+data = ProblemData()
 
 while True:
     sentence = input('You: ')
@@ -47,7 +52,6 @@ while True:
     intent_output, constraint_output = model(x)
     _, predicted_intent = torch.max(intent_output, dim=1)
     intent_tag = tags[predicted_intent.item()]
-
     _, predicted_constraint = torch.max(constraint_output, dim=1)
     # Obtén el tipo de restricción
     constraint_type = constraint_types[predicted_constraint.item()]
@@ -61,6 +65,8 @@ while True:
     constraint_prob = constraint_probs[0][predicted_constraint.item()]
 
     if intent_prob.item() > 0.75:
+
+        # el for es para buscar la intención y poder sacar la response
         for intent in intents["intents"]:
             # aquí debo poner el codigo para las subpreguntas para las materias y horas con un if
             # puedo hacer que entre a un estado de subpregunta con un while true y salir si con una intent de salir de la subpregunta (gracias u otra materia)
@@ -78,6 +84,10 @@ while True:
             #         f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
 
             if intent_tag == intent["tag"]:
+                new_context = intent["context"]
+                if cu.check_context(current_context, new_context):
+                    current_context = new_context
+
                 print(
                     f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
     else:
