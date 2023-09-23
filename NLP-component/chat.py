@@ -85,11 +85,17 @@ while True:
 
             if intent_tag == intent["tag"]:
                 new_context = intent["context"]
+
                 if cu.check_context(current_context, new_context):
                     current_context = new_context
-
-                print(
-                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+                    missing_fields = data.validate_data()
+                    # aquí imprimo la respuesta del chat basada en los campos que faltan
+                    print(missing_fields)
+                    print(cu.generate_response(missing_fields))
+                    # print(
+                    #    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+                else:
+                    print(f"{botname}: no pasó el check context ")
     else:
         print(f"{botname}: Sorry... I didn't get that")
 

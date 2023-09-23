@@ -1,12 +1,12 @@
 class Subject:
 
-    REQUIRED_FIELDS = ["name", "number_of_units"]
+    REQUIRED_FIELDS = ["name", "number_of_units", "hours_per_unit"]
 
     def __init__(self):
         # Inicializa un diccionario con valores vacios
         self.data = {
             "name": None,
-            "Number_of_units": None,
+            "number_of_units": None,
             "hours_per_unit": None
         }
 

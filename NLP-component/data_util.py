@@ -6,7 +6,15 @@ from soft_constraints import no_study_day, no_study_hours
 
 
 def add_info(problem_data: pd, key, value):
-    problem_data.data[key] = value
+    current_data = problem_data.data
+
+    for info in current_data:
+        if info == "hard_constraints":
+            current_data[info][key] = value
+
+        if info == "soft_constraints":
+            current_data[info][key] = value
+            break
 
 
 def get_info(problem_data: pd, key):
@@ -18,7 +26,7 @@ def get_data(problem_data: pd):
 
 
 def add_subject(problem_data: pd, subject: subject):
-    problem_data.data["subjects"].append(subject)
+    problem_data.data["hard_constraints"]["subjects"].append(subject.data)
 
 
 def get_subject_by_name(problem_data: pd, name_of_the_subject: str):
@@ -41,10 +49,6 @@ def update_subject(subject: subject, info: dict):
 # info = {"hard_constraints": {"total_time":40, "hours_per_day":5}}
 #
 # For Example update_data(problem_data, info)
-
-
-def update_data(problem_data: pd, info: dict):
-    problem_data.data.update(info)
 
 
 def add_no_study_day(problem_data: pd, no_study_day: no_study_day):

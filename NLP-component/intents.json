@@ -314,23 +314,27 @@
             ]
         },
         {
-            "tag": "thanks",
-            "context": "Main",
+            "tag": "back to main",
+            "context": "All",
             "patterns": [
                 {
-                    "text": "Thanks",
+                    "text": "No",
                     "constraint_type": "none"
                 },
                 {
-                    "text": "Thank you",
+                    "text": "That's all",
                     "constraint_type": "none"
                 },
                 {
-                    "text": "That's helpful",
+                    "text": "No, thanks",
                     "constraint_type": "none"
                 },
                 {
-                    "text": "Thank's a lot!",
+                    "text": "go back",
+                    "constraint_type": "none"
+                },
+                {
+                    "text": "no it's ok",
                     "constraint_type": "none"
                 }
             ],

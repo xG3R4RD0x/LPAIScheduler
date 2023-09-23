@@ -5,6 +5,7 @@ import subject
 class ProblemData:
 
     REQUIRED_FIELDS = ["start_date", "total_time", "number_of_subjects"]
+    SUBJECT_REQUIRED_FIELDS = ["name", "number_of_units", "hours_per_unit"]
 
     def __init__(self):
         # Inicializa un diccionario con valores vacios
@@ -14,7 +15,7 @@ class ProblemData:
                 "end_date": None,  # Fecha limite
                 "number_of_subjects": None,
                 "subjects": [],
-                "total_time": 30,  # default 30 days
+                "total_time": None,  # default 30 days
                 "hours_per_day": 8,  # default 8hours per day
                 "duration_of_hour": 45,  # default 45 min y 15min de descanso entre horas
             },
@@ -33,27 +34,48 @@ class ProblemData:
         for field in ProblemData.REQUIRED_FIELDS:
             if hard_constraints[field] is None:
                 missing_fields.append(field)
-                return missing_fields
-
-        return True
-
+        missing_subjects = ProblemData.validate_subjects(self)
+        if missing_subjects is not (True or False):
+            missing_subjects_temp = {"subjects": missing_subjects}
+            missing_fields.append(missing_subjects_temp)
+        if missing_fields is not []:
+            return missing_fields
+        else:
+            return True
+        return missing_fields
     # validates that the subjects in subject list are complete
     # if they are not complete we get a list with the missing fields and the number
     # of the course on the list
+
+    # it delivers which subject is missing what information
 
     def validate_subjects(self):
         missing_fields = []
         number_of_subjects = self.data["hard_constraints"]["number_of_subjects"]
         subject_list = self.data["hard_constraints"]["subjects"]
+
+        if number_of_subjects is None:
+            number_of_subjects = 0
         if number_of_subjects == len(subject_list):
             for index, course in enumerate(subject_list):
-                checked_data = course.validate_data()
-                if checked_data is not True:
-                    missing_fields.append((index, checked_data))
-            return missing_fields
+                course_temp = []
+                for field in ProblemData.SUBJECT_REQUIRED_FIELDS:
+                    if course[field] is None:
+                        course_temp.append(field)
 
+                if course_temp is not []:
+                    missing_fields.append((index, course_temp))
+            if missing_fields is []:
+                return True
+            else:
+                return missing_fields
         else:
             return False
+
+    def testeo(self):
+        print("test1")
+        return ProblemData.validate_data(self)
+
 
 # TODO tratar de crear un archivo .json para que lo lea el Pulp
 # o que lea este archivo para extraer datos
