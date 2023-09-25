@@ -36,13 +36,6 @@
                     "text": "I'm considering a study duration of 6 months",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "Your study plan is set for a duration of 8 months.",
-                "You're planning a short but intense study period of 3 months.",
-                "We can discuss a study plan that suits you.",
-                "nice! Let's explore your options.",
-                "No worries, we can adjust the plan based on your preferences."
             ]
         },
         {
@@ -73,11 +66,6 @@
                     "text": "I need to prepare for 5 exams",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "Great!, Is there any information you can give me about the names of the courses or projects you want to be a part of?",
-                "Awesome!, Can you tell me the names of the courses or projects you want to work with?",
-                "Nice!, would you please give a name to each subject?"
             ]
         },
         {
@@ -104,11 +92,6 @@
                     "text": "The exam covers 3 chapters of the book",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "A subject with that many units means a structured plan; we'll create one. \n Do you know the average time it takes you to finish a Unit?",
-                "Handling those units requires careful scheduling; we're here to assist.\n Do you know the average time it takes you per chapter?",
-                "No problem; we'll adapt based on the number of units you choose.\n Do you know the average time it takes you per Unit?"
             ]
         },
         {
@@ -135,11 +118,6 @@
                     "text": "I can study an Unit in 2 days",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "that time per unit provides a good pace; we'll plan accordingly.",
-                "Allowing that many hours per unit gives flexibility; we'll adapt the plan.",
-                "Flexibility is great; we can create a customized schedule."
             ]
         },
         {
@@ -158,11 +136,6 @@
                     "text": "I prefer shorter sessions, 30 minutes per hour",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "We'll plan the hours accordingly.",
-                "Those sessions can work well; we'll incorporate them into your plan.",
-                "Those sessions are manageable; we'll adapt the plan."
             ]
         },
         {
@@ -225,10 +198,6 @@
                     "text": "Studying for the Biology quiz",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "Noted, you'll be studying or working on {{subject}}.",
-                "Great, {{subject}} is on your agenda; we'll plan accordingly."
             ]
         },
         {
@@ -271,11 +240,6 @@
                     "text": "I won't be able to study during my vacation from September 10th to September 25th",
                     "constraint_type": "strong"
                 }
-            ],
-            "responses": [
-                "No problem; we'll plan around your availability.",
-                "Noted, we'll create a schedule.",
-                "Flexibility is good; we'll adapt based on your varying availability."
             ]
         },
         {
@@ -306,11 +270,6 @@
                     "text": "I would like not to study from 1 PM to 2 PM",
                     "constraint_type": "weak"
                 }
-            ],
-            "responses": [
-                "We'll create a schedule accordingly.",
-                "We'll plan your study sessions accordingly.",
-                "Great, your availability allows for a flexible schedule."
             ]
         },
         {
@@ -337,11 +296,412 @@
                     "text": "no it's ok",
                     "constraint_type": "none"
                 }
-            ],
-            "responses": [
-                "Happy to help!",
-                "Any time!",
-                "My pleasure"
+            ]
+        },
+        {
+            "tag": "Subject Names",
+            "context": "Name",
+            "patterns": [
+                {
+                    "text": "Computer Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mechanical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Electrical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Civil Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemistry",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Physics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mathematics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Economics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Business Administration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Medicine",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Law",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "History",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "English Literature",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Political Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sociology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Philosophy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Art History",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Music",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Film Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Anthropology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Geology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Architecture",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Linguistics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Education",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nutrition and Dietetics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Social Work",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nursing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Communication Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Aerospace Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Industrial Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biochemistry",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biomedical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Materials Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Agricultural Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Forensic Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Criminology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "International Relations",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Health",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Urban Planning",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Philosophy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Ethics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Botany",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Zoology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Oceanography",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "International Business",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Finance",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Marketing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Human Resource Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Operations Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Supply Chain Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Real Estate",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Administration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Policy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Journalism",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Media Production",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Graphic Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Interior Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Fashion Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Theater Arts",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Dance",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Archaeology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sociology of Religion",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cultural Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Women's Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Gender Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Social Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Developmental Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Clinical Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Counseling Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cognitive Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Neurobiology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Genetics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Microbiology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Immunology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Pharmacology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Astrophysics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cosmology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Quantum Mechanics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Artificial Intelligence",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Machine Learning",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Data Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Robotics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cybersecurity",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Game Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Web Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Software Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Human-Computer Interaction",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Policy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sustainable Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Renewable Energy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Wildlife Conservation",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Marine Biology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Aerospace Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nanotechnology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Bioinformatics",
+                    "constraint_type": "strong"
+                }
             ]
         }
     ]

@@ -89,15 +89,15 @@ while True:
                 if cu.check_context(current_context, new_context):
                     current_context = new_context
                     missing_fields = data.validate_data()
-                    # aquí imprimo la respuesta del chat basada en los campos que faltan
-                    print(missing_fields)
-                    print(cu.generate_response(missing_fields))
-                    # print(
-                    #    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+                    response = cu.generate_response(missing_fields)
+                    print(
+                        f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {response}")
                 else:
+                    print(
+                        f"new_context:{new_context}, current_context:{current_context}")
                     print(f"{botname}: no pasó el check context ")
     else:
         print(f"{botname}: Sorry... I didn't get that")
 
-    # TODO hacer que deje de usar las responses del .json sino que haga responses basadas
-    # en los datos que faltan de llenar para el problema
+    # TODO para cuando no se entienda el contexto
+    # el chat pregunte específicamente por la info

@@ -35,7 +35,7 @@ class ProblemData:
             if hard_constraints[field] is None:
                 missing_fields.append(field)
         missing_subjects = ProblemData.validate_subjects(self)
-        if missing_subjects is not (True or False):
+        if type(missing_subjects) is not bool:
             missing_subjects_temp = {"subjects": missing_subjects}
             missing_fields.append(missing_subjects_temp)
         if missing_fields is not []:
@@ -48,7 +48,6 @@ class ProblemData:
     # of the course on the list
 
     # it delivers which subject is missing what information
-
     def validate_subjects(self):
         missing_fields = []
         number_of_subjects = self.data["hard_constraints"]["number_of_subjects"]
@@ -57,25 +56,22 @@ class ProblemData:
         if number_of_subjects is None:
             number_of_subjects = 0
         if number_of_subjects == len(subject_list):
-            for index, course in enumerate(subject_list):
+            for course in subject_list:
                 course_temp = []
                 for field in ProblemData.SUBJECT_REQUIRED_FIELDS:
-                    if course[field] is None:
+
+                    # imprime el nombre de la materia y su empty_field
+                    course_field = course[field]
+                    if field is "name":
+                        course_temp.append(course_field)
+                    if course_field is None:
                         course_temp.append(field)
 
-                if course_temp is not []:
-                    missing_fields.append((index, course_temp))
+                if len(course_temp) >= 2:
+                    missing_fields.append(course_temp)
             if missing_fields is []:
                 return True
             else:
                 return missing_fields
         else:
             return False
-
-    def testeo(self):
-        print("test1")
-        return ProblemData.validate_data(self)
-
-
-# TODO tratar de crear un archivo .json para que lo lea el Pulp
-# o que lea este archivo para extraer datos
