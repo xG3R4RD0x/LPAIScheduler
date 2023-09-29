@@ -6,25 +6,75 @@
 # if not then I go back to main to fill the rest of the problem Data
 
 import random
+from problem_data import ProblemData as pd
 
-hierarchy = [{
-    "context": "All", "subcontext": ["Confirmation"]
-}, {
-    "context": "Main", "subcontext": ["Subject"]
-},
+# TODO estructurar el chatbot workflow haciendo un arbol de decisiones
+# tiene que entrar en un estado diferente por cada rama del arbol
+
+# ------pesudo code---
+#
+# if "new_context" is in (following_context_list):
+#       do: guardar contexto//este es el estado del chatbot
+#           if context_guardado == Complete || ok || back: //el escape del contexto actual al Main
+#               mandar a que se validen los datos
+#               if datos validos is True:
+#                   print(mensaje de perfecto,)
+#                   return problem_data //confirma los datos y manda a hacer el horario
+#               else:
+#                   generar respuesta con missing_fields
+#           else: //si es un contexto normal
+#               hacer un handler que haga lo que tiene que hacer según el contexto
+#
+#
+#
+#
+#
+# TODO ver como hago para que edite las cosas
+#
+#
+#
+#
+
+
+hierarchy = [
     {
-        "context": "Subject", "subcontext": ["Name", "All"]
-},
+        "context": "Back_to_Main", "subcontext": ["Confirmation", "Denial"]
+    },
     {
-        "context": "Unit Time", "subcontext": ["Name", "All"]
-},
+        "context": "Main", "subcontext": ["Main", "Subject"]
+    },
     {
-        "context": "Name", "subcontext": ["Unit", "All"]
-},
+        "context": "Main-total_time", "subcontext": ["Main", "Subject"]
+    },
     {
-        "context": "Unit", "subcontext": ["Unit Time", "All"]
-}
+        "context": "Main-Hour_Duration", "subcontext": ["Main", "Subject"]
+    },
+    {
+        "context": "Main-Unavailable_Hours", "subcontext": ["Main", "Subject"]
+    },
+    {
+        "context": "Main-Unavailable_Days", "subcontext": ["Main", "Subject"]
+    },
+    {
+        "context": "Subject", "subcontext": ["Name"]
+    },
+    {
+        "context": "Name", "subcontext": ["Unit"]
+    },
+    {
+        "context": "Unit", "subcontext": ["Unit-Time"]
+    },
+    {
+        "context": "Unit-Time", "subcontext": ["Unit", "Main"]
+    },
+    {
+        "context": "Confirmation", "subcontext": ["Main", "Unit_Time", "Unit"]
+    },
+    {
+        "context": "Denial", "subcontext": ["Main", "Unit_Time", "Unit"]
+    }
 ]
+
 
 response_options = [
     "We are doing great so far! \n But I still need you to tell me {checked_fields} before we can go on",
@@ -32,7 +82,7 @@ response_options = [
     "Thanks for the info! \n But I still need {checked_fields} to be able to do your plan :) ",
     "To proceed, I still need you to give me {checked_fields}",
     "We're making progress! However, I still require {checked_fields} before we can proceed.",
-    "Great job! Nonetheless, I still need you to provide {checked_fields} before we can continue.",
+    "We are going great so far but I still need you to provide {checked_fields} before we can continue.",
     "Thank you for the information! Nevertheless, I still need {checked_fields} to proceed with your plan.",
     "To move forward, I still need you to furnish {checked_fields}."
 ]
@@ -47,8 +97,8 @@ field_names = {
     "duration_of_hour": "the duration of each study hour",
     "no_study_days": "the days you don't want to study",
     "no_study_hours": "the hours you prefer not to study",
-    "number_of_units": "the number of unit",
-    "hours_per_unit": "the average number of hours per unit"
+    "number_of_units": "the number of units",
+    "hours_per_unit": "the average number of hours you need for each unit"
 }
 
 
@@ -61,6 +111,11 @@ def check_context(current_context, new_context):
             if new_context in c["subcontext"]:
                 return True
             else:
+                # checks if the new context string is in one of the string of the subcontexts
+                # with this I can allow individual subject-contexts to run
+                for sc in c["subcontext"]:
+                    if sc in new_context:
+                        return True
                 return False
 
     return False
@@ -98,6 +153,36 @@ def generate_response(missing_fields):
         return response
 
 
+def generate_response_individual_subject(subject_context, ProblemData):
+    words = subject_context.split(' ')
+    subject_from_context = words[1]
+    subject_list_missing_fields = pd.validate_subjects(ProblemData)
+    subject_from_list = None
+    subject_missing_fields = ""
+    for s in subject_list_missing_fields:
+        if subject_from_context in s:
+            subject_from_list = s
+            break
+    if subject_from_list is not None:
+        for field in subject_from_list:
+            if field in field_names:
+                # this changes the name to the one in field names to make it more readable
+                f = "-" + field_names.get(field) + "\n"
+                subject_missing_fields = subject_missing_fields+f
+        response = "To keep developing your plan I still need you to give some information about the subject: {subject_from_context}\n Please add: \n{subject_missing_fields}"
+        response = response.replace(
+            "{subject_from_context}", subject_from_context)
+        response = response.replace(
+            "{subject_missing_fields}", subject_missing_fields)
+        return response
+
+    else:
+        response = "Do you want to do any changes to the subject: {subject_from_context}?"
+        response = response.replace(
+            "{subject_from_context}", subject_from_context)
+        return response
+
+
 # read_missing_fields has to return a list with better written missing fields just to print
 def read_missing_fields(missing_fields):
 
@@ -127,6 +212,82 @@ def read_missing_fields(missing_fields):
             checked_fields.append(field_temp+", ")
 
     return checked_fields
+
+# To add a new context handler we have to add it in the function handle_input
+
+
+def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None):
+
+    if new_context == "Denial":
+        # necesito un string para cuando sea un subject para recordarle lo que le falta
+        return handle_context_denial(context_temp, ProblemData)
+
+    else:
+        if new_context == "Confirmation":
+            # we handle the context_temp as if it was the new_context
+            return handle_input(context_temp, current_context)
+        else:
+            if new_context == "Back_to_Main":
+                return handle_context_back_to_main(current_context)
+            else:
+                if new_context == "Main":
+                    pass
+                else:
+                    if new_context == "Subject":
+                        pass
+                    else:
+                        if new_context == "Name":
+                            pass
+                        else:
+                            if new_context == "Unit-Time":
+                                pass
+                            else:
+                                if "Unit" in new_context:
+                                    pass
+                                else:
+                                    # if no handler was identified we return False
+                                    return False
+
+
+def handle_context_back_to_main(current_context, context_temp):
+    # I want to ask the user if he wants to leave the current context
+    if "Unit" in current_context:
+        words = current_context.split(' ')
+        subject_from_context = words[1]
+        response_string = "Are you sure that you want to stop adding information to the subject: {subject_from_context}? \n don\'t worry, we can come back here later :)"
+        response_string = response_string.replace(
+            "{subject_from_context}", subject_from_context)
+        return response_string
+
+    if context_temp in field_names:
+        context_string = field_names.get(context_temp)
+        response_string = "we can add more information here later.\n Are you sure you want to add information to {context_string}"
+        response_string = response_string.replace(
+            "{context_string}", context_string)
+    return response_string
+
+
+def handle_context_denial(context_temp, Problem_data):
+    if "Unit" in context_temp:
+        response = generate_response_individual_subject(
+            context_temp, Problem_data)
+
+    return response
+
+
+def handle_context_main(new_context):
+    if "-total_time" in new_context:
+        pass
+    else:
+        if "-Hour_Duration" in new_context:
+            pass
+        else:
+            if "-Unavailable_Hours" in new_context:
+                pass
+            else:
+                if "-Unavailable_Days" in new_context:
+                    pass
+    return False
 
 
 # TODO ver una forma de poder editar los subjects en el chat

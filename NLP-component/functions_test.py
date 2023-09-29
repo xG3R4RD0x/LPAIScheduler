@@ -61,7 +61,6 @@ class FunctionsTest(unittest.TestCase):
             response_in_options = True
         else:
             response_in_options = False
-        print(response)
         self.assertTrue(response_in_options)
 
     def test_check_context(self):
@@ -69,6 +68,58 @@ class FunctionsTest(unittest.TestCase):
         current_context = "Main"
         check_context = cu.check_context(current_context, new_context)
         self.assertTrue(check_context)
+
+    def test_check_context_subject(self):
+        new_context = "Unit Math"
+        current_context = "Name"
+        check_context = cu.check_context(current_context, new_context)
+        self.assertTrue(check_context)
+
+    def test_validate_subject(self):
+        missing_fields_subjects = self.data.validate_subjects()
+        # print(missing_fields_subjects)
+        self.assertEqual(type(missing_fields_subjects), list)
+
+    def test_handle_context_back_to_main(self):
+        current_context = "Unit Math"
+        context_temp = "Subject"
+        response = cu.handle_context_back_to_main(
+            current_context, context_temp)
+        self.assertEqual(type(response), str)
+
+    def test_handle_input_denial(self):
+        current_context = "Back to Main"
+        context_temp = "Unit Math"
+        Problem_data = self.data
+        response = cu.handle_input(
+            "Denial", current_context, context_temp, None, Problem_data)
+        # print(response)
+        self.assertEqual(type(response), str)
+
+    # mf means missing fields
+
+    def test_generate_response_individual_subject_with_mf(self):
+        problem_data = self.data
+        subject_context = "Unit Math"
+        response = cu.generate_response_individual_subject(
+            subject_context, problem_data)
+        # print(response)
+        self.assertTrue(type(response), str)
+    # mf means missing fields
+
+    def test_generate_response_individual_subject_wo_mf(self):
+        sub_info = {
+            "name": "Math",
+            "number_of_units": 10,
+            "hours_per_unit": 3
+        }
+        du.update_subject(self.test_sub, sub_info)
+        problem_data = self.data
+        subject_context = "Unit Math"
+        response = cu.generate_response_individual_subject(
+            subject_context, problem_data)
+        # print(response)
+        self.assertTrue(type(response), str)
 
 
 if __name__ == '__main__':

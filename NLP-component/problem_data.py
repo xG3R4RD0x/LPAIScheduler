@@ -42,7 +42,6 @@ class ProblemData:
             return missing_fields
         else:
             return True
-        return missing_fields
     # validates that the subjects in subject list are complete
     # if they are not complete we get a list with the missing fields and the number
     # of the course on the list
@@ -59,7 +58,6 @@ class ProblemData:
             for course in subject_list:
                 course_temp = []
                 for field in ProblemData.SUBJECT_REQUIRED_FIELDS:
-
                     # imprime el nombre de la materia y su empty_field
                     course_field = course[field]
                     if field is "name":

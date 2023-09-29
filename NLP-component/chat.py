@@ -34,10 +34,12 @@ model.eval()
 botname = "LPAIbot"
 
 current_context = "Main"
+context_temp = None
+current_context_temp = None
 
-print("Let's chat!, tell me what you need")
+print("Let's chat!, Let me help you, build you study plan")
 
-data = ProblemData()
+problem_data = ProblemData()
 
 while True:
     sentence = input('You: ')
@@ -87,17 +89,38 @@ while True:
                 new_context = intent["context"]
 
                 if cu.check_context(current_context, new_context):
+
+                    cu.handle_input(new_context, current_context)
+                    # current_context_update
                     current_context = new_context
-                    missing_fields = data.validate_data()
-                    response = cu.generate_response(missing_fields)
+
+                    # tengo que hacer una función que revise los datos que se acaban
+                    # de ingresar, los analice y agregue al problem data
+                    # por ejemplo si ingresa el nombre de las materias que les haga tokens
+                    # y las ingrese uno por uno y cambie a un nuevo contexto
+
+                    # tengo que hacer una función que devuelva una respuesta en base
+                    # al contexto que se acaba de ingresar
+
                     print(
-                        f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {response}")
+                        f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): response_place_holder")
                 else:
+                    # siempre que se salga del arbol asumimos que quiere regresarse a Main
+                    # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main
+
+                    # we back up the new and current contexts in case of going back
+                    context_temp = new_context
+                    current_context_temp = current_context
                     print(
                         f"new_context:{new_context}, current_context:{current_context}")
                     print(f"{botname}: no pasó el check context ")
+                    cu.handle_input(
+                        "Back_to_Main", current_context, context_temp)
+                    current_context = "Back_to_Main"
     else:
-        print(f"{botname}: Sorry... I didn't get that")
+        # cuando no se entiende el contexto
+        # mostramos el string con los datos que faltan y pedimos que se los llene
+        missing_fields = data.validate_data()
+        response = cu.generate_response(missing_fields)
 
-    # TODO para cuando no se entienda el contexto
-    # el chat pregunte específicamente por la info
+        print(f"{botname}: Sorry... I didn't get that.\n{response}")

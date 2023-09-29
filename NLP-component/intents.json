@@ -2,7 +2,7 @@
     "intents": [
         {
             "tag": "Duration of the schedule",
-            "context": "Main",
+            "context": "Main-total_time",
             "patterns": [
                 {
                     "text": "My study plan spans 8 months",
@@ -96,7 +96,7 @@
         },
         {
             "tag": "Average Time per Unit",
-            "context": "Unit Time",
+            "context": "Unit-Time",
             "patterns": [
                 {
                     "text": "I usually spend a week on each unit",
@@ -122,7 +122,7 @@
         },
         {
             "tag": "Duration of Each Study Hour",
-            "context": "Main",
+            "context": "Main-Hour_Duration",
             "patterns": [
                 {
                     "text": "I study for 45 minutes per hour",
@@ -202,7 +202,7 @@
         },
         {
             "tag": "Days Unavailable for Studying",
-            "context": "Main",
+            "context": "Main-Unavailable_Days",
             "patterns": [
                 {
                     "text": "I can't study on weekends",
@@ -244,7 +244,7 @@
         },
         {
             "tag": "Hours Unavailable for Studying in a Day",
-            "context": "Main",
+            "context": "Main-Unavailable_Hours",
             "patterns": [
                 {
                     "text": "I can't study after 7 PM",
@@ -273,28 +273,268 @@
             ]
         },
         {
-            "tag": "back to main",
-            "context": "All",
+            "tag": "Edit Information",
+            "context": "Edit",
             "patterns": [
                 {
-                    "text": "No",
-                    "constraint_type": "none"
+                    "text": "How can I add more information to this subject?",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "That's all",
-                    "constraint_type": "none"
+                    "text": "I need to include more content in this subject",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "No, thanks",
-                    "constraint_type": "none"
+                    "text": "Is there any way to add extra information to this subject?",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "go back",
-                    "constraint_type": "none"
+                    "text": "I want to add the number of units for Math",
+                    "constraint_type": "strong"
                 },
                 {
-                    "text": "no it's ok",
-                    "constraint_type": "none"
+                    "text": "I want to add information to a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to change the information of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Can you guide me on adding more information to a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm looking to supplement the existing information in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How do I update the details for this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to augment the content of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What steps should I follow to add information to a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I would like to insert additional details into this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How can I incorporate more material into this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Can you explain how to include more information in a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to edit the information in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What options do I have to update the subject information?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to modify the content of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How do I add new details to this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to include more data in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What are the steps to change the information in a subject?",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Confirmation",
+            "context": "Confirmation",
+            "patterns": [
+                {
+                    "text": "Yes",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sure",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Definitely",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Absolutely",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Of course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Certainly",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I agree",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No problem",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sounds good",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm in",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Count me in",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm ready",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Absolutely, I'm on board",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sure thing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Without a doubt",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, I'm sure",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Definitely, count on me",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I would love to",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm interested",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, I'm willing to",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to come back later",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, thanks",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Denial",
+            "context": "Denial",
+            "patterns": [
+                {
+                    "text": "No, I still need to add more info",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I still need to change some stuff",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd rather not leave yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to stay a bit longer",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need more time to work on this",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to leave",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some unfinished tasks",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to continue working on this",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd like to stay around for a while",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not done yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to submit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need more time to think",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd rather stay and keep working",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I want to stay a bit longer",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some things to figure out",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not finished yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some changes to make",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to stay and continue working",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I need more time",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to move on",
+                    "constraint_type": "strong"
                 }
             ]
         },
@@ -323,23 +563,23 @@
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Biology",
+                    "text": "Biology 2",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Chemistry",
+                    "text": "Chemistry 3",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Physics",
+                    "text": "Physics 4",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Mathematics",
+                    "text": "Mathematics 5",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Environmental Science",
+                    "text": "Environmental Science 1",
                     "constraint_type": "strong"
                 },
                 {
