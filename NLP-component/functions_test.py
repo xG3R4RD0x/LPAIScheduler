@@ -96,6 +96,15 @@ class FunctionsTest(unittest.TestCase):
         # print(response)
         self.assertEqual(type(response), str)
 
+    def test_handle_input_main(self):
+        current_context = "Main"
+        new_context = "Main-total_time"
+        Problem_data = self.data
+        response = cu.handle_input(
+            new_context, current_context, None, None, Problem_data)
+        print(response)
+        self.assertEqual(type(response), str)
+
     # mf means missing fields
 
     def test_generate_response_individual_subject_with_mf(self):

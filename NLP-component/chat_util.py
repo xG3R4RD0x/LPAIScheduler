@@ -84,7 +84,7 @@ response_options = [
     "We're making progress! However, I still require {checked_fields} before we can proceed.",
     "We are going great so far but I still need you to provide {checked_fields} before we can continue.",
     "Thank you for the information! Nevertheless, I still need {checked_fields} to proceed with your plan.",
-    "To move forward, I still need you to furnish {checked_fields}."
+    "To move forward, I still need you to add {checked_fields}."
 ]
 
 field_names = {
@@ -230,8 +230,8 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
             if new_context == "Back_to_Main":
                 return handle_context_back_to_main(current_context)
             else:
-                if new_context == "Main":
-                    pass
+                if "Main" in new_context:
+                    return handle_context_main(new_context, ProblemData)
                 else:
                     if new_context == "Subject":
                         pass
@@ -275,19 +275,27 @@ def handle_context_denial(context_temp, Problem_data):
     return response
 
 
-def handle_context_main(new_context):
+def handle_context_main(new_context, ProblemData):
     if "-total_time" in new_context:
-        pass
+        field = readable_field("total_time")
     else:
-        if "-Hour_Duration" in new_context:
-            pass
+        if "-duration_of_hour" in new_context:
+            field = readable_field("duration_of_hour")
         else:
-            if "-Unavailable_Hours" in new_context:
-                pass
+            if "-no_study_hours" in new_context:
+                field = readable_field("no_study_hours")
             else:
-                if "-Unavailable_Days" in new_context:
-                    pass
-    return False
+                if "-no_study_days" in new_context:
+                    field = readable_field("no_study_days")
+    missing_fields = ProblemData.validate_data()
+    response = generate_response(missing_fields)
+    added_info_response = "You just added: " + field + "\n" + response
+
+    return added_info_response
+
+
+def readable_field(field):
+    return field_names.get(field)
 
 
 # TODO ver una forma de poder editar los subjects en el chat

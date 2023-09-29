@@ -90,7 +90,8 @@ while True:
 
                 if cu.check_context(current_context, new_context):
 
-                    cu.handle_input(new_context, current_context)
+                    cu.handle_input(new_context, current_context, context_temp,
+                                    current_context_temp, problem_data.data)
                     # current_context_update
                     current_context = new_context
 
