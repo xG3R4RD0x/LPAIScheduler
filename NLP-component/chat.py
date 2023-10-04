@@ -45,7 +45,8 @@ while True:
     sentence = input('You: ')
     if sentence == "quit":
         break
-
+    # we save the input sentence to extract the information
+    input_str = sentence
     sentence = preprocess_text(sentence)
     x = bag_of_words(sentence, all_words)
     x = x.reshape(1, x.shape[0])
@@ -68,56 +69,38 @@ while True:
 
     if intent_prob.item() > 0.75:
 
-        # el for es para buscar la intención y poder sacar la response
-        for intent in intents["intents"]:
-            # aquí debo poner el codigo para las subpreguntas para las materias y horas con un if
-            # puedo hacer que entre a un estado de subpregunta con un while true y salir si con una intent de salir de la subpregunta (gracias u otra materia)
+        new_context = intent_tag
 
-            ###
-            # if intent_tag == materias:
-            # ***entrar a las subpreguntas de materias
-            # if intent_tag == días que no se pueden || horas que no se pueden
-            # *** preguntar si es un evento recurrente
-            # ** else que siga normal
-            # if intent_tag == "Number of Subjects":
-            #     print(
-            #         f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
-            #     print(
-            #         f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): {random.choice(intent['responses'])}")
+        if cu.check_context(current_context, new_context):
 
-            if intent_tag == intent["tag"]:
-                new_context = intent["context"]
+            cu.handle_input(new_context, current_context, context_temp,
+                            current_context_temp, problem_data.data)
+            # current_context_update
+            current_context = new_context
 
-                if cu.check_context(current_context, new_context):
+            # tengo que hacer una función que revise los datos que se acaban
+            # de ingresar, los analice y agregue al problem data
+            # por ejemplo si ingresa el nombre de las materias que les haga tokens
+            # y las ingrese uno por uno y cambie a un nuevo contexto
 
-                    cu.handle_input(new_context, current_context, context_temp,
-                                    current_context_temp, problem_data.data)
-                    # current_context_update
-                    current_context = new_context
+            # tengo que hacer una función que devuelva una respuesta en base
+            # al contexto que se acaba de ingresar
 
-                    # tengo que hacer una función que revise los datos que se acaban
-                    # de ingresar, los analice y agregue al problem data
-                    # por ejemplo si ingresa el nombre de las materias que les haga tokens
-                    # y las ingrese uno por uno y cambie a un nuevo contexto
+            print(
+                f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): response_place_holder")
+        else:
+            # siempre que se salga del arbol asumimos que quiere regresarse a Main
+            # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main
 
-                    # tengo que hacer una función que devuelva una respuesta en base
-                    # al contexto que se acaba de ingresar
-
-                    print(
-                        f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): response_place_holder")
-                else:
-                    # siempre que se salga del arbol asumimos que quiere regresarse a Main
-                    # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main
-
-                    # we back up the new and current contexts in case of going back
-                    context_temp = new_context
-                    current_context_temp = current_context
-                    print(
-                        f"new_context:{new_context}, current_context:{current_context}")
-                    print(f"{botname}: no pasó el check context ")
-                    cu.handle_input(
-                        "Back_to_Main", current_context, context_temp)
-                    current_context = "Back_to_Main"
+            # we back up the new and current contexts in case of going back
+            context_temp = new_context
+            current_context_temp = current_context
+            print(
+                f"new_context:{new_context}, current_context:{current_context}")
+            print(f"{botname}: no pasó el check context ")
+            cu.handle_input(
+                "Back_to_Main", current_context, context_temp)
+            current_context = "Back_to_Main"
     else:
         # cuando no se entiende el contexto
         # mostramos el string con los datos que faltan y pedimos que se los llene

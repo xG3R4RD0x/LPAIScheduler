@@ -216,7 +216,7 @@ def read_missing_fields(missing_fields):
 # To add a new context handler we have to add it in the function handle_input
 
 
-def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None):
+def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None, input_sentence=None):
 
     if new_context == "Denial":
         # necesito un string para cuando sea un subject para recordarle lo que le falta
@@ -234,7 +234,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                     return handle_context_main(new_context, ProblemData)
                 else:
                     if new_context == "Subject":
-                        pass
+                        return handle_context_subject(input_sentence)
                     else:
                         if new_context == "Name":
                             pass
@@ -294,8 +294,17 @@ def handle_context_main(new_context, ProblemData):
     return added_info_response
 
 
+def handle_context_subject(input_sentence):
+
+    # TODO necesito una función que identifique los subjects y los meta en un array
+    # quiero que de este array se actualice el numero de subjects
+    return "String response de Subject"
+
+
 def readable_field(field):
     return field_names.get(field)
 
+# def extract_from_input(input_string, context):
+#     if context=="Subject":
 
 # TODO ver una forma de poder editar los subjects en el chat

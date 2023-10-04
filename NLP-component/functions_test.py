@@ -1,6 +1,7 @@
 from problem_data import ProblemData
 import data_util as du
 import chat_util as cu
+import preprocessing as pre
 from subject import Subject
 import unittest
 
@@ -129,6 +130,12 @@ class FunctionsTest(unittest.TestCase):
             subject_context, problem_data)
         # print(response)
         self.assertTrue(type(response), str)
+
+    def test_tag_text(self):
+        sentence = "I have to study for 4 exams this semester"
+        response = pre.tag_text(sentence)
+        print(response)
+        self. assertTrue(type(response), str)
 
 
 if __name__ == '__main__':

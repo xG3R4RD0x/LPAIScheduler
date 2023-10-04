@@ -1,7 +1,7 @@
 {
     "intents": [
         {
-            "tag": "Duration of the schedule",
+            "tag": "Main-total_time",
             "context": "Main-total_time",
             "patterns": [
                 {
@@ -39,7 +39,7 @@
             ]
         },
         {
-            "tag": "Number of Subjects",
+            "tag": "Subject",
             "context": "Subject",
             "patterns": [
                 {
@@ -69,7 +69,7 @@
             ]
         },
         {
-            "tag": "Number of Units",
+            "tag": "Unit",
             "context": "Unit",
             "patterns": [
                 {
@@ -95,7 +95,7 @@
             ]
         },
         {
-            "tag": "Average Time per Unit",
+            "tag": "Unit-Time",
             "context": "Unit-Time",
             "patterns": [
                 {
@@ -121,7 +121,7 @@
             ]
         },
         {
-            "tag": "Duration of Each Study Hour",
+            "tag": "Main-duration_of_hour",
             "context": "Main-duration_of_hour",
             "patterns": [
                 {
@@ -139,69 +139,7 @@
             ]
         },
         {
-            "tag": "Subject or Project Name",
-            "context": "Name",
-            "patterns": [
-                {
-                    "text": "I have to study for Calculus",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "My exam is on Algebra",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to work on my History project",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Tomorrow is my Chemistry exam",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm focusing on Biology",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This week, it's all about Physics",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be preparing for the Physics exam",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Time to study Geography",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to finish my English project",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Chemistry is on my to-do list",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm focusing on Statistics",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Working on my Math assignment",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Preparing for the History test",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Studying for the Biology quiz",
-                    "constraint_type": "strong"
-                }
-            ]
-        },
-        {
-            "tag": "Days Unavailable for Studying",
+            "tag": "Main-no_study_days",
             "context": "Main-no_study_days",
             "patterns": [
                 {
@@ -243,7 +181,7 @@
             ]
         },
         {
-            "tag": "Hours Unavailable for Studying in a Day",
+            "tag": "Main-no_study_hours",
             "context": "Main-no_study_hours",
             "patterns": [
                 {
@@ -273,7 +211,7 @@
             ]
         },
         {
-            "tag": "Edit Information",
+            "tag": "Edit",
             "context": "Edit",
             "patterns": [
                 {
@@ -539,9 +477,65 @@
             ]
         },
         {
-            "tag": "Subject Names",
+            "tag": "Name",
             "context": "Name",
             "patterns": [
+                {
+                    "text": "I have to study for Calculus",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "My exam is on Algebra",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to work on my History project",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Tomorrow is my Chemistry exam",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focusing on Biology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This week, it's all about Physics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be preparing for the Physics exam",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Time to study Geography",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to finish my English project",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemistry is on my to-do list",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focusing on Statistics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Working on my Math assignment",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Preparing for the History test",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Studying for the Biology quiz",
+                    "constraint_type": "strong"
+                },
                 {
                     "text": "Computer Science",
                     "constraint_type": "strong"
