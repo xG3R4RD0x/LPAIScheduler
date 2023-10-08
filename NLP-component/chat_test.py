@@ -71,13 +71,33 @@ class ChatTest(unittest.TestCase):
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
         chat_data_string = chat_data["intent_tag"] + \
             " " + chat_data["constraint_type"]
-        # print(chat_data_string)
+        print(chat_data_string)
 
         new_context = chat_data["intent_tag"]
 
-        response = cu.handle_input(new_context, self.current_context,
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
                                    self.current_context_temp, self.problem_data, sentence)
         # print(response)
+        self.assertTrue(type(chat_data_string))
+        self.assertTrue(type(response))
+
+    def test_chat_names(self):
+        self.current_context = "Subject"
+        self.context_temp = None
+        self.current_context_temp = None
+        self.problem_data = ProblemData()
+        sentence = "Math, Chemistry and Literature"
+        chat_data = self.input_sentence(
+            sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
+        chat_data_string = chat_data["intent_tag"] + \
+            " " + chat_data["constraint_type"]
+        print(chat_data_string)
+
+        new_context = chat_data["intent_tag"]
+
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
+                                   self.current_context_temp, self.problem_data, sentence)
+        print(response)
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 

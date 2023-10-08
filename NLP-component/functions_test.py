@@ -58,6 +58,7 @@ class FunctionsTest(unittest.TestCase):
             response_options_checked.append(option)
 
         response = cu.generate_response(missing_fields)
+
         if response in response_options_checked:
             response_in_options = True
         else:
@@ -103,7 +104,7 @@ class FunctionsTest(unittest.TestCase):
         Problem_data = self.data
         response = cu.handle_input(
             new_context, current_context, None, None, Problem_data)
-        print(response)
+        # print(response)
         self.assertEqual(type(response), str)
 
     # mf means missing fields
@@ -131,9 +132,18 @@ class FunctionsTest(unittest.TestCase):
         # print(response)
         self.assertTrue(type(response), str)
 
-    def test_tag_text(self):
-        sentence = "I have to study for 4 exams this semester"
-        response = pre.tag_text(sentence)
+    def test_tag_subjects(self):
+        sentence = "Math, Chemistry and Literature"
+        response = pre.tag_subjects(sentence)
+        print("\n")
+        print(response)
+        self. assertTrue(type(response), str)
+
+    def test_number_of_subjects(self):
+
+        sentence = "I want to do 3 Exams this semester"
+        response = pre.number_of_subjects(sentence)
+        print("\n")
         print(response)
         self. assertTrue(type(response), str)
 

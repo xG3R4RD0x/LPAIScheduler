@@ -7,6 +7,8 @@
 
 import random
 from problem_data import ProblemData as pd
+import preprocessing as pre
+import data_util as du
 
 # TODO estructurar el chatbot workflow haciendo un arbol de decisiones
 # tiene que entrar en un estado diferente por cada rama del arbol
@@ -234,10 +236,10 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                     return handle_context_main(new_context, ProblemData)
                 else:
                     if new_context == "Subject":
-                        return handle_context_subject(input_sentence)
+                        return handle_context_subject(input_sentence, ProblemData)
                     else:
                         if new_context == "Name":
-                            pass
+                            return handle_context_name(input_sentence, ProblemData)
                         else:
                             if new_context == "Unit-Time":
                                 pass
@@ -294,11 +296,29 @@ def handle_context_main(new_context, ProblemData):
     return added_info_response
 
 
-def handle_context_subject(input_sentence):
+def handle_context_subject(input_sentence, ProblemData: pd):
+    number_of_subjects = pre.number_of_subjects(input_sentence)
+    du.add_info(ProblemData, "number_of_subjects", number_of_subjects)
+    response_str = "Great! you are working on " + \
+        str(number_of_subjects)+" subjects.\nHow are these subjects called?"
+    return response_str
 
+
+def handle_context_name(input_sentence, ProblemData: pd):
     # TODO necesito una función que identifique los subjects y los meta en un array
     # quiero que de este array se actualice el numero de subjects
-    return "String response de Subject"
+    subjects_list = pre.tag_subjects(input_sentence)
+    for s in subjects_list:
+        du.add_subject(ProblemData, s)
+
+    subjects_str = ""
+    if len(subjects_list) == 1:
+        subjects_str = subjects_str.join(subjects_list[0])
+    else:
+        subjects_str = ", ".join(subjects_list[:-1])
+        subjects_str += f" and {subjects_list[-1]}"
+
+    return subjects_str
 
 
 def readable_field(field):

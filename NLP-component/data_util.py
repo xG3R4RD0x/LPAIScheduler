@@ -1,5 +1,5 @@
 import problem_data as pd
-import subject
+from subject import Subject
 from soft_constraints import no_study_day, no_study_hours
 
 # utility functions to update the Problem Data Dictionary
@@ -25,8 +25,19 @@ def get_data(problem_data: pd):
     return problem_data.data
 
 
-def add_subject(problem_data: pd, subject: subject):
-    problem_data.data["hard_constraints"]["subjects"].append(subject.data)
+def get_subjects(problem_data: pd):
+    return problem_data.data["hard_constraints"]["subjects"]
+
+
+def add_subject(problem_data: pd, subject: str):
+    current_subjects = problem_data.data["hard_constraints"]["subjects"]
+
+    if subject not in current_subjects:
+        subject_temp = Subject(subject)
+        current_subjects.append(subject_temp.data)
+        return True
+    else:
+        return False
 
 
 def get_subject_by_name(problem_data: pd, name_of_the_subject: str):
@@ -41,7 +52,7 @@ def get_subject_by_name(problem_data: pd, name_of_the_subject: str):
 #              update(subject, {"hours_per_units": 3})
 
 
-def update_subject(subject: subject, info: dict):
+def update_subject(subject: Subject, info: dict):
     subject.data.update(info)
 
 # update Problem Data

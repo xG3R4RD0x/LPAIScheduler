@@ -2,13 +2,17 @@ class Subject:
 
     REQUIRED_FIELDS = ["name", "number_of_units", "hours_per_unit"]
 
-    def __init__(self):
+    def __init__(self, name: str):
         # Inicializa un diccionario con valores vacios
         self.data = {
-            "name": None,
+            "name": name,
             "number_of_units": None,
             "hours_per_unit": None
         }
+
+    def set_info(self, key, value):
+        self.data[key] = value
+        return True
 
     def get_info(self, key):
         return self.data.get(key)

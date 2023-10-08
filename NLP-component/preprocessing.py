@@ -1,5 +1,6 @@
 import spacy
 import numpy as np
+from word2number import w2n
 # load pre trained tokenization spanish model
 # nlp = spacy.load("es_core_news_sm")
 
@@ -10,17 +11,43 @@ import numpy as np
 nlp = spacy.load("en_core_web_sm")
 
 
-def tag_text(sentence):
+def tag_subjects(sentence):
     doc = nlp(sentence)
-    # for ent in doc.ents:
-    #     print(f"Entidad: {ent.text}, Tipo de Entidad: {ent.label_}")
 
-    # for token in doc:
-    #    print(f"Palabra: {token.text}, Etiqueta de Dependencia: {token.dep_}")
+    # Inicializa una lista para almacenar los nombres de materias encontrados
+    subjects = []
 
+    # Itera a través de los tokens en el documento procesado
     for token in doc:
-        print(
-            f"Palabra: {token.text}, Lema: {token.lemma_}, Etiqueta POS: {token.pos_}, Etiqueta de dependencia: {token.dep_} ")
+        # Verifica si el token es un sustantivo propio (que a menudo se usa para nombres de materias)
+        if token.pos_ == "PROPN":
+            subjects.append(token.text)
+
+    return subjects
+
+
+# Carga el modelo de spaCy en inglés
+nlp = spacy.load("en_core_web_sm")
+
+
+def number_of_subjects(sentence):
+    # Procesa el texto con spaCy
+    doc = nlp(sentence)
+
+    # Inicializa una variable para contar los números de exámenes
+    anzahl = 0
+
+    # Itera a través de los tokens en el documento
+    for token in doc:
+        if token.like_num:
+            # Si el token parece ser un número, intenta convertirlo a entero
+            try:
+                anzahl += int(token.text)
+            except ValueError:
+                # Si no se puede convertir a entero, continúa con el siguiente token
+                continue
+
+    return anzahl
 
 
 def preprocess_text(sentence):
