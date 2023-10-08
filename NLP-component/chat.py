@@ -33,15 +33,14 @@ model.eval()
 
 botname = "LPAIbot"
 
-current_context = "Main"
-context_temp = None
-current_context_temp = None
 
 print("Let's chat!, Let me help you, build you study plan")
 
 problem_data = ProblemData()
+problem_data.set_current_context("Main")
 
 while True:
+
     sentence = input('You: ')
     if sentence == "quit":
         break
@@ -71,12 +70,18 @@ while True:
 
         new_context = intent_tag
 
-        if cu.check_context(current_context, new_context):
+        if cu.check_context(problem_data.current_context, new_context):
 
-            cu.handle_input(new_context, current_context, context_temp,
-                            current_context_temp, problem_data.data)
+            if problem_data.add_info_to_subject is True:
+                new_context = new_context
+
+            # cambiar el contexto a por materia
+
+            ##################
+            cu.handle_input(new_context, problem_data.current_context, problem_data.context_temp,
+                            problem_data.current_context_temp, problem_data.data)
             # current_context_update
-            current_context = new_context
+            problem_data.set_current_context(new_context)
 
             # tengo que hacer una función que revise los datos que se acaban
             # de ingresar, los analice y agregue al problem data
@@ -93,13 +98,13 @@ while True:
             # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main
 
             # we back up the new and current contexts in case of going back
-            context_temp = new_context
-            current_context_temp = current_context
+            problem_data.set_context_temp(new_context)
+            problem_data.set_current_context_temp(problem_data.current_context)
             print(
-                f"new_context:{new_context}, current_context:{current_context}")
+                f"new_context:{new_context}, current_context:{problem_data.current_context}")
             print(f"{botname}: no pasó el check context ")
             cu.handle_input(
-                "Back_to_Main", current_context, context_temp)
+                "Back_to_Main", problem_data.current_context, problem_data.context_temp)
             current_context = "Back_to_Main"
     else:
         # cuando no se entiende el contexto

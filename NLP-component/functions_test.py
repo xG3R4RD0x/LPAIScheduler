@@ -9,7 +9,7 @@ import unittest
 class FunctionsTest(unittest.TestCase):
     def setUp(self):
         self.data = ProblemData()
-        self.test_sub = Subject()
+        self.test_sub = Subject("Math")
 
         sub_info = {
             "name": "Math",

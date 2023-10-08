@@ -20,6 +20,9 @@ class Subject:
     def get_data(self):
         return self.data
 
+    def get_key(self, key):
+        return self.data[key]
+
     def validate_data(self):
         # Verifica si los campos obligatorios de los subjects
         missing_fields = []

@@ -25,8 +25,36 @@ class ProblemData:
             }
         }
 
+        self.current_context = None
+        self.context_temp = None
+        self.current_context_temp = None
+        self.add_info_to_subject = False
+        self.subject_list = []
+        self.subject_list_temp = []
+
     # validate data does not validate the soft_constraints yet
     # TODO validate also soft_constraints
+    def set_subject_list(self, subject_list: list):
+
+        for subject in subject_list:
+            if subject not in self.subject_list:
+                self.subject_list.append(subject)
+
+    def get_subject_list(self):
+        return self.subject_list
+
+    def set_add_info_to_subject(self, value: bool):
+        self.add_info_to_subject = value
+
+    def set_current_context(self, context):
+        self.current_context = context
+
+    def set_context_temp(self, context):
+        self.context_temp = context
+
+    def set_current_context_temp(self, context):
+        self.current_context_temp = context
+
     def validate_data(self):
         missing_fields = []
         hard_constraints = self.data["hard_constraints"]
@@ -61,7 +89,7 @@ class ProblemData:
                     # imprime el nombre de la materia y su empty_field
                     course_field = course[field]
                     if field is "name":
-                        course_temp.append(course_field)
+                        course_temp.append(course_field.get_key("name"))
                     if course_field is None:
                         course_temp.append(field)
 

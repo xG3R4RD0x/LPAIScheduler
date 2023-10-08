@@ -189,13 +189,13 @@ def generate_response_individual_subject(subject_context, ProblemData):
 def read_missing_fields(missing_fields):
 
     checked_fields = []
-
     for field in missing_fields:
         if type(field) is dict:
             if "subjects" in field:
                 subjects = field["subjects"]
                 subjects_temp = []
                 for subject in subjects:
+                    print(subject)
                     course_temp = []
                     for subject_field in subject:
                         if subject_field in field_names:
@@ -239,6 +239,9 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                         return handle_context_subject(input_sentence, ProblemData)
                     else:
                         if new_context == "Name":
+
+                            # flag so we can put info per subject
+                            ProblemData.set_add_info_to_subject(True)
                             return handle_context_name(input_sentence, ProblemData)
                         else:
                             if new_context == "Unit-Time":
@@ -308,9 +311,11 @@ def handle_context_name(input_sentence, ProblemData: pd):
     # TODO necesito una función que identifique los subjects y los meta en un array
     # quiero que de este array se actualice el numero de subjects
     subjects_list = pre.tag_subjects(input_sentence)
+    ProblemData.set_subject_list(subjects_list)
     for s in subjects_list:
         du.add_subject(ProblemData, s)
 
+    subjects_list = ProblemData.get_subject_list()
     subjects_str = ""
     if len(subjects_list) == 1:
         subjects_str = subjects_str.join(subjects_list[0])
@@ -318,13 +323,12 @@ def handle_context_name(input_sentence, ProblemData: pd):
         subjects_str = ", ".join(subjects_list[:-1])
         subjects_str += f" and {subjects_list[-1]}"
 
-    return subjects_str
+    response = "Great to hear that you are studying for " + subjects_str
+    return response
 
 
 def readable_field(field):
     return field_names.get(field)
 
-# def extract_from_input(input_string, context):
-#     if context=="Subject":
 
 # TODO ver una forma de poder editar los subjects en el chat
