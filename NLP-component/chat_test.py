@@ -5,6 +5,8 @@ import json
 from model import NeuralNet
 from preprocessing import bag_of_words, preprocess_text
 from problem_data import ProblemData
+from subject import Subject
+import data_util as du
 
 
 class ChatTest(unittest.TestCase):
@@ -91,15 +93,47 @@ class ChatTest(unittest.TestCase):
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
         chat_data_string = chat_data["intent_tag"] + \
             " " + chat_data["constraint_type"]
-        print(chat_data_string)
+        # print(chat_data_string)
 
         new_context = chat_data["intent_tag"]
+
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
+                                   self.current_context_temp, self.problem_data, sentence)
+        # print(response)
+        self.assertTrue(type(chat_data_string))
+        self.assertTrue(type(response))
+
+    def test_chat_unit(self):
+        self.current_context = "Name"
+        self.context_temp = None
+        self.current_context_temp = None
+        self.problem_data = ProblemData()
+        subject_name = "Literature"
+        self.create_test_subject(self.problem_data, subject_name)
+        sentence = "This course has 8 Units"
+        chat_data = self.input_sentence(
+            sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
+        chat_data_string = chat_data["intent_tag"] + \
+            " " + chat_data["constraint_type"]
+        print(chat_data_string)
+
+        new_context = chat_data["intent_tag"]+" "+subject_name
 
         response = cu.handle_input(new_context, self.current_context, self.context_temp,
                                    self.current_context_temp, self.problem_data, sentence)
         print(response)
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
+
+    def test_next_subject(self):
+        pass
+
+
+###### Test Utility Functions ######
+
+    def create_test_subject(self, problem_data: ProblemData, subject_name: str):
+        subject = Subject(subject_name)
+        du.add_subject(problem_data, subject)
 
 
 if __name__ == '__main__':

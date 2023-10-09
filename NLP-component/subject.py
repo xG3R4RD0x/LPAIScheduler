@@ -31,6 +31,11 @@ class Subject:
         for field in Subject.REQUIRED_FIELDS:
             if data[field] is None:
                 missing_fields.append(field)
-                return missing_fields
+        if missing_fields is []:
+            return True
+        else:
+            return missing_fields
 
-        return True
+    def update_info(self, info: dict):
+        for key, value in info:
+            self.data[key] = value

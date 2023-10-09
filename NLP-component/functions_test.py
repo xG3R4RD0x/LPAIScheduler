@@ -17,7 +17,7 @@ class FunctionsTest(unittest.TestCase):
             "hours_per_unit": None
         }
 
-        du.update_subject(self.test_sub, sub_info)
+        # du.update_subject(self.test_sub, sub_info)
         du.add_subject(self.data, self.test_sub)
         du.add_info(self.data, "number_of_subjects", 1)
 
@@ -135,17 +135,31 @@ class FunctionsTest(unittest.TestCase):
     def test_tag_subjects(self):
         sentence = "Math, Chemistry and Literature"
         response = pre.tag_subjects(sentence)
-        print("\n")
-        print(response)
+        # print("\n")
+        # print(response)
         self. assertTrue(type(response), str)
 
     def test_number_of_subjects(self):
 
         sentence = "I want to do 3 Exams this semester"
         response = pre.number_of_subjects(sentence)
-        print("\n")
-        print(response)
+        # print("\n")
+        # print(response)
         self. assertTrue(type(response), str)
+
+    def test_get_subject_list_from_data(self):
+        subject_list = self.data.get_subject_list_from_data()
+        print("test_get_subject_list_from_data:\n")
+        print(subject_list)
+        self.assertTrue(type(subject_list), list)
+
+    def test_ask_for_subject_data(self):
+        subject_name = "Test"
+        subject = Subject(subject_name)
+        response = cu.ask_for_subject_data(subject)
+        assertion_string = "Do you mind adding the following information for "+subject_name+"?"
+        print(response)
+        self.assertIn(assertion_string, response)
 
 
 if __name__ == '__main__':

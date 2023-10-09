@@ -9,6 +9,7 @@ import random
 from problem_data import ProblemData as pd
 import preprocessing as pre
 import data_util as du
+from subject import Subject
 
 # TODO estructurar el chatbot workflow haciendo un arbol de decisiones
 # tiene que entrar en un estado diferente por cada rama del arbol
@@ -227,6 +228,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
     else:
         if new_context == "Confirmation":
             # we handle the context_temp as if it was the new_context
+            ProblemData.set_add_info_to_subject(False)
             return handle_input(context_temp, current_context)
         else:
             if new_context == "Back_to_Main":
@@ -242,12 +244,22 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
 
                             # flag so we can put info per subject
                             ProblemData.set_add_info_to_subject(True)
-                            return handle_context_name(input_sentence, ProblemData)
+                            response = handle_context_name(
+                                input_sentence, ProblemData) + "\n" + next_subject(ProblemData)
+                            return response
                         else:
-                            if new_context == "Unit-Time":
-                                pass
+                            if "Unit" in new_context:
+                                # We need to add info to the problem data
+                                # we check if the edit flag is True or False
+                                if ProblemData.edit is False:
+                                    response = handle_context_unit(
+                                        input_sentence, ProblemData, new_context)
+                                    follow_up_str = ask_for_subject_data_follow_up(
+                                        new_context, ProblemData)
+                                    response_str = response + "\n" + follow_up_str
+                                return response_str
                             else:
-                                if "Unit" in new_context:
+                                if "Unit-Time" in new_context:
                                     pass
                                 else:
                                     # if no handler was identified we return False
@@ -300,7 +312,7 @@ def handle_context_main(new_context, ProblemData):
 
 
 def handle_context_subject(input_sentence, ProblemData: pd):
-    number_of_subjects = pre.number_of_subjects(input_sentence)
+    number_of_subjects = pre.number_from_text(input_sentence)
     du.add_info(ProblemData, "number_of_subjects", number_of_subjects)
     response_str = "Great! you are working on " + \
         str(number_of_subjects)+" subjects.\nHow are these subjects called?"
@@ -310,12 +322,14 @@ def handle_context_subject(input_sentence, ProblemData: pd):
 def handle_context_name(input_sentence, ProblemData: pd):
     # TODO necesito una función que identifique los subjects y los meta en un array
     # quiero que de este array se actualice el numero de subjects
+
+    # subjects_list tiene una lista de los nombres de los subjects
     subjects_list = pre.tag_subjects(input_sentence)
+    # subject_list is a string list with the names of the subjects
     ProblemData.set_subject_list(subjects_list)
     for s in subjects_list:
-        du.add_subject(ProblemData, s)
-
-    subjects_list = ProblemData.get_subject_list()
+        # creamos un subject() con cada nombre de la lista y lo agregamos
+        du.add_subject(ProblemData, Subject(s))
     subjects_str = ""
     if len(subjects_list) == 1:
         subjects_str = subjects_str.join(subjects_list[0])
@@ -327,8 +341,62 @@ def handle_context_name(input_sentence, ProblemData: pd):
     return response
 
 
+def handle_context_unit(input_sentence, ProblemData: pd, new_context):
+    number_of_units = pre.number_from_text(input_sentence)
+    # we split the new context and extract the name of the current subject
+    subject_name = new_context.split()[1]
+    subject = du.get_subject_by_name(ProblemData, subject_name)
+    info = {"number_of_units": number_of_units}
+    du.update_subject(subject, info)
+
+    response = subject_name+" has "+str(number_of_units)+" Units. Got it!"
+    return response
+
+
 def readable_field(field):
     return field_names.get(field)
+
+
+def subject_complete(ProblemData: pd, subject: Subject):
+    if subject.validate_data() is True:
+        ProblemData.pop_subject_list()
+
+
+# This function generate a response asking for the data of a subject
+# this is suposed to be triggered after adding the subject
+def ask_for_subject_data(subject: Subject):
+    subject_name = subject.get_key("name")
+    missing_fields = subject.validate_data()
+    missing_fields_str = ""
+    for mf in missing_fields:
+        missing_fields_str += f"- {readable_field(mf)}\n"
+    response_str = "Do you mind adding the following information for " + \
+        subject_name+"?\n" + missing_fields_str
+    return response_str
+
+
+def ask_for_subject_data_follow_up(new_context, ProblemData: pd):
+    subject_name = new_context.split()[1]
+    subject = du.get_subject_by_name(ProblemData, subject_name)
+    missing_fields = subject.validate_data()
+    missing_fields_str = ""
+    if len(missing_fields) >= 2:
+        for mf in missing_fields:
+            missing_fields_str += f"- {readable_field(mf)}\n"
+        response_str = "Dont forget to add:\n"+missing_fields_str
+    else:
+        mf = readable_field(missing_fields[0])
+        response_str = "Do you know " + mf + "?"
+    return response_str
+
+# this function check which subject is currently being added info to
+# and returns a string asking to fill up the missing fields of the subject
+
+
+def next_subject(ProblemData: pd):
+    subject_list = ProblemData.get_subject_list()
+    current_subject = du.get_subject_by_name(ProblemData, subject_list[0])
+    return ask_for_subject_data(current_subject)
 
 
 # TODO ver una forma de poder editar los subjects en el chat

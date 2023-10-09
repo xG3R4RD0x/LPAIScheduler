@@ -29,20 +29,20 @@ def get_subjects(problem_data: pd):
     return problem_data.data["hard_constraints"]["subjects"]
 
 
-def add_subject(problem_data: pd, subject: str):
+def add_subject(problem_data: pd, subject: Subject):
     current_subjects = problem_data.data["hard_constraints"]["subjects"]
-
-    if subject not in current_subjects:
-        subject_temp = Subject(subject)
-        current_subjects.append(subject_temp.data)
+    subject_list = problem_data.get_subject_list_from_data()
+    if subject.data["name"] not in subject_list:
+        subject_temp = subject
+        current_subjects.append(subject_temp)
         return True
     else:
         return False
 
 
 def get_subject_by_name(problem_data: pd, name_of_the_subject: str):
-    for subject in problem_data.data["subjects"]:
-        if subject["name"] == name_of_the_subject:
+    for subject in problem_data.data["hard_constraints"]["subjects"]:
+        if subject.get_key("name") == name_of_the_subject:
             return subject
     return None
 

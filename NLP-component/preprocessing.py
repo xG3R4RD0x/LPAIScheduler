@@ -30,7 +30,7 @@ def tag_subjects(sentence):
 nlp = spacy.load("en_core_web_sm")
 
 
-def number_of_subjects(sentence):
+def number_from_text(sentence):
     # Procesa el texto con spaCy
     doc = nlp(sentence)
 

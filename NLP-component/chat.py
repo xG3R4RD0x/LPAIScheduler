@@ -73,7 +73,13 @@ while True:
         if cu.check_context(problem_data.current_context, new_context):
 
             if problem_data.add_info_to_subject is True:
-                new_context = new_context
+                # sacamos la lista de subjects como stack
+                # agregamos al contexto nuevo el primer subject del stack
+                # se va eliminar el elemento de la lista después de poner todos los datos
+                # esto va a seguir hasta que se cambie la flag
+                subject_list = problem_data.get_subject_list()
+                # unimos la materia con un espacio para que detecte el contexto
+                new_context = new_context + " " + subject_list[0]
 
             # cambiar el contexto a por materia
 
