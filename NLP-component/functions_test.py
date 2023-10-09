@@ -33,7 +33,7 @@ class FunctionsTest(unittest.TestCase):
             "We're making progress! However, I still require {checked_fields} before we can proceed.",
             "Great job! Nonetheless, I still need you to provide {checked_fields} before we can continue.",
             "Thank you for the information! Nevertheless, I still need {checked_fields} to proceed with your plan.",
-            "To move forward, I still need you to furnish {checked_fields}."
+            "To move forward, I still need you to add {checked_fields}."
         ]
         # make checked_fields to string
 
@@ -62,6 +62,7 @@ class FunctionsTest(unittest.TestCase):
         if response in response_options_checked:
             response_in_options = True
         else:
+            print(response)
             response_in_options = False
         self.assertTrue(response_in_options)
 
@@ -142,7 +143,7 @@ class FunctionsTest(unittest.TestCase):
     def test_number_of_subjects(self):
 
         sentence = "I want to do 3 Exams this semester"
-        response = pre.number_of_subjects(sentence)
+        response = pre.number_from_text(sentence)
         # print("\n")
         # print(response)
         self. assertTrue(type(response), str)
@@ -150,7 +151,7 @@ class FunctionsTest(unittest.TestCase):
     def test_get_subject_list_from_data(self):
         subject_list = self.data.get_subject_list_from_data()
         print("test_get_subject_list_from_data:\n")
-        print(subject_list)
+        # print(subject_list)
         self.assertTrue(type(subject_list), list)
 
     def test_ask_for_subject_data(self):
@@ -158,8 +159,19 @@ class FunctionsTest(unittest.TestCase):
         subject = Subject(subject_name)
         response = cu.ask_for_subject_data(subject)
         assertion_string = "Do you mind adding the following information for "+subject_name+"?"
-        print(response)
+        # print(response)
         self.assertIn(assertion_string, response)
+
+    def test_subject_complete(self):
+        subject_name = "Math"
+        du.add_subject(self.data, Subject(subject_name))
+        self.data.set_subject_list(["Math"])
+        subject = du.get_subject_by_name(self.data, subject_name)
+        du.update_subject(subject, {"number_of_units": 7, "hours_per_unit": 4})
+        print("test_subject_complete: "+str(subject.get_data()))
+        sc = cu.subject_complete(self.data, subject)
+        print(sc)
+        self.assertTrue(sc)
 
 
 if __name__ == '__main__':

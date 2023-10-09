@@ -31,7 +31,7 @@ class Subject:
         for field in Subject.REQUIRED_FIELDS:
             if data[field] is None:
                 missing_fields.append(field)
-        if missing_fields is []:
+        if not missing_fields:
             return True
         else:
             return missing_fields

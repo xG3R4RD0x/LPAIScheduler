@@ -248,19 +248,35 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                 input_sentence, ProblemData) + "\n" + next_subject(ProblemData)
                             return response
                         else:
-                            if "Unit" in new_context:
-                                # We need to add info to the problem data
-                                # we check if the edit flag is True or False
+                            # Unit-Time has to be checked FIRST, if not it will be
+                            # taken just as Unit
+                            if "Unit-Time" in new_context:
                                 if ProblemData.edit is False:
-                                    response = handle_context_unit(
+                                    response = handle_context_unit_time(
                                         input_sentence, ProblemData, new_context)
-                                    follow_up_str = ask_for_subject_data_follow_up(
-                                        new_context, ProblemData)
+                                    subject_name = new_context.split()[1]
+                                    subject = du.get_subject_by_name(
+                                        ProblemData, subject_name)
+                                    if subject_complete(ProblemData, subject) is True:
+                                        follow_up_str = next_subject(
+                                            ProblemData)
+                                    else:
+                                        follow_up_str = generate_response_individual_subject(
+                                            new_context, ProblemData)
+
                                     response_str = response + "\n" + follow_up_str
                                 return response_str
                             else:
-                                if "Unit-Time" in new_context:
-                                    pass
+                                if "Unit" in new_context:
+                                    # We need to add info to the problem data
+                                    # we check if the edit flag is True or False
+                                    if ProblemData.edit is False:
+                                        response = handle_context_unit(
+                                            input_sentence, ProblemData, new_context)
+                                        follow_up_str = ask_for_subject_data_follow_up(
+                                            new_context, ProblemData)
+                                        response_str = response + "\n" + follow_up_str
+                                    return response_str
                                 else:
                                     # if no handler was identified we return False
                                     return False
@@ -353,13 +369,31 @@ def handle_context_unit(input_sentence, ProblemData: pd, new_context):
     return response
 
 
+def handle_context_unit_time(input_sentence, ProblemData: pd, new_context):
+    hours_per_unit = pre.number_from_text(input_sentence)
+    # we split the new context and extract the name of the current subject
+    subject_name = new_context.split()[1]
+    subject = du.get_subject_by_name(ProblemData, subject_name)
+    info = {"hours_per_unit": hours_per_unit}
+    du.update_subject(subject, info)
+
+    response = "We will take as a guideline that each " + subject_name + \
+        " unit will take you " + str(hours_per_unit) + " hours."
+    return response
+
+
 def readable_field(field):
     return field_names.get(field)
 
 
 def subject_complete(ProblemData: pd, subject: Subject):
     if subject.validate_data() is True:
-        ProblemData.pop_subject_list()
+        subject_list = ProblemData.get_subject_list
+        print(subject_list)
+        ProblemData.pop_subject_list(subject_list)
+        return True
+    else:
+        return False
 
 
 # This function generate a response asking for the data of a subject
@@ -395,8 +429,15 @@ def ask_for_subject_data_follow_up(new_context, ProblemData: pd):
 
 def next_subject(ProblemData: pd):
     subject_list = ProblemData.get_subject_list()
-    current_subject = du.get_subject_by_name(ProblemData, subject_list[0])
-    return ask_for_subject_data(current_subject)
+    if len(subject_list) >= 1:
+        current_subject = du.get_subject_by_name(ProblemData, subject_list[0])
+        return ask_for_subject_data(current_subject)
+    else:
+        # if there are no more subjects in the list
+        # we generate a string asking for the rest of missing fields
+        missing_fields = ProblemData.validate_data()
+        response = generate_response(missing_fields)
+        return response
 
 
 # TODO ver una forma de poder editar los subjects en el chat

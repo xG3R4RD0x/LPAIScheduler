@@ -125,8 +125,33 @@ class ChatTest(unittest.TestCase):
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
-    def test_next_subject(self):
-        pass
+    def test_next_subject_existing_next_subject(self):
+        self.current_context = "Unit Literature"
+        self.context_temp = None
+        self.current_context_temp = None
+        self.problem_data = ProblemData()
+        du.add_info(self.problem_data, "number_of_subjects", 2)
+        subject_name = "Math"
+        subject_name2 = "Science"
+        self.problem_data.set_subject_list(["Math", "Science"])
+        self.create_test_subject(self.problem_data, subject_name)
+        self.create_test_subject(self.problem_data, subject_name2)
+        subject_Math = du.get_subject_by_name(self.problem_data, subject_name)
+        du.update_subject(subject_Math, {"number_of_units": 8})
+        sentence = "It takes me 5 Hours per Unit"
+        chat_data = self.input_sentence(
+            sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
+        chat_data_string = chat_data["intent_tag"] + \
+            " " + chat_data["constraint_type"]
+        print(chat_data_string)
+
+        new_context = chat_data["intent_tag"]+" "+subject_name
+
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
+                                   self.current_context_temp, self.problem_data, sentence)
+        print(response)
+        self.assertTrue(type(chat_data_string))
+        self.assertTrue(type(response))
 
 
 ###### Test Utility Functions ######
