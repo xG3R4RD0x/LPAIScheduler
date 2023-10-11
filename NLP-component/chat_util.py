@@ -65,16 +65,19 @@ hierarchy = [
         "context": "Name", "subcontext": ["Unit"]
     },
     {
-        "context": "Unit", "subcontext": ["Unit-Time"]
+        "context": "Unit", "subcontext": ["UTime"]
     },
     {
-        "context": "Unit-Time", "subcontext": ["Unit", "Main"]
+        "context": "UTime", "subcontext": ["Unit", "Main"]
     },
     {
-        "context": "Confirmation", "subcontext": ["Main", "Unit_Time", "Unit"]
+        "context": "Confirmation", "subcontext": ["Main", "UTime", "Unit"]
     },
     {
-        "context": "Denial", "subcontext": ["Main", "Unit_Time", "Unit"]
+        "context": "Denial", "subcontext": ["Main", "UTime", "Unit"]
+    },
+    {
+        "context": "Edit", "subcontext": ["Back_to_Main", "UTime", "Unit"]
     }
 ]
 
@@ -248,9 +251,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                 input_sentence, ProblemData) + "\n" + next_subject(ProblemData)
                             return response
                         else:
-                            # Unit-Time has to be checked FIRST, if not it will be
-                            # taken just as Unit
-                            if "Unit-Time" in new_context:
+                            if "UTime" in new_context:
                                 if ProblemData.edit is False:
                                     response = handle_context_unit_time(
                                         input_sentence, ProblemData, new_context)
@@ -265,6 +266,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                             new_context, ProblemData)
 
                                     response_str = response + "\n" + follow_up_str
+                                # agregar lo que pasa al editar
                                 return response_str
                             else:
                                 if "Unit" in new_context:
@@ -276,10 +278,17 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                         follow_up_str = ask_for_subject_data_follow_up(
                                             new_context, ProblemData)
                                         response_str = response + "\n" + follow_up_str
+                                    # agregar lo que pasa al editar
                                     return response_str
                                 else:
-                                    # if no handler was identified we return False
-                                    return False
+                                    if new_context == "Edit":
+                                        # activamos la edit flag
+                                        # llamamos al handler
+                                        pass
+
+                                    else:
+                                        # if no handler was identified we return False
+                                        return False
 
 
 def handle_context_back_to_main(current_context, context_temp):
@@ -380,6 +389,31 @@ def handle_context_unit_time(input_sentence, ProblemData: pd, new_context):
     response = "We will take as a guideline that each " + subject_name + \
         " unit will take you " + str(hours_per_unit) + " hours."
     return response
+
+
+def handle_context_edit(input_sentence, ProblemData: pd):
+    # we need to analize the sentence to see if there is a subject inside
+    # I need to check if a subject from the subject_list is in the sentence
+    # si se encontró el subject en la string se trabajará con ese
+    # si no se encontró el subject en la string se le preguntará por la materia
+    # y llamo al handler de nuevo de manera recursiva
+
+    # después de que se definió el subject a edit:
+    # seteamos el flag de add_info to subject
+    # vaciamos la subject_list y la llenamos solo con un elemento que es nuestro subject
+    # devolvemos un string con los fields de los subjects que se pueden editar
+    pass
+
+
+def keep_editing():
+    # aquí le preguntamos al usuario si quiere seguir editando
+    # se debe dar un codigo que acepte valores solo de si o no
+    # si ya no se quiere seguir editando:
+    # se quita la flag de edicion y se regresa a main
+    # si se quiere seguir editando
+    # devolvemos un string con los fields de los subjects que se pueden editar
+
+    pass
 
 
 def readable_field(field):

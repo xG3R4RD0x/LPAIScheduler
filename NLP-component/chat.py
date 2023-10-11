@@ -40,7 +40,6 @@ problem_data = ProblemData()
 problem_data.set_current_context("Main")
 
 while True:
-
     sentence = input('You: ')
     if sentence == "quit":
         break
@@ -84,8 +83,8 @@ while True:
             # cambiar el contexto a por materia
 
             ##################
-            cu.handle_input(new_context, problem_data.current_context, problem_data.context_temp,
-                            problem_data.current_context_temp, problem_data.data)
+            response = cu.handle_input(new_context, problem_data.current_context, problem_data.context_temp,
+                                       problem_data.current_context_temp, problem_data, input_str)
             # current_context_update
             problem_data.set_current_context(new_context)
 
@@ -98,7 +97,7 @@ while True:
             # al contexto que se acaba de ingresar
 
             print(
-                f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type}): response_place_holder")
+                f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type})\n"+response)
         else:
             # siempre que se salga del arbol asumimos que quiere regresarse a Main
             # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main

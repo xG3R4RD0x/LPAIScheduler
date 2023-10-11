@@ -95,8 +95,8 @@
             ]
         },
         {
-            "tag": "Unit-Time",
-            "context": "Unit-Time",
+            "tag": "UTime",
+            "context": "UTime",
             "patterns": [
                 {
                     "text": "I usually spend a week on each unit",
