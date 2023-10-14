@@ -43,6 +43,86 @@
             "context": "Subject",
             "patterns": [
                 {
+                    "text": "I aim to study 6 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be taking on 8 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm looking at handling 4 courses",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll dedicate time to 2 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have a plan to cover 10 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to passing 3 exams this semester",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for 7 courses in my curriculum",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I intend to prepare for 5 exams this academic year",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm set to complete 4 subjects on my list",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've made a resolution to enroll in no more than 9 courses",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm determined to study exactly 3 subjects next session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I insist on taking precisely 6 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm required to cover exactly 5 subjects this term",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be doing 4 courses, no doubt about it",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to tackle 7 subjects this semester",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to study 3 courses this academic year",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim to prepare for 6 exams next session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to take on 8 subjects this term",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focused on covering 5 exams in my curriculum",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have a goal to pass 4 subjects",
+                    "constraint_type": "strong"
+                },
+                {
                     "text": "I'll be studying 5 subjects",
                     "constraint_type": "strong"
                 },

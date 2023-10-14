@@ -149,12 +149,22 @@ class ChatTest(unittest.TestCase):
 
         response = cu.handle_input(new_context, self.current_context, self.context_temp,
                                    self.current_context_temp, self.problem_data, sentence)
-        print(response)
+
+        # print(response)
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
+    def test_input_sentence(self):
+        response = cu.input_sentence(
+            " I want to study for 3 Exams this semester")
+
+        print("test_input_sentence\n")
+        print(response)
+        self.assertTrue(type(response), dict)
+
 
 ###### Test Utility Functions ######
+
 
     def create_test_subject(self, problem_data: ProblemData, subject_name: str):
         subject = Subject(subject_name)

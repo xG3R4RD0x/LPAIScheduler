@@ -46,7 +46,12 @@ class ProblemData:
         del subject_list[0]
         self.set_subject_list(subject_list)
 
+    def set_edit_flag(self, value: bool):
+        self.edit = value
+        pass
+
     # returns a subject_list based on the saved info of the problem NOT the variable subject_list
+
     def get_subject_list_from_data(self):
         subject_list = self.data["hard_constraints"]["subjects"]
         subject_list_names = []

@@ -6,6 +6,9 @@
 # if not then I go back to main to fill the rest of the problem Data
 
 import random
+import torch
+import json
+from model import NeuralNet
 from problem_data import ProblemData as pd
 import preprocessing as pre
 import data_util as du
@@ -37,6 +40,31 @@ from subject import Subject
 #
 #
 #
+# model
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+with open('./NLP-component/intents.json', 'r') as f:
+    intents = json.load(f)
+
+FILE = "./NLP-component/data.pth"
+data = torch.load(FILE)
+input_size = data["input_size"]
+hidden_size = data["hidden_size"]
+output_size_intent = data["output_size_intent"]
+output_size_constraint = data["output_size_constraint"]
+all_words = data["all_words"]
+tags = data["tags"]
+# Agrega esto para cargar los tipos de restricción
+constraint_types = data["constraint_types"]
+model_state = data["model_state"]
+
+model = NeuralNet(input_size, hidden_size, output_size_intent,
+                  output_size_constraint).to(device)
+model.load_state_dict(model_state)
+model.eval()
+
+
+# model
 
 
 hierarchy = [
@@ -283,6 +311,9 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                 else:
                                     if new_context == "Edit":
                                         # activamos la edit flag
+                                        ProblemData.set_edit_flag(True)
+                                        response = handle_context_edit(
+                                            input_sentence, ProblemData)
                                         # llamamos al handler
                                         pass
 
@@ -393,9 +424,25 @@ def handle_context_unit_time(input_sentence, ProblemData: pd, new_context):
 
 def handle_context_edit(input_sentence, ProblemData: pd):
     # we need to analize the sentence to see if there is a subject inside
-    # I need to check if a subject from the subject_list is in the sentence
+    subject_list = ProblemData.get_subject_list_from_data()
+    str_in_subject = str_in_subject(input_sentence, subject_list)
+    in_list = str_in_subject[0]
+    sub = str_in_subject[1]
     # si se encontró el subject en la string se trabajará con ese
+    if in_list:
+        pass
     # si no se encontró el subject en la string se le preguntará por la materia
+    else:
+        # ask about subject
+        subjects_str = ""
+        subjects_str = ", ".join(subject_list[:-1])
+        subjects_str += f" or {subject_list[-1]}"
+        sentence = input(
+            'Which subject do you want to edit?\n'+subjects_str+'?')
+
+        # check sentence if it is name or other thing
+        handle_context_edit(sentence, ProblemData)
+
     # y llamo al handler de nuevo de manera recursiva
 
     # después de que se definió el subject a edit:
@@ -403,6 +450,18 @@ def handle_context_edit(input_sentence, ProblemData: pd):
     # vaciamos la subject_list y la llenamos solo con un elemento que es nuestro subject
     # devolvemos un string con los fields de los subjects que se pueden editar
     pass
+
+
+def str_in_subject(sentence: str, subject_list: list):
+    sentence = sentence.split()
+    in_list = False
+    # I need to check if a subject from the subject_list is in the sentence
+    for word in sentence:
+        if word in subject_list:
+            in_list = True
+            subject = word
+            break
+    return ((in_list, subject))
 
 
 def keep_editing():
@@ -472,6 +531,29 @@ def next_subject(ProblemData: pd):
         missing_fields = ProblemData.validate_data()
         response = generate_response(missing_fields)
         return response
+
+
+def input_sentence(sentence, all_words=all_words, device=device, tags=tags, constraint_types=constraint_types, model=model):
+    sentence = pre.preprocess_text(sentence)
+    x = pre.bag_of_words(sentence, all_words)
+    x = x.reshape(1, x.shape[0])
+    x = torch.from_numpy(x).to(device)
+
+    intent_output, constraint_output = model(x)
+    _, predicted_intent = torch.max(intent_output, dim=1)
+    intent_tag = tags[predicted_intent.item()]
+    _, predicted_constraint = torch.max(constraint_output, dim=1)
+    # Obtén el tipo de restricción
+    constraint_type = constraint_types[predicted_constraint.item()]
+
+    # check the probabilities
+    intent_probs = torch.softmax(intent_output, dim=1)
+    intent_prob = intent_probs[0][predicted_intent.item()]
+
+    # Revisa las probabilidades para el tipo de restricción
+    constraint_probs = torch.softmax(constraint_output, dim=1)
+    constraint_prob = constraint_probs[0][predicted_constraint.item()]
+    return {"intent_tag": intent_tag, "constraint_type": constraint_type}
 
 
 # TODO ver una forma de poder editar los subjects en el chat
