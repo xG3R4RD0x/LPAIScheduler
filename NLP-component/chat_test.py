@@ -68,6 +68,7 @@ class ChatTest(unittest.TestCase):
         return {"intent_tag": intent_tag, "constraint_type": constraint_type}
 
     def test_chat_subject(self):
+        print("test_chat_subject:")
         sentence = "I want to do 3 Exams this semester"
         chat_data = self.input_sentence(
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
@@ -79,11 +80,12 @@ class ChatTest(unittest.TestCase):
 
         response = cu.handle_input(new_context, self.current_context, self.context_temp,
                                    self.current_context_temp, self.problem_data, sentence)
-        # print(response)
+        print(response)
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
     def test_chat_names(self):
+        print("test_chat_names:")
         self.current_context = "Subject"
         self.context_temp = None
         self.current_context_temp = None
@@ -93,17 +95,18 @@ class ChatTest(unittest.TestCase):
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
         chat_data_string = chat_data["intent_tag"] + \
             " " + chat_data["constraint_type"]
-        # print(chat_data_string)
+        print(chat_data_string)
 
         new_context = chat_data["intent_tag"]
 
         response = cu.handle_input(new_context, self.current_context, self.context_temp,
                                    self.current_context_temp, self.problem_data, sentence)
-        # print(response)
+        print(response)
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
     def test_chat_unit(self):
+        print("test_chatunit:")
         self.current_context = "Name"
         self.context_temp = None
         self.current_context_temp = None
@@ -111,6 +114,32 @@ class ChatTest(unittest.TestCase):
         subject_name = "Literature"
         self.create_test_subject(self.problem_data, subject_name)
         sentence = "This course has 8 Units"
+        chat_data = self.input_sentence(
+            sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
+        chat_data_string = chat_data["intent_tag"] + \
+            " " + chat_data["constraint_type"]
+        print(chat_data_string)
+
+        new_context = chat_data["intent_tag"]+" "+subject_name
+
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
+                                   self.current_context_temp, self.problem_data, sentence)
+        print(response)
+        self.assertTrue(type(chat_data_string))
+        self.assertTrue(type(response))
+
+    def test_chat_time_per_unit(self):
+        print("test_chat_time_per_unit:")
+        self.current_context = "Unit"
+        self.context_temp = None
+        self.current_context_temp = None
+        self.problem_data = ProblemData()
+        subject_name = "Literature"
+        self.create_test_subject(self.problem_data, subject_name)
+        subject = du.get_subject_by_name(self.problem_data, subject_name)
+        self.problem_data.set_subject_list([subject_name])
+        du.update_subject(subject, {"number_of_units": 4})
+        sentence = "I need 4 hours per Unit"
         chat_data = self.input_sentence(
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
         chat_data_string = chat_data["intent_tag"] + \
@@ -143,7 +172,7 @@ class ChatTest(unittest.TestCase):
             sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
         chat_data_string = chat_data["intent_tag"] + \
             " " + chat_data["constraint_type"]
-        print(chat_data_string)
+        # print(chat_data_string)
 
         new_context = chat_data["intent_tag"]+" "+subject_name
 
@@ -158,8 +187,8 @@ class ChatTest(unittest.TestCase):
         response = cu.input_sentence(
             " I want to study for 3 Exams this semester")
 
-        print("test_input_sentence\n")
-        print(response)
+        # print("test_input_sentence\n")
+        # print(response)
         self.assertTrue(type(response), dict)
 
 

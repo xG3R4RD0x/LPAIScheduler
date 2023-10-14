@@ -197,6 +197,70 @@
                 {
                     "text": "I can study an Unit in 2 days",
                     "constraint_type": "strong"
+                },
+                {
+                    "text": "On average, it takes me a day for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 6 hours per unit for studying",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm efficient, I need only 1 hour per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It usually takes me 3 days to cover one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim for 5 hours of study for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I can finish a unit in 2 hours",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It generally takes me 8 days to study one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer to study for 12 hours per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "A unit usually takes me a week to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 2 days for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need 3 hours to complete one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "On average, I spend 4 days on one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim to study 7 hours for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm quite fast, it takes me only 1.5 hours for a unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I usually finish a unit in 3 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 10 hours for each unit",
+                    "constraint_type": "strong"
                 }
             ]
         },

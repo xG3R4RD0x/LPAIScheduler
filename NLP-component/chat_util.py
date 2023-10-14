@@ -296,7 +296,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                     subject_name = new_context.split()[1]
                                     subject = du.get_subject_by_name(
                                         ProblemData, subject_name)
-                                    if subject_complete(ProblemData, subject) is True:
+                                    if subject_complete(ProblemData, subject):
                                         follow_up_str = next_subject(
                                             ProblemData)
                                     else:
