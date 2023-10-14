@@ -31,6 +31,7 @@ class ProblemData:
         self.add_info_to_subject = False
         self.subject_list = []
         self.edit = False
+        self.complete = False
 
     # validate data does not validate the soft_constraints yet
     # TODO validate also soft_constraints
@@ -51,6 +52,12 @@ class ProblemData:
         pass
 
     # returns a subject_list based on the saved info of the problem NOT the variable subject_list
+    def get_subject(self, name: str):
+        subject_list = self.data["hard_constraints"]["subjects"]
+        for s in subject_list:
+            if s.data["name"] == name:
+                return s
+        return None
 
     def get_subject_list_from_data(self):
         subject_list = self.data["hard_constraints"]["subjects"]

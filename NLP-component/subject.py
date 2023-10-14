@@ -20,6 +20,11 @@ class Subject:
     def get_data(self):
         return self.data
 
+    def get_fields(self):
+        fields = Subject.REQUIRED_FIELDS
+        fields.pop(0)
+        return fields
+
     def get_key(self, key):
         return self.data[key]
 

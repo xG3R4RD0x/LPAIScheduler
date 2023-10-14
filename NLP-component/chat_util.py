@@ -158,7 +158,17 @@ def check_context(current_context, new_context):
 def generate_response(missing_fields):
     if missing_fields is True:
         # insert a response that says that everything is correctly filled
-        return "everything is fine"
+
+        sentence = input(
+            "It looks like I got all the information I need, do you want to add or change anything?")
+        input = input_sentence(sentence)
+        if input["intent_tag"] is "Confirmation":
+
+            return "everything is fine"
+        else:
+            if input["intent_tag"] is "Denial":
+                response = "Perfect! I will start working on your study plan right away!"
+                return response
     if missing_fields is False:
         return "Error with Problem Data"
 
@@ -294,6 +304,12 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                             new_context, ProblemData)
 
                                     response_str = response + "\n" + follow_up_str
+                                else:
+                                    response = handle_context_unit_time(
+                                        input_sentence, ProblemData, new_context)
+                                    print(response)
+                                    return keep_editing(ProblemData, subject)
+
                                 # agregar lo que pasa al editar
                                 return response_str
                             else:
@@ -306,6 +322,12 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                         follow_up_str = ask_for_subject_data_follow_up(
                                             new_context, ProblemData)
                                         response_str = response + "\n" + follow_up_str
+                                    else:
+                                        response = handle_context_unit_time(
+                                            input_sentence, ProblemData, new_context)
+                                        print(response)
+                                        return keep_editing(ProblemData, subject)
+
                                     # agregar lo que pasa al editar
                                     return response_str
                                 else:
@@ -314,8 +336,8 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
                                         ProblemData.set_edit_flag(True)
                                         response = handle_context_edit(
                                             input_sentence, ProblemData)
-                                        # llamamos al handler
-                                        pass
+
+                                        return response
 
                                     else:
                                         # if no handler was identified we return False
@@ -324,17 +346,17 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
 
 def handle_context_back_to_main(current_context, context_temp):
     # I want to ask the user if he wants to leave the current context
-    if "Unit" in current_context:
+    if "Unit" in current_context or "Utime" in current_context:
         words = current_context.split(' ')
         subject_from_context = words[1]
         response_string = "Are you sure that you want to stop adding information to the subject: {subject_from_context}? \n don\'t worry, we can come back here later :)"
         response_string = response_string.replace(
             "{subject_from_context}", subject_from_context)
         return response_string
-
+# redireccionar bien esto
     if context_temp in field_names:
         context_string = field_names.get(context_temp)
-        response_string = "we can add more information here later.\n Are you sure you want to add information to {context_string}"
+        response_string = "we can add more information here later.\n Are you sure you want to add information to {context_string}?"
         response_string = response_string.replace(
             "{context_string}", context_string)
     return response_string
@@ -430,7 +452,17 @@ def handle_context_edit(input_sentence, ProblemData: pd):
     sub = str_in_subject[1]
     # si se encontró el subject en la string se trabajará con ese
     if in_list:
-        pass
+        # después de que se definió el subject a edit:
+        # seteamos el flag de add_info to subject
+        ProblemData.set_add_info_to_subject(True)
+    # vaciamos la subject_list y la llenamos solo con un elemento que es nuestro subject
+        ProblemData.subject_list = [sub]
+    # devolvemos un string con los fields de los subjects que se pueden editar
+        subject = du.get_subject_by_name(ProblemData, sub)
+        field_list = subject.get_fields()
+        fields_str = "\n".join([f"- {valor}" for valor in field_list])
+        response_str = "you can change the following information from the subject "+sub + fields_str
+        return response_str
     # si no se encontró el subject en la string se le preguntará por la materia
     else:
         # ask about subject
@@ -439,17 +471,16 @@ def handle_context_edit(input_sentence, ProblemData: pd):
         subjects_str += f" or {subject_list[-1]}"
         sentence = input(
             'Which subject do you want to edit?\n'+subjects_str+'?')
-
-        # check sentence if it is name or other thing
-        handle_context_edit(sentence, ProblemData)
-
-    # y llamo al handler de nuevo de manera recursiva
-
-    # después de que se definió el subject a edit:
-    # seteamos el flag de add_info to subject
-    # vaciamos la subject_list y la llenamos solo con un elemento que es nuestro subject
-    # devolvemos un string con los fields de los subjects que se pueden editar
-    pass
+        # we check if the subject is in the string
+        str_in_subject = str_in_subject(sentence, subject_list)
+        in_list = str_in_subject[0]
+        sub = str_in_subject[1]
+        if in_list:
+            handle_context_edit(sentence, ProblemData)
+        else:
+            response = "Sorry I don't recognize that subject, try typing it all again"
+            ProblemData.set_edit_flag(False)
+            return response
 
 
 def str_in_subject(sentence: str, subject_list: list):
@@ -464,15 +495,29 @@ def str_in_subject(sentence: str, subject_list: list):
     return ((in_list, subject))
 
 
-def keep_editing():
+def keep_editing(ProblemData: pd, subject: Subject):
     # aquí le preguntamos al usuario si quiere seguir editando
+    keep_editing_str = "Do you want to keep editing?"
+    sentence = input(keep_editing_str)
     # se debe dar un codigo que acepte valores solo de si o no
-    # si ya no se quiere seguir editando:
-    # se quita la flag de edicion y se regresa a main
+    input = input_sentence(sentence)
+
     # si se quiere seguir editando
     # devolvemos un string con los fields de los subjects que se pueden editar
+    if input["intent_tag"] is "Confirmation":
+        fields = subject.get_fields()
+        fields_str = "\n".join([f"- {valor}" for valor in fields])
 
-    pass
+        return "Nice, what do you want to change from the subject?\n"+fields_str
+    else:
+        # si ya no se quiere seguir editando:
+        if input["intent_tag"] is "Denial":
+            # se quita la flag de edicion y se regresa a main
+            ProblemData.set_add_info_to_subject(False)
+            ProblemData.set_edit_flag(False)
+            ProblemData.current_context = "Main"
+            missing_fields = ProblemData.validate_data()
+            return generate_response(missing_fields)
 
 
 def readable_field(field):
@@ -553,7 +598,10 @@ def input_sentence(sentence, all_words=all_words, device=device, tags=tags, cons
     # Revisa las probabilidades para el tipo de restricción
     constraint_probs = torch.softmax(constraint_output, dim=1)
     constraint_prob = constraint_probs[0][predicted_constraint.item()]
-    return {"intent_tag": intent_tag, "constraint_type": constraint_type}
 
-
-# TODO ver una forma de poder editar los subjects en el chat
+    if intent_prob.item() > 0.75:
+        return {"intent_tag": intent_tag, "constraint_type": constraint_type}
+    else:
+        sentence = input(
+            "Sorry, I didn't get that... can you type that again?")
+        input_sentence(sentence)
