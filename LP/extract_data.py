@@ -1,8 +1,29 @@
-import pulp
- 
+from datetime import datetime
 
-def extract_data(ProblemData):
-    
+
+def extract_data(ProblemData: dict):
+    extracted_data = {"hours_per_day": None,
+                      "total_time": None,
+                      "subject_list": None,
+                      "hours_per_subject": None,
+
+                      }
+    # getting total time from start and end dates
+    start_date = ProblemData["start_date"]
+    end_date = ProblemData["end_date"]
+    if start_date is not None:
+        total_time = get_total_time(start_date, end_date)
+        extracted_data["total_time"] = total_time
+    else:
+        extracted_data["total_time"] = ProblemData["total_time"]
+
+    return extracted_data
+
+
+def get_total_time(start_date: datetime, end_date: datetime):
+
+    total_time = start_date - end_date
+    return total_time.days
 
 
 data = {
