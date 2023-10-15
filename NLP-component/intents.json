@@ -1,0 +1,1086 @@
+{
+    "intents": [
+        {
+            "tag": "Main-total_time",
+            "context": "Main-total_time",
+            "patterns": [
+                {
+                    "text": "My study plan spans 8 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 9 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have allocated 12 months for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I intend to study for a short 3 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my studies in just 2 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 6 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "My Exams are in 6 months",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 6 months",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Subject",
+            "context": "Subject",
+            "patterns": [
+                {
+                    "text": "I aim to study 6 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be taking on 8 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm looking at handling 4 courses",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll dedicate time to 2 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have a plan to cover 10 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to passing 3 exams this semester",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for 7 courses in my curriculum",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I intend to prepare for 5 exams this academic year",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm set to complete 4 subjects on my list",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've made a resolution to enroll in no more than 9 courses",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm determined to study exactly 3 subjects next session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I insist on taking precisely 6 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm required to cover exactly 5 subjects this term",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be doing 4 courses, no doubt about it",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to tackle 7 subjects this semester",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to study 3 courses this academic year",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim to prepare for 6 exams next session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to take on 8 subjects this term",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focused on covering 5 exams in my curriculum",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have a goal to pass 4 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be studying 5 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning to tackle 7 subjects",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have 3 courses to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll study for 3 exams",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have 3 exams to study for",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to prepare for 5 exams",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Unit",
+            "context": "Unit",
+            "patterns": [
+                {
+                    "text": "This subject has 5 units to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm taking a course with 8 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm taking a course with 8 chapters",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course has 5 main topics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The exam covers 3 chapters of the book",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "UTime",
+            "context": "UTime",
+            "patterns": [
+                {
+                    "text": "I usually spend a week on each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It takes me about 10 days per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm studying 4 hours per Unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "A chapter takes me 2 hours to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I can study an Unit in 2 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "On average, it takes me a day for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 6 hours per unit for studying",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm efficient, I need only 1 hour per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It usually takes me 3 days to cover one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim for 5 hours of study for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I can finish a unit in 2 hours",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "It generally takes me 8 days to study one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer to study for 12 hours per unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "A unit usually takes me a week to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 2 days for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need 3 hours to complete one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "On average, I spend 4 days on one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I aim to study 7 hours for each unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm quite fast, it takes me only 1.5 hours for a unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I usually finish a unit in 3 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I allocate 10 hours for each unit",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Main-duration_of_hour",
+            "context": "Main-duration_of_hour",
+            "patterns": [
+                {
+                    "text": "I study for 45 minutes per hour",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Each session is around 60 minutes",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer shorter sessions, 30 minutes per hour",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Main-no_study_days",
+            "context": "Main-no_study_days",
+            "patterns": [
+                {
+                    "text": "I can't study on weekends",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mondays and Wednesdays are unavailable for me",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have some flexibility; but I don't like to study on Wednesday",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I wont be able to study on Weekends",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer not to study on Mondays",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I can't study next Tuesday",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not available from July 15th to July 20th",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have an event on August 5th",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I won't be able to study during my vacation from September 10th to September 25th",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Main-no_study_hours",
+            "context": "Main-no_study_hours",
+            "patterns": [
+                {
+                    "text": "I can't study after 7 PM",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I won't be able to study from 10 AM to 11 PM",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I can't study from 3 PM to 4 PM",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I prefer not to study after 11 AM",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I would rather not study from 2 PM to 3 PM",
+                    "constraint_type": "weak"
+                },
+                {
+                    "text": "I would like not to study from 1 PM to 2 PM",
+                    "constraint_type": "weak"
+                }
+            ]
+        },
+        {
+            "tag": "Edit",
+            "context": "Edit",
+            "patterns": [
+                {
+                    "text": "How can I add more information to this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to include more content in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Is there any way to add extra information to this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to add the number of units for Math",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to add information to a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to change the information of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Can you guide me on adding more information to a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm looking to supplement the existing information in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How do I update the details for this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to augment the content of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What steps should I follow to add information to a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I would like to insert additional details into this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How can I incorporate more material into this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Can you explain how to include more information in a subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to edit the information in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What options do I have to update the subject information?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to modify the content of a subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "How do I add new details to this subject?",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to include more data in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "What are the steps to change the information in a subject?",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Confirmation",
+            "context": "Confirmation",
+            "patterns": [
+                {
+                    "text": "Yes",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sure",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Definitely",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Absolutely",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Of course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Certainly",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I agree",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No problem",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sounds good",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm in",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Count me in",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm ready",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Absolutely, I'm on board",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sure thing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Without a doubt",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, I'm sure",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Definitely, count on me",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I would love to",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm interested",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, I'm willing to",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to come back later",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Yes, thanks",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Denial",
+            "context": "Denial",
+            "patterns": [
+                {
+                    "text": "No, I still need to add more info",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I still need to change some stuff",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd rather not leave yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to stay a bit longer",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need more time to work on this",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to leave",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some unfinished tasks",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to continue working on this",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd like to stay around for a while",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not done yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to submit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need more time to think",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'd rather stay and keep working",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I want to stay a bit longer",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some things to figure out",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not finished yet",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I still have some changes to make",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to stay and continue working",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "No, I need more time",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm not ready to move on",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
+            "tag": "Name",
+            "context": "Name",
+            "patterns": [
+                {
+                    "text": "I have to study for Calculus",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "My exam is on Algebra",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to work on my History project",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Tomorrow is my Chemistry exam",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focusing on Biology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This week, it's all about Physics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be preparing for the Physics exam",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Time to study Geography",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to finish my English project",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemistry is on my to-do list",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm focusing on Statistics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Working on my Math assignment",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Preparing for the History test",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Studying for the Biology quiz",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Computer Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mechanical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Electrical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Civil Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biology 2",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemistry 3",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Physics 4",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Mathematics 5",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Science 1",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Economics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Business Administration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Medicine",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Law",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "History",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "English Literature",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Political Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sociology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Philosophy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Art History",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Music",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Film Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Anthropology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Geology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Architecture",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Linguistics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Education",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nutrition and Dietetics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Social Work",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nursing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Communication Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Aerospace Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Industrial Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biochemistry",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Biomedical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Chemical Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Materials Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Agricultural Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Forensic Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Criminology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "International Relations",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Health",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Urban Planning",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Philosophy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Ethics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Botany",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Zoology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Oceanography",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "International Business",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Finance",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Marketing",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Human Resource Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Operations Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Supply Chain Management",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Real Estate",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Administration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Public Policy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Journalism",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Media Production",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Graphic Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Interior Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Fashion Design",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Theater Arts",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Dance",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Archaeology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sociology of Religion",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cultural Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Women's Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Gender Studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Social Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Developmental Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Clinical Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Counseling Psychology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cognitive Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Neurobiology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Genetics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Microbiology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Immunology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Pharmacology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Astrophysics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cosmology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Quantum Mechanics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Artificial Intelligence",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Machine Learning",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Data Science",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Robotics",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Cybersecurity",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Game Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Web Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Software Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Human-Computer Interaction",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Environmental Policy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Sustainable Development",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Renewable Energy",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Wildlife Conservation",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Marine Biology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Aerospace Engineering",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Nanotechnology",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Bioinformatics",
+                    "constraint_type": "strong"
+                }
+            ]
+        }
+    ]
+}
