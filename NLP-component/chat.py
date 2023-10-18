@@ -1,10 +1,11 @@
+import chat_util as cu
+from problem_data import ProblemData
+from preprocessing import bag_of_words, preprocess_text
+from model import NeuralNet
 import random
 import json
 import torch
-from model import NeuralNet
-from preprocessing import bag_of_words, preprocess_text
-from problem_data import ProblemData
-import chat_util as cu
+
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 with open('./NLP-component/intents.json', 'r') as f:
