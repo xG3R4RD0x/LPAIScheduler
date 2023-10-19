@@ -516,7 +516,6 @@ def readable_field(field):
 def subject_complete(ProblemData: pd, subject: Subject):
     if subject.validate_data() is True:
         subject_list = ProblemData.get_subject_list
-        print(subject_list)
         ProblemData.pop_subject_list(subject_list)
         return True
     else:
@@ -550,6 +549,7 @@ def ask_for_subject_data_follow_up(new_context, ProblemData: pd):
             missing_fields_str += f"- {readable_field(mf)}\n"
         response_str = "Dont forget to add:\n"+missing_fields_str
     else:
+        print(missing_fields)
         mf = readable_field(missing_fields[0])
         response_str = "Do you know " + mf + "?"
     return response_str
@@ -562,6 +562,7 @@ def next_subject(ProblemData: pd):
     subject_list = ProblemData.get_subject_list()
     if len(subject_list) >= 1:
         current_subject = du.get_subject_by_name(ProblemData, subject_list[0])
+        print("next_subject current_context:"+ProblemData.current_context)
         return ask_for_subject_data(current_subject)
     else:
         # if there are no more subjects in the list

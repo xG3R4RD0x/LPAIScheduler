@@ -153,35 +153,19 @@
             "context": "Unit",
             "patterns": [
                 {
-                    "text": "It has 3 Units",
+                    "text": "it has 4 units",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Math has 4 Units",
+                    "text": "chemistry has 4 units",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "Literature has 5 chapters",
+                    "text": "Math has 4 units",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "5 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "one unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "four units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This subject is divided into 6 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The course has 7 segments to complete",
+                    "text": "the subject has 2 units ",
                     "constraint_type": "strong"
                 },
                 {
@@ -189,115 +173,15 @@
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I need to cover 9 sections for this subject",
+                    "text": "I need to cover 9 sections for Literature",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "There are 5 modules in this course",
+                    "text": "There are 5 modules in this Literature",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "This topic comprises 10 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The syllabus is composed of 8 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be studying 6 parts in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I have to complete 5 divisions of this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This chapter includes 7 units to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 12 segments to cover in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be tackling 6 chapters in this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This topic has 9 divisions",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The course contains 4 modules to complete",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to go through 7 sections of this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 5 stages in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This topic is divided into 8 units to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The syllabus is divided into 10 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be studying 6 parts in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I have to complete 5 divisions of this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This subject has 5 units to complete",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm taking a course with 8 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm taking a course with 8 chapters",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The course has 5 main topics",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The exam covers 3 chapters of the book",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This subject is divided into 6 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The course has 7 segments to complete",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm studying a topic that consists of 4 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to cover 9 sections for this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 5 modules in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This topic comprises 10 units",
+                    "text": "Biology comprises 10 units",
                     "constraint_type": "strong"
                 },
                 {

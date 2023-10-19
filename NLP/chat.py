@@ -73,6 +73,7 @@ while True:
         if cu.check_context(problem_data.current_context, new_context):
 
             if problem_data.add_info_to_subject is True:
+                print("add_info enabled")
                 # sacamos la lista de subjects como stack
                 # agregamos al contexto nuevo el primer subject del stack
                 # se va eliminar el elemento de la lista después de poner todos los datos
@@ -115,7 +116,9 @@ while True:
     else:
         # cuando no se entiende el contexto
         # mostramos el string con los datos que faltan y pedimos que se los llene
-        missing_fields = data.validate_data()
+        missing_fields = problem_data.validate_data()
+        # revisar la respuesta anterior basada en el current context
+
         response = cu.generate_response(missing_fields)
 
         print(f"{botname}: Sorry... I didn't get that.\n{response}")
