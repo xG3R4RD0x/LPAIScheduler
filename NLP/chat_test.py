@@ -14,10 +14,10 @@ class ChatTest(unittest.TestCase):
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         self.device = device
 
-        with open('./NLP-component/intents.json', 'r') as f:
+        with open('./NLP/intents.json', 'r') as f:
             intents = json.load(f)
 
-        FILE = "./NLP-component/data.pth"
+        FILE = "./NLP/data.pth"
         data = torch.load(FILE)
         input_size = data["input_size"]
         hidden_size = data["hidden_size"]
@@ -155,7 +155,7 @@ class ChatTest(unittest.TestCase):
         self.assertTrue(type(response))
 
     def test_next_subject_existing_next_subject(self):
-        self.current_context = "Unit Literature"
+        self.current_context = "Unit Math"
         self.context_temp = None
         self.current_context_temp = None
         self.problem_data = ProblemData()

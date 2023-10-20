@@ -153,6 +153,110 @@
             "context": "Unit",
             "patterns": [
                 {
+                    "text": "It has 3 Units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Math has 4 Units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "Literature has 5 chapters",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "5 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "one unit",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "four units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This subject is divided into 6 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course has 7 segments to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm studying a topic that consists of 4 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to cover 9 sections for this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 5 modules in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic comprises 10 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The syllabus is composed of 8 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be studying 6 parts in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have to complete 5 divisions of this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This chapter includes 7 units to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 12 segments to cover in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be tackling 6 chapters in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic has 9 divisions",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course contains 4 modules to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to go through 7 sections of this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 5 stages in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic is divided into 8 units to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The syllabus is divided into 10 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be studying 6 parts in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have to complete 5 divisions of this subject",
+                    "constraint_type": "strong"
+                },
+                {
                     "text": "This subject has 5 units to complete",
                     "constraint_type": "strong"
                 },
@@ -170,6 +274,86 @@
                 },
                 {
                     "text": "The exam covers 3 chapters of the book",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This subject is divided into 6 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course has 7 segments to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm studying a topic that consists of 4 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to cover 9 sections for this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 5 modules in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic comprises 10 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The syllabus is composed of 8 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be studying 6 parts in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have to complete 5 divisions of this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This chapter includes 7 units to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 12 segments to cover in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be tackling 6 chapters in this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic has 9 divisions",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The course contains 4 modules to complete",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to go through 7 sections of this subject",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "There are 5 stages in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "This topic is divided into 8 units to study",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "The syllabus is divided into 10 units",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'll be studying 6 parts in this course",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have to complete 5 divisions of this subject",
                     "constraint_type": "strong"
                 }
             ]
@@ -283,8 +467,8 @@
             ]
         },
         {
-            "tag": "Main-no_study_days",
-            "context": "Main-no_study_days",
+            "tag": "No_study_days",
+            "context": "No_study_days",
             "patterns": [
                 {
                     "text": "I can't study on weekends",
@@ -325,8 +509,8 @@
             ]
         },
         {
-            "tag": "Main-no_study_hours",
-            "context": "Main-no_study_hours",
+            "tag": "No_study_hours",
+            "context": "No_study_hours",
             "patterns": [
                 {
                     "text": "I can't study after 7 PM",

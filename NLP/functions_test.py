@@ -142,10 +142,10 @@ class FunctionsTest(unittest.TestCase):
 
     def test_number_of_subjects(self):
 
-        sentence = "I want to do 3 Exams this semester"
+        sentence = "four units"
         response = pre.number_from_text(sentence)
-        # print("\n")
-        # print(response)
+        print("test_number_of_subjects")
+        print(response)
         self. assertTrue(type(response), str)
 
     def test_get_subject_list_from_data(self):

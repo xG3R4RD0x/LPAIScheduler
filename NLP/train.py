@@ -11,7 +11,7 @@ from model import NeuralNet
 from preprocessing import preprocess_text, bag_of_words
 
 
-with open('./NLP-component/intents.json', 'r') as f:
+with open('./NLP/intents.json', 'r') as f:
     intents = json.load(f)
 
     all_words = []
@@ -152,7 +152,7 @@ data = {
 
 }
 
-FILE = "./NLP-component/data.pth"
+FILE = "./NLP/data.pth"
 torch.save(data, FILE)
 
 print(f'training complete, file saved to {FILE}')

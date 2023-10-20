@@ -43,10 +43,10 @@ from subject import Subject
 # model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('./NLP-component/intents.json', 'r') as f:
+with open('./NLP/intents.json', 'r') as f:
     intents = json.load(f)
 
-FILE = "./NLP-component/data.pth"
+FILE = "./NLP/data.pth"
 data = torch.load(FILE)
 input_size = data["input_size"]
 hidden_size = data["hidden_size"]
@@ -69,34 +69,22 @@ model.eval()
 
 hierarchy = [
     {
-        "context": "Back_to_Main", "subcontext": ["Confirmation", "Denial"]
+        "context": "Back", "subcontext": ["Confirmation", "Denial"]
     },
     {
-        "context": "Main", "subcontext": ["Main", "Subject"]
-    },
-    {
-        "context": "Main-total_time", "subcontext": ["Main", "Subject"]
-    },
-    {
-        "context": "Main-Hour_Duration", "subcontext": ["Main", "Subject"]
-    },
-    {
-        "context": "Main-Unavailable_Hours", "subcontext": ["Main", "Subject"]
-    },
-    {
-        "context": "Main-Unavailable_Days", "subcontext": ["Main", "Subject"]
+        "context": "Main", "subcontext": ["Main", "Subject", "Main-total_time", "No_study_hours", "No_study_days", "Edit"]
     },
     {
         "context": "Subject", "subcontext": ["Name"]
     },
     {
-        "context": "Name", "subcontext": ["Unit"]
+        "context": "Name", "subcontext": ["Unit", "Utime", "Main"]
     },
     {
-        "context": "Unit", "subcontext": ["UTime"]
+        "context": "Unit", "subcontext": ["Unit", "UTime", "Main"]
     },
     {
-        "context": "UTime", "subcontext": ["Unit", "Main"]
+        "context": "UTime", "subcontext": ["Unit", "UTime", "Main"]
     },
     {
         "context": "Confirmation", "subcontext": ["Main", "UTime", "Unit"]
@@ -105,7 +93,7 @@ hierarchy = [
         "context": "Denial", "subcontext": ["Main", "UTime", "Unit"]
     },
     {
-        "context": "Edit", "subcontext": ["Back_to_Main", "UTime", "Unit"]
+        "context": "Edit", "subcontext": ["Back", "UTime", "Unit"]
     }
 ]
 
@@ -141,7 +129,7 @@ field_names = {
 
 def check_context(current_context, new_context):
     for c in hierarchy:
-        if current_context == c["context"]:
+        if c["context"] in current_context:
             if new_context in c["subcontext"]:
                 return True
             else:
@@ -162,11 +150,11 @@ def generate_response(missing_fields):
         sentence = input(
             "It looks like I got all the information I need, do you want to add or change anything?")
         input = input_sentence(sentence)
-        if input["intent_tag"] is "Confirmation":
+        if input["intent_tag"] == "Confirmation":
 
             return "everything is fine"
         else:
-            if input["intent_tag"] is "Denial":
+            if input["intent_tag"] == "Denial":
                 response = "Perfect! I will start working on your study plan right away!"
                 return response
     if missing_fields is False:
@@ -266,82 +254,83 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         # necesito un string para cuando sea un subject para recordarle lo que le falta
         return handle_context_denial(context_temp, ProblemData)
 
-    else:
-        if new_context == "Confirmation":
-            # we handle the context_temp as if it was the new_context
-            ProblemData.set_add_info_to_subject(False)
-            return handle_input(context_temp, current_context)
-        else:
-            if new_context == "Back_to_Main":
-                return handle_context_back_to_main(current_context)
+    elif new_context == "Confirmation":
+        # we handle the context_temp as if it was the new_context
+        ProblemData.set_add_info_to_subject(False)
+        return handle_input(context_temp, current_context)
+
+    elif new_context == "Back":
+        return handle_context_back_to_main(current_context, context_temp)
+
+    elif "Main" in new_context:
+        return handle_context_main(new_context, ProblemData)
+
+    elif new_context == "Subject":
+        return handle_context_subject(input_sentence, ProblemData)
+
+    elif new_context == "Name":
+        # flag so we can put info per subject
+        ProblemData.set_add_info_to_subject(True)
+        response = handle_context_name(
+            input_sentence, ProblemData) + "\n" + next_subject(ProblemData)
+        return response
+
+    elif "UTime" in new_context:
+        if ProblemData.edit is False:
+            response = handle_context_unit_time(
+                input_sentence, ProblemData, new_context)
+            subject_name = new_context.split()[1]
+            subject = du.get_subject_by_name(
+                ProblemData, subject_name)
+            if subject_complete(ProblemData, subject):
+                follow_up_str = next_subject(
+                    ProblemData)
             else:
-                if "Main" in new_context:
-                    return handle_context_main(new_context, ProblemData)
-                else:
-                    if new_context == "Subject":
-                        return handle_context_subject(input_sentence, ProblemData)
-                    else:
-                        if new_context == "Name":
+                follow_up_str = ask_for_subject_data_follow_up(
+                    new_context, ProblemData)
+            response_str = response + "\n" + follow_up_str
+        else:
+            response = handle_context_unit_time(
+                input_sentence, ProblemData, new_context)
+            print(response)
+            return keep_editing(ProblemData, subject)
+            # agregar lo que pasa al editar
+        return response_str
 
-                            # flag so we can put info per subject
-                            ProblemData.set_add_info_to_subject(True)
-                            response = handle_context_name(
-                                input_sentence, ProblemData) + "\n" + next_subject(ProblemData)
-                            return response
-                        else:
-                            if "UTime" in new_context:
-                                if ProblemData.edit is False:
-                                    response = handle_context_unit_time(
-                                        input_sentence, ProblemData, new_context)
-                                    subject_name = new_context.split()[1]
-                                    subject = du.get_subject_by_name(
-                                        ProblemData, subject_name)
-                                    if subject_complete(ProblemData, subject):
-                                        follow_up_str = next_subject(
-                                            ProblemData)
-                                    else:
-                                        follow_up_str = generate_response_individual_subject(
-                                            new_context, ProblemData)
+    elif "Unit" in new_context:
+        # We need to add info to the problem data
+        # we check if the edit flag is True or False
+        if ProblemData.edit is False:
+            response = handle_context_unit(
+                input_sentence, ProblemData, new_context)
+            subject_name = new_context.split()[1]
+            subject = du.get_subject_by_name(
+                ProblemData, subject_name)
+            if subject_complete(ProblemData, subject):
+                follow_up_str = next_subject(
+                    ProblemData)
+            else:
+                follow_up_str = ask_for_subject_data_follow_up(
+                    new_context, ProblemData)
+            response_str = response + "\n" + follow_up_str
+        else:
+            response = handle_context_unit_time(
+                input_sentence, ProblemData, new_context)
+            print(response)
+            return keep_editing(ProblemData, subject)
+            # agregar lo que pasa al editar
+        return response_str
 
-                                    response_str = response + "\n" + follow_up_str
-                                else:
-                                    response = handle_context_unit_time(
-                                        input_sentence, ProblemData, new_context)
-                                    print(response)
-                                    return keep_editing(ProblemData, subject)
+    elif new_context == "Edit":
+        # activamos la edit flag
+        ProblemData.set_edit_flag(True)
+        response = handle_context_edit(
+            input_sentence, ProblemData)
+        return response
 
-                                # agregar lo que pasa al editar
-                                return response_str
-                            else:
-                                if "Unit" in new_context:
-                                    # We need to add info to the problem data
-                                    # we check if the edit flag is True or False
-                                    if ProblemData.edit is False:
-                                        response = handle_context_unit(
-                                            input_sentence, ProblemData, new_context)
-                                        follow_up_str = ask_for_subject_data_follow_up(
-                                            new_context, ProblemData)
-                                        response_str = response + "\n" + follow_up_str
-                                    else:
-                                        response = handle_context_unit_time(
-                                            input_sentence, ProblemData, new_context)
-                                        print(response)
-                                        return keep_editing(ProblemData, subject)
-
-                                    # agregar lo que pasa al editar
-                                    return response_str
-                                else:
-                                    if new_context == "Edit":
-                                        # activamos la edit flag
-                                        ProblemData.set_edit_flag(True)
-                                        response = handle_context_edit(
-                                            input_sentence, ProblemData)
-
-                                        return response
-
-                                    else:
-                                        # if no handler was identified we return False
-                                        return False
+    else:
+        # if no handler was identified we return False
+        return False
 
 
 def handle_context_back_to_main(current_context, context_temp):
@@ -504,14 +493,14 @@ def keep_editing(ProblemData: pd, subject: Subject):
 
     # si se quiere seguir editando
     # devolvemos un string con los fields de los subjects que se pueden editar
-    if input["intent_tag"] is "Confirmation":
+    if input["intent_tag"] == "Confirmation":
         fields = subject.get_fields()
         fields_str = "\n".join([f"- {valor}" for valor in fields])
 
         return "Nice, what do you want to change from the subject?\n"+fields_str
     else:
         # si ya no se quiere seguir editando:
-        if input["intent_tag"] is "Denial":
+        if input["intent_tag"] == "Denial":
             # se quita la flag de edicion y se regresa a main
             ProblemData.set_add_info_to_subject(False)
             ProblemData.set_edit_flag(False)
@@ -552,7 +541,11 @@ def ask_for_subject_data_follow_up(new_context, ProblemData: pd):
     subject = du.get_subject_by_name(ProblemData, subject_name)
     missing_fields = subject.validate_data()
     missing_fields_str = ""
-    if len(missing_fields) >= 2:
+    if missing_fields == True:
+        missing_fields = []
+
+    length_mf = len(missing_fields)
+    if length_mf >= 2:
         for mf in missing_fields:
             missing_fields_str += f"- {readable_field(mf)}\n"
         response_str = "Dont forget to add:\n"+missing_fields_str
@@ -575,6 +568,7 @@ def next_subject(ProblemData: pd):
         # we generate a string asking for the rest of missing fields
         missing_fields = ProblemData.validate_data()
         response = generate_response(missing_fields)
+        ProblemData.set_current_context("Main")
         return response
 
 

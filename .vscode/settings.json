@@ -6,7 +6,7 @@
     "python.testing.unittestArgs": [
         "-v",
         "-s",
-        "./NLP-component",
+        "./NLP",
         "-p",
         "*_test.py"
     ],

@@ -8,11 +8,11 @@ import torch
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-with open('./NLP-component/intents.json', 'r') as f:
+with open('./NLP/intents.json', 'r') as f:
     intents = json.load(f)
 
 
-FILE = "./NLP-component/data.pth"
+FILE = "./NLP/data.pth"
 data = torch.load(FILE)
 
 input_size = data["input_size"]
