@@ -328,6 +328,10 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
             input_sentence, ProblemData)
         return response
 
+    elif new_context == "No_study_days":
+        pass
+    elif new_context == "No_study_hours":
+        pass
     else:
         # if no handler was identified we return False
         return False
@@ -362,15 +366,9 @@ def handle_context_denial(context_temp, Problem_data):
 def handle_context_main(new_context, ProblemData):
     if "-total_time" in new_context:
         field = readable_field("total_time")
-    else:
-        if "-duration_of_hour" in new_context:
-            field = readable_field("duration_of_hour")
-        else:
-            if "-no_study_hours" in new_context:
-                field = readable_field("no_study_hours")
-            else:
-                if "-no_study_days" in new_context:
-                    field = readable_field("no_study_days")
+    elif "-duration_of_hour" in new_context:
+        field = readable_field("duration_of_hour")
+
     missing_fields = ProblemData.validate_data()
     response = generate_response(missing_fields)
     added_info_response = "You just added: " + field + "\n" + response
