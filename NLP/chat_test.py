@@ -166,7 +166,7 @@ class ChatTest(unittest.TestCase):
         self.create_test_subject(self.problem_data, subject_name)
         self.create_test_subject(self.problem_data, subject_name2)
         subject = du.get_subject_by_name(self.problem_data, subject_name)
-        self.problem_data.subject_list([subject_name2])
+        self.problem_data.set_subject_list([subject_name2])
         du.update_subject(subject, {"number_of_units": 4, "hours_per_unit": 2})
         sentence = "the subject has 4 Units"
         chat_data = self.input_sentence(
