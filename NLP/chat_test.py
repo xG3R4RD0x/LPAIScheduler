@@ -154,6 +154,35 @@ class ChatTest(unittest.TestCase):
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
+    def test_second_subject(self):
+        print("test_second_subject:")
+        self.current_context = "UTime Literature"
+        self.context_temp = None
+        self.current_context_temp = None
+        self.problem_data = ProblemData()
+        du.add_info(self.problem_data, "number_of_subjects", 2)
+        subject_name = "Literature"
+        subject_name2 = "Math"
+        self.create_test_subject(self.problem_data, subject_name)
+        self.create_test_subject(self.problem_data, subject_name2)
+        subject = du.get_subject_by_name(self.problem_data, subject_name)
+        self.problem_data.set_subject_list([subject_name2])
+        du.update_subject(subject, {"number_of_units": 4, "hours_per_unit": 2})
+        sentence = "the subject has 4 Units"
+        chat_data = self.input_sentence(
+            sentence, self.all_words, self.device, self.tags, self.constraint_types, self.model)
+        chat_data_string = chat_data["intent_tag"] + \
+            " " + chat_data["constraint_type"]
+        print(chat_data_string)
+
+        new_context = chat_data["intent_tag"]+" "+subject_name
+
+        response = cu.handle_input(new_context, self.current_context, self.context_temp,
+                                   self.current_context_temp, self.problem_data, sentence)
+        print(response)
+        self.assertTrue(type(chat_data_string))
+        self.assertTrue(type(response))
+
     def test_next_subject_existing_next_subject(self):
         self.current_context = "Unit Math"
         self.context_temp = None
@@ -193,7 +222,6 @@ class ChatTest(unittest.TestCase):
 
 
 ###### Test Utility Functions ######
-
 
     def create_test_subject(self, problem_data: ProblemData, subject_name: str):
         subject = Subject(subject_name)

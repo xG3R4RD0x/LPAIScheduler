@@ -8,6 +8,7 @@ from word2number import w2n
 # in command line
 # python -m spacy download en_core_web_sm
 
+# Carga el modelo de spaCy en inglés
 nlp = spacy.load("en_core_web_sm")
 
 
@@ -18,16 +19,15 @@ def tag_subjects(sentence):
     subjects = []
 
     # Itera a través de los tokens en el documento procesado
+
     for token in doc:
+        # print(f"Token: {token.text}, POS: {token.pos_}, Etiqueta: {token.tag_}")
         # Verifica si el token es un sustantivo propio (que a menudo se usa para nombres de materias)
-        if token.pos_ == "PROPN":
-            subjects.append(token.text)
+        if token.pos_ == "PROPN" or token.pos_ == "NOUN":
+            # It appends the token with a Capitalized letter
+            subjects.append(token.text.title())
 
     return subjects
-
-
-# Carga el modelo de spaCy en inglés
-nlp = spacy.load("en_core_web_sm")
 
 
 def number_from_text(sentence):
@@ -44,8 +44,12 @@ def number_from_text(sentence):
             try:
                 anzahl += int(token.text)
             except ValueError:
-                # Si no se puede convertir a entero, continúa con el siguiente token
-                continue
+                # Si no se puede convertir a entero, verifica si es una palabra numérica y conviértela
+                try:
+                    anzahl += w2n.word_to_num(token.text)
+                except ValueError:
+                    # Si no se puede convertir, continúa con el siguiente token
+                    continue
 
     return anzahl
 

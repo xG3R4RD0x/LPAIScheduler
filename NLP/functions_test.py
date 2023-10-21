@@ -134,19 +134,19 @@ class FunctionsTest(unittest.TestCase):
         self.assertTrue(type(response), str)
 
     def test_tag_subjects(self):
-        sentence = "Math, Chemistry and Literature"
+        sentence = "I have to study Math chemistry and literature"
         response = pre.tag_subjects(sentence)
-        # print("\n")
+        # print("tag_subjects")
         # print(response)
-        self. assertTrue(type(response), str)
+        self.assertEqual(response, ["Math", "Chemistry", "Literature"])
 
     def test_number_of_subjects(self):
 
-        sentence = "four units"
+        sentence = "I have 6 exams"
         response = pre.number_from_text(sentence)
-        print("test_number_of_subjects")
-        print(response)
-        self. assertTrue(type(response), str)
+        # print("test_number_of_subjects")
+        # print(response)
+        self.assertEqual(response, 6)
 
     def test_get_subject_list_from_data(self):
         subject_list = self.data.get_subject_list_from_data()
