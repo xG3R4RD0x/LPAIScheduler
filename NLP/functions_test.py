@@ -31,7 +31,7 @@ class FunctionsTest(unittest.TestCase):
             "Thanks for the info! \n But I still need {checked_fields} to be able to do your plan :) ",
             "To proceed, I still need you to give me {checked_fields}",
             "We're making progress! However, I still require {checked_fields} before we can proceed.",
-            "Great job! Nonetheless, I still need you to provide {checked_fields} before we can continue.",
+            "We are going great so far but I still need you to provide {checked_fields} before we can continue.",
             "Thank you for the information! Nevertheless, I still need {checked_fields} to proceed with your plan.",
             "To move forward, I still need you to add {checked_fields}."
         ]
@@ -172,6 +172,20 @@ class FunctionsTest(unittest.TestCase):
         sc = cu.subject_complete(self.data, subject)
         print(sc)
         self.assertTrue(sc)
+
+    def test_tag_dates(self):
+        sentence = "I'm not available from July 15th to July 20th for the event but on july 25th I will be available"
+        # print("test_tag_dates")
+        response = pre.tag_date(sentence)
+        # print(response)
+        assertion = [['July 15th', 'July 20th'], 'july 25th']
+        self.assertEqual(response, assertion)
+
+    def test_spacy(self):
+        sentence = "I'm not available between July 15th and July 20th for the event but from july 25th to July 26th I will be available"
+        print("test_spacy")
+        pre.test_spacy(sentence)
+        self.assertTrue(type(sentence), str)
 
 
 if __name__ == '__main__':

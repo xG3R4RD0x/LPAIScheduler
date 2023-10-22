@@ -1,5 +1,6 @@
 import spacy
 import numpy as np
+import re
 from word2number import w2n
 # load pre trained tokenization spanish model
 # nlp = spacy.load("es_core_news_sm")
@@ -10,6 +11,39 @@ from word2number import w2n
 
 # Carga el modelo de spaCy en inglés
 nlp = spacy.load("en_core_web_sm")
+
+
+def test_spacy(sentence):
+    doc = nlp(sentence)
+    for token in doc:
+        print(
+            f"Token: {token.text}, POS: {token.pos_}, Etiqueta: {token.tag_},Entity: {token.ent_type_}")
+
+
+def tag_date(sentence):
+    doc = nlp(sentence)
+
+    date_list = []
+    current_date = ""
+
+    for ent in doc.ents:
+        if ent.label_ == "DATE":
+            current_date = ent.text
+            for token in ent:
+                if token.pos_ == "ADP":
+                    current_date = current_date.replace(token.text, ", ")
+                elif token.pos_ == "CCONJ":
+                    current_date = current_date.replace(
+                        token.text, ", ")
+            current_date_range = current_date.split(", ")
+            if len(current_date_range) > 1:
+                current_date_range = [date.strip()
+                                      for date in current_date_range]
+                date_list.append(current_date_range)
+            else:
+                date_list.append(current_date_range[0].strip())
+
+    return date_list
 
 
 def tag_subjects(sentence):

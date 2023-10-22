@@ -329,6 +329,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         return response
 
     elif new_context == "No_study_days":
+
         pass
     elif new_context == "No_study_hours":
         pass
@@ -468,6 +469,14 @@ def handle_context_edit(input_sentence, ProblemData: pd):
             response = "Sorry I don't recognize that subject, try typing it all again"
             ProblemData.set_edit_flag(False)
             return response
+
+
+def handle_context_no_study_hours(sentence: str, ProblemData: pd):
+    pass
+
+
+def handle_context_no_study_hours(sentence: str, ProblemData: pd):
+    pass
 
 
 def str_in_subject(sentence: str, subject_list: list):
