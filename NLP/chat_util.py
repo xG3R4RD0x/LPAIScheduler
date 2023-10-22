@@ -13,6 +13,7 @@ from problem_data import ProblemData as pd
 import preprocessing as pre
 import data_util as du
 from subject import Subject
+import soft_constraints_util as scu
 
 # TODO estructurar el chatbot workflow haciendo un arbol de decisiones
 # tiene que entrar en un estado diferente por cada rama del arbol
@@ -471,11 +472,20 @@ def handle_context_edit(input_sentence, ProblemData: pd):
             return response
 
 
-def handle_context_no_study_hours(sentence: str, ProblemData: pd):
+def handle_context_no_study_days(sentence: str, ProblemData: pd):
+    dates = pre.tag_date(sentence)
+    dates = scu.extract_dates(dates)
+    # procesar las dates por si son individuales o en rango
+    # preguntar si el evento es individual preguntar si se repite semanalmente
+    # mostrar la info con los días que no se debe estudiar
     pass
 
 
 def handle_context_no_study_hours(sentence: str, ProblemData: pd):
+    # extraer la hora o el rango de horas del input
+    # tratar de extraer el día y si no se puede preguntar después
+    # preguntar si es evento individual o si se repite
+    # mostrar la info con las horas y los días que no se puede estudiar
     pass
 
 

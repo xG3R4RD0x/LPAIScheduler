@@ -1,12 +1,15 @@
 class no_study_day:
-    REQUIRED_FIELDS = ["dates", "repeating_event"]
+    REQUIRED_FIELDS = ["dates", "constraint_type"]
 
     def __init__(self):
         self.data = {
             "day": None,  # Has to be a string with the Name of the day
             "dates": None,
-            "repeating_event": False
+            "repeating_event": False,
+            "constraint_type": None
         }
+        # la intención es que trate de leer el tipo de constraint directo desde el input
+        # si no se logra se pregunta
 
     def validate_data(self):
         # Verifica si los campos obligatorios estan completos
