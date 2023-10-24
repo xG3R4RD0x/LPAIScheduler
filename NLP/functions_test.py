@@ -175,14 +175,21 @@ class FunctionsTest(unittest.TestCase):
 
     def test_tag_dates(self):
         sentence = "I'm not available from July 15th to July 20th for the event but on july 25th I will be available"
-        # print("test_tag_dates")
+        print("test_tag_dates")
         response = pre.tag_date(sentence)
-        # print(response)
+        print(response)
         assertion = [['July 15th', 'July 20th'], 'july 25th']
         self.assertEqual(response, assertion)
 
+    def test_tag_time(self):
+        sentence = "The meeting is from 3 PM"
+        print("test_tag_time")
+        response = pre.tag_time(sentence)
+        print(response)
+        self.assertTrue(type(sentence), str)
+
     def test_spacy(self):
-        sentence = "I'm not available between July 15th and July 20th for the event but from july 25th to July 26th I will be available"
+        sentence = "The meeting is from 3 PM to 5 PM"
         print("test_spacy")
         pre.test_spacy(sentence)
         self.assertTrue(type(sentence), str)

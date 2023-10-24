@@ -1,6 +1,10 @@
 from typing import Any, NoReturn
 import unittest
 import soft_constraints_util as scu
+from datetime import datetime
+from problem_data import ProblemData
+import data_util as du
+from soft_constraints import no_study_day as nsd, no_study_hours
 
 
 class SoftConstraintsTest(unittest.TestCase):
@@ -14,6 +18,25 @@ class SoftConstraintsTest(unittest.TestCase):
         print("test_extract_dates")
         print(response)
         self.assertTrue(type(response), list)
+
+    def test_process_dates(self):
+        date_list = [[datetime(2023, 7, 15, 0, 0), datetime(
+            2023, 7, 20, 0, 0)], datetime(2023, 7, 25, 0, 0)]
+        response = scu.process_dates(date_list)
+        print("test_process_dates")
+        print(response)
+        assertion = [[datetime(2023, 7, 15, 0, 0), datetime(2023, 7, 16, 0, 0), datetime(2023, 7, 17,
+                                                                                         0, 0), datetime(2023, 7, 18, 0, 0), datetime(2023, 7, 19, 0, 0), datetime(2023, 7, 20, 0, 0)], datetime(2023, 7, 25, 0, 0)]
+        self.assertEqual(response, assertion)
+
+    def test_get_nsd_by_date(self):
+        date = datetime(2023, 7, 18, 0, 0)
+        pd = ProblemData()
+        nsd_test = nsd()
+        nsd_test.data.update({"dates": date, "constraint_type": "strong"})
+        du.add_no_study_day(pd, nsd_test)
+        nsd_by_date = du.get_nsd_by_datetime(pd, date)
+        self.assertEqual(nsd_by_date, nsd_test)
 
 
 if __name__ == '__main__':

@@ -46,6 +46,54 @@ def tag_date(sentence):
     return date_list
 
 
+def tag_time(text):
+    # Expresión regular para buscar horas y minutos en diversos formatos
+    time_pattern = r"(\d{1,2}(?::\d{2})?(?: ?[APap][Mm])?)"
+
+    # Expresión regular para buscar rangos de horas
+    range_pattern = rf"{time_pattern}\s*(?:to|–|-)\s*{time_pattern}"
+
+    # Buscar todas las coincidencias de horas y rangos de horas en el texto
+    time_matches = re.findall(time_pattern, text)
+    range_matches = re.findall(range_pattern, text)
+
+    # Inicializar una lista para almacenar las horas
+    hours = []
+
+    # Agregar las horas individuales a la lista
+    hours.extend(time_matches)
+
+    # Procesar las coincidencias de rangos de horas
+    for match in range_matches:
+        start_time, end_time = match
+
+        # Convertir a formato de 24 horas si es necesario
+        if "pm" in end_time.lower() and not "pm" in start_time.lower():
+            start_time = convert_to_24_hour_format(start_time)
+        if "am" in end_time.lower() and not "am" in start_time.lower():
+            start_time = convert_to_24_hour_format(start_time)
+
+        hours.append(f"{start_time} - {end_time}")
+
+    return hours
+
+
+def convert_to_24_hour_format(time_str):
+    # Función para convertir a formato de 24 horas
+    if "pm" in time_str.lower() and ":" in time_str:
+        hour, minute = map(int, time_str.replace("pm", "").split(":"))
+        if hour != 12:
+            hour += 12
+        return f"{hour:02}:{minute:02}"
+    elif "am" in time_str.lower() and ":" in time_str:
+        hour, minute = map(int, time_str.replace("am", "").split(":"))
+        if hour == 12:
+            hour = 0
+        return f"{hour:02}:{minute:02}"
+    else:
+        return time_str
+
+
 def tag_subjects(sentence):
     doc = nlp(sentence)
 

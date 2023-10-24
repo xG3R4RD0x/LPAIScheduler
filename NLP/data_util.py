@@ -1,6 +1,7 @@
 import problem_data as pd
 from subject import Subject
 from soft_constraints import no_study_day, no_study_hours
+from datetime import datetime
 
 # utility functions to update the Problem Data Dictionary
 
@@ -69,3 +70,10 @@ def add_no_study_day(problem_data: pd, no_study_day: no_study_day):
 def add_no_study_hours(problem_data: pd, no_study_hours: no_study_hours):
     problem_data.data["soft_constraints"]["no_study_hours"].append(
         no_study_hours)
+
+
+def get_nsd_by_datetime(problem_data: pd, date: datetime):
+    for nsd in problem_data.data["soft_constraints"]["no_study_days"]:
+        if nsd.get_key("dates") == date:
+            return nsd
+    return None

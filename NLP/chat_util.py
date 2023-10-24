@@ -13,8 +13,9 @@ from problem_data import ProblemData as pd
 import preprocessing as pre
 import data_util as du
 from subject import Subject
+from soft_constraints import no_study_day, no_study_hours
 import soft_constraints_util as scu
-
+from datetime import datetime, timedelta
 # TODO estructurar el chatbot workflow haciendo un arbol de decisiones
 # tiene que entrar en un estado diferente por cada rama del arbol
 
@@ -249,7 +250,7 @@ def read_missing_fields(missing_fields):
 # To add a new context handler we have to add it in the function handle_input
 
 
-def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None, input_sentence=None):
+def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None, input_sentence=None, constraint_type=None):
 
     if new_context == "Denial":
         # necesito un string para cuando sea un subject para recordarle lo que le falta
@@ -330,6 +331,10 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         return response
 
     elif new_context == "No_study_days":
+
+        # tengo que hacer una función que cuando compruebe que la constraint esté completa
+        # ahí recién cree las constraints con un for loop
+        # o sea crea una constraint por día haciendo que la fecha agregue +1 hasta llegar al end date
 
         pass
     elif new_context == "No_study_hours":
@@ -472,13 +477,49 @@ def handle_context_edit(input_sentence, ProblemData: pd):
             return response
 
 
-def handle_context_no_study_days(sentence: str, ProblemData: pd):
+def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type):
+    constraint_type = constraint_type
     dates = pre.tag_date(sentence)
+    dates_w_range = dates
     dates = scu.extract_dates(dates)
     # procesar las dates por si son individuales o en rango
-    # preguntar si el evento es individual preguntar si se repite semanalmente
-    # mostrar la info con los días que no se debe estudiar
-    pass
+    dates_str = ""
+    dates_str_list = []
+    for d in dates_w_range:
+        if type(d) == list:
+            dates_str = "from "+d[0] + "to "+d[1]
+            dates_str_list.append(dates_str)
+        else:
+            dates_str_list.append(d)
+
+    # creating no_study objects
+    for d in dates:
+        nsd_temp = no_study_day()
+        nsd_temp.data.update(
+            {"dates": d, "constraint_type": constraint_type, "repeating_event": None})
+        du.add_no_study_day(ProblemData, nsd_temp)
+    # ask_if_repeating event
+    repeating = False
+    print("is this weekly?")
+    repeating_sentence = input(input('You: '))
+    inps = input_sentence(repeating_sentence)
+
+    if inps["intent_tag"] == "Confirmation":
+        repeating = True
+        # agregar flag a todas las fechas
+        for d in dates:
+            nsd = du.get_nsd_by_datetime(ProblemData, d)
+            nsd.data.update({"repeating_event": True})
+    elif inps["intent_tag"] == "Denial":
+        pass
+    # show nsd information
+    response_str = "Got it, I am going to take in consideration these dates for you to not to study:"
+    for d in dates_w_range:
+        response_str += "\n-"+d
+    if repeating == True:
+        response_str += "\nand it's going to be repeated weekly"
+
+    return response_str
 
 
 def handle_context_no_study_hours(sentence: str, ProblemData: pd):

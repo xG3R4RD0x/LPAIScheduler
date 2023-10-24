@@ -23,6 +23,9 @@ class no_study_day:
 
         return True
 
+    def get_key(self, key):
+        return self.data[key]
+
 
 class no_study_hours:
     REQUIRED_FIELDS = ["day", "hour_range", "repeating_event"]
@@ -45,3 +48,6 @@ class no_study_hours:
                 return missing_fields
 
         return True
+
+    def get_key(self, key):
+        return self.data[key]
