@@ -39,6 +39,44 @@
             ]
         },
         {
+            "tag": "Main-hours_per_day",
+            "context": "Main-hours_per_day",
+            "patterns": [
+                {
+                    "text": "I want to study 5 hours per day",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to increase my daily study time to 6 hours",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided to study 4 hours daily",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking about studying for 5 hours per day now",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I intend to double my daily study hours to 6",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering studying 7 hours per day",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I need to study 8 hours daily",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm reevaluating my study plan and want to study 7 hours",
+                    "constraint_type": "strong"
+                }
+            ]
+        },
+        {
             "tag": "Subject",
             "context": "Subject",
             "patterns": [

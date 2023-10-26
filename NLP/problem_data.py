@@ -81,6 +81,26 @@ class ProblemData:
     def set_current_context_temp(self, context):
         self.current_context_temp = context
 
+    def get_hours_per_day(self):
+        return self.data["hard_constraints"]["hours_per_day"]
+
+    def get_hours_per_subject(self):
+        subject_list = self.data["hard_constraints"]["subjects"]
+        hours_per_subject = {}
+        for s in subject_list:
+            name = s.get_key("name")
+            number_of_units = s.get_key("number_of_units")
+            hours_per_unit = s.get_key("hours_per_unit")
+            hps = number_of_units * hours_per_unit
+            hours_per_subject.update({name: hps})
+        return hours_per_subject
+
+    def get_total_time(self):
+        return self.data["hard_constraints"]["total_time"]
+
+    def get_start_date(self):
+        return self.data["hard_constraints"]["start_date"]
+
     def validate_data(self):
         missing_fields = []
         hard_constraints = self.data["hard_constraints"]

@@ -271,7 +271,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         return handle_context_back_to_main(current_context, context_temp)
 
     elif "Main" in new_context:
-        return handle_context_main(new_context, ProblemData)
+        return handle_context_main(new_context, ProblemData, input_sentence)
 
     elif new_context == "Subject":
         return handle_context_subject(input_sentence, ProblemData)
@@ -379,11 +379,33 @@ def handle_context_denial(context_temp, Problem_data):
     return response
 
 
-def handle_context_main(new_context, ProblemData):
+def handle_context_main(new_context, ProblemData, sentence: str):
     if "-total_time" in new_context:
         field = readable_field("total_time")
+        total_time = pre.number_from_text(sentence)
+        du.add_total_time(ProblemData, total_time)
+        print("LPAIbot: When do you want to start?(date)")
+        date_input = input("You: ")
+        date = pre.tag_date(date_input)
+        print("LPAIbot: We are going to start from:"+date[0])
+        du.add_start_date(ProblemData, date[0])
+
     elif "-duration_of_hour" in new_context:
         field = readable_field("duration_of_hour")
+        duration_of_hour = pre.number_from_text(sentence)
+        du.add_duration_of_hour(ProblemData, duration_of_hour)
+        print("LPAIbot: cool, we are going to make your hours with a duration of" +
+              str(duration_of_hour)+" minutes")
+
+    elif "-hours_per_day" in new_context:
+        field = readable_field("hours_per_day")
+        hours_per_day = abs(pre.number_from_text(sentence))
+        while hours_per_day > 8:
+            print(
+                "LPAIbot: Studying for more than 8 hours per day is not healthy, try with less hours please")
+            hours_per_day = abs(pre.number_from_text(input("You: ")))
+        print("We are going to plan your days with " +
+              str(hours_per_day)+"h for studying")
 
     missing_fields = ProblemData.validate_data()
     response = generate_response(missing_fields)

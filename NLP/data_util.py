@@ -63,6 +63,22 @@ def update_subject(subject: Subject, info: dict):
 # For Example update_data(problem_data, info)
 
 
+def add_start_date(problem_data: pd, start_date: datetime):
+    problem_data.data["hard_constraints"]["start_date"] = start_date
+
+
+def add_total_time(problem_data: pd, total_time: int):
+    problem_data.data["hard_constraints"]["total_time"] = total_time
+
+
+def add_duration_of_hour(problem_data: pd, duration_of_hour: int):
+    problem_data.data["hard_constraints"]["duration_of_hour"] = duration_of_hour
+
+
+def add_hours_per_day(problem_data: pd, hours_per_day: int):
+    problem_data.data["hard_constraints"]["hours_per_day"] = hours_per_day
+
+
 def add_no_study_day(problem_data: pd, no_study_day: no_study_day):
     problem_data.data["soft_constraints"]["no_study_days"].append(no_study_day)
 

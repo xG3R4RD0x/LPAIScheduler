@@ -1,4 +1,24 @@
 from datetime import datetime
+from NLP.problem_data import ProblemData as pd
+
+
+def extract_data(ProblemData: pd):
+    subjects = ["Math", "Literature", "Chemistry"]
+    total_time = range(1, 60+1)
+    hours_per_day = 8
+    horas_por_materia = {"Math": 85,
+                         "Literature": 90, "Chemistry": 65}
+
+    #########
+    extracted_data = {
+        "subjects": ProblemData.get_subject_list_from_data(),
+        "total_time": range(1, ProblemData.get_total_time()+1),
+        "hours_per_day": ProblemData.get_hours_per_day(),
+        "hours_per_subject": ProblemData.get_hours_per_subject(),
+        "start_date": ProblemData.get_start_date()
+    }
+
+    return extracted_data
 
 
 def extract_data(ProblemData: dict):
