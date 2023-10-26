@@ -30,7 +30,7 @@ class SoftConstraintsTest(unittest.TestCase):
         self.assertEqual(response, assertion)
 
     def test_get_nsd_by_date(self):
-        date = datetime(2023, 7, 18, 0, 0)
+        date = datetime(2023, 8, 18, 0, 0)
         pd = ProblemData()
         nsd_test = nsd()
         nsd_test.data.update({"dates": date, "constraint_type": "strong"})

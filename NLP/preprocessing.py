@@ -1,6 +1,7 @@
 import spacy
 import numpy as np
 import re
+from datetime import datetime
 from word2number import w2n
 # load pre trained tokenization spanish model
 # nlp = spacy.load("es_core_news_sm")
@@ -42,8 +43,12 @@ def tag_date(sentence):
                 date_list.append(current_date_range)
             else:
                 date_list.append(current_date_range[0].strip())
-
-    return date_list
+    if date_list == []:
+        print("LPAIbot: Sorry I didn't get the dates could you write them again please?")
+        new_str = input("You: ")
+        tag_date(new_str)
+    else:
+        return date_list
 
 
 def tag_time(text):
@@ -57,11 +62,8 @@ def tag_time(text):
     time_matches = re.findall(time_pattern, text)
     range_matches = re.findall(range_pattern, text)
 
-    # Inicializar una lista para almacenar las horas
+    # Inicializar una lista para almacenar las horas en formato time
     hours = []
-
-    # Agregar las horas individuales a la lista
-    hours.extend(time_matches)
 
     # Procesar las coincidencias de rangos de horas
     for match in range_matches:
@@ -73,7 +75,16 @@ def tag_time(text):
         if "am" in end_time.lower() and not "am" in start_time.lower():
             start_time = convert_to_24_hour_format(start_time)
 
-        hours.append(f"{start_time} - {end_time}")
+        # Crear objetos time para las horas y agregarlos a la lista
+        start_time_obj = create_time_from_time(start_time)
+        end_time_obj = create_time_from_time(end_time)
+        hours.append(f"{start_time_obj} - {end_time_obj}")
+
+    # Procesar las coincidencias de horas individuales
+    for match in time_matches:
+        # Crear un objeto time para la hora y agregarlo a la lista
+        time_obj = create_time_from_time(match)
+        hours.append(time_obj)
 
     return hours
 
@@ -92,6 +103,14 @@ def convert_to_24_hour_format(time_str):
         return f"{hour:02}:{minute:02}"
     else:
         return time_str
+
+
+def create_time_from_time(time_str):
+    # Función para crear un objeto time a partir de una hora en formato de 12 horas
+    if ":" in time_str:
+        return datetime.strptime(time_str, "%I:%M %p").time()
+    else:
+        return datetime.strptime(time_str, "%I %p").time()
 
 
 def tag_subjects(sentence):

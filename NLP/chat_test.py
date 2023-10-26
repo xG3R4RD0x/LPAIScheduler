@@ -214,10 +214,32 @@ class ChatTest(unittest.TestCase):
 
     def test_input_sentence(self):
         response = cu.input_sentence(
-            " I want to study for 3 Exams this semester")
+            " I prefer not to study on friday 13th of November")
 
-        # print("test_input_sentence\n")
-        # print(response)
+        print("test_input_sentence\n")
+        print(response)
+        self.assertTrue(type(response), dict)
+
+    def test_no_study_day(self):
+        sentence = "I prefer not to study on friday 13th of November"
+        input = cu.input_sentence(sentence)
+        print("test_no_study_day\n")
+        pd = ProblemData()
+        print(input)
+        response = cu.handle_input(
+            input["intent_tag"], "Main", None, None, pd, sentence, input["constraint_type"])
+        print(response)
+        self.assertTrue(type(response), dict)
+
+    def test_no_study_hour(self):
+        sentence = "I can't study after 7 PM"
+        input = cu.input_sentence(sentence)
+        print("test_no_study_hours\n")
+        pd = ProblemData()
+        print(input)
+        response = cu.handle_input(
+            input["intent_tag"], "Main", None, None, pd, sentence, input["constraint_type"])
+        print(response)
         self.assertTrue(type(response), dict)
 
 

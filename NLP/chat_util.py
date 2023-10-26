@@ -15,7 +15,7 @@ import data_util as du
 from subject import Subject
 from soft_constraints import no_study_day, no_study_hours
 import soft_constraints_util as scu
-from datetime import datetime, timedelta
+import datetime
 # TODO estructurar el chatbot workflow haciendo un arbol de decisiones
 # tiene que entrar en un estado diferente por cada rama del arbol
 
@@ -96,6 +96,12 @@ hierarchy = [
     },
     {
         "context": "Edit", "subcontext": ["Back", "UTime", "Unit"]
+    },
+    {
+        "context": "No_study_days", "subcontext": ["Main", "Subject", "Main-total_time", "No_study_hours", "No_study_days", "Edit"]
+    },
+    {
+        "context": "No_study_hours", "subcontext": ["Main", "Subject", "Main-total_time", "No_study_hours", "No_study_days", "Edit"]
     }
 ]
 
@@ -331,14 +337,17 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         return response
 
     elif new_context == "No_study_days":
-
+        response = handle_context_no_study_days(
+            input_sentence, ProblemData, constraint_type)
         # tengo que hacer una función que cuando compruebe que la constraint esté completa
         # ahí recién cree las constraints con un for loop
         # o sea crea una constraint por día haciendo que la fecha agregue +1 hasta llegar al end date
+        return response
 
-        pass
     elif new_context == "No_study_hours":
-        pass
+        response = handle_context_no_study_hours(
+            input_sentence, ProblemData, constraint_type)
+        return response
     else:
         # if no handler was identified we return False
         return False
@@ -500,10 +509,10 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
         du.add_no_study_day(ProblemData, nsd_temp)
     # ask_if_repeating event
     repeating = False
-    print("is this weekly?")
-    repeating_sentence = input(input('You: '))
+    print("LPAIbot: Is this weekly?")
+    repeating_sentence = input('You: ')
     inps = input_sentence(repeating_sentence)
-
+    print("intent_tag:"+inps["intent_tag"])
     if inps["intent_tag"] == "Confirmation":
         repeating = True
         # agregar flag a todas las fechas
@@ -511,23 +520,75 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
             nsd = du.get_nsd_by_datetime(ProblemData, d)
             nsd.data.update({"repeating_event": True})
     elif inps["intent_tag"] == "Denial":
-        pass
+        repeating = False
     # show nsd information
     response_str = "Got it, I am going to take in consideration these dates for you to not to study:"
     for d in dates_w_range:
-        response_str += "\n-"+d
+        response_str += "\n-"+str(d)
     if repeating == True:
         response_str += "\nand it's going to be repeated weekly"
-
     return response_str
 
 
-def handle_context_no_study_hours(sentence: str, ProblemData: pd):
+def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_type):
     # extraer la hora o el rango de horas del input
-    # tratar de extraer el día y si no se puede preguntar después
-    # preguntar si es evento individual o si se repite
-    # mostrar la info con las horas y los días que no se puede estudiar
-    pass
+    time_list = pre.tag_time(sentence)
+    time_str = ""
+    print(time_list)
+    # check if range
+    if type(time_list[0]) == str:
+        time_str = time_list[0]
+        time_list.pop(0)
+    else:
+        for t in time_list:
+            time_str += t.strftime("%I:%M %p")
+
+    print("LPAIbot: Great!, well take in consideration not to assign you study time during these hours:\n"+time_str)
+    print("Do you want this for everyday?")
+    date_question = input_sentence(input("You: "))
+    if date_question["intent_tag"] == "Confirmation":
+        response_str = "Cool, We are going to do this for everyday"
+        Everyday = True
+        dates = None
+    if date_question["intent_tag"] == "Denial":
+        print("Can you tell me for which date or dates do you want this to be taken in consideration?")
+        date_input = pre.tag_date(input("You: "))
+        dates_str_list = []
+        dates = scu.extract_dates(date_input)
+        for d in date_input:
+            if type(d) == list:
+                dates_str = "from "+d[0] + "to "+d[1]
+                dates_str_list.append(dates_str)
+            else:
+                dates_str_list.append(d)
+
+        response_str = "Got it, I am going to take in consideration these dates:"
+        for d in dates_str_list:
+            response_str += "\n-"+d
+
+    # creating the no_study_hour_object
+    # we take out the first element of the list because it is a string with the time
+    # the rest is going to be a range of time
+    if len(time_list) < 2:
+        end_of_day_time = datetime.time(23, 59)
+        time_list.append(end_of_day_time)
+    if type(dates) == list:
+        for d in dates:
+            nsh_temp = no_study_hours()
+            nsh_temp.data.update(
+                {"hour_range": time_list, "dates": d, "everyday": Everyday, "constraint_type": constraint_type})
+            du.add_no_study_hours(ProblemData, nsh_temp)
+    else:
+        nsh_temp = no_study_hours()
+        nsh_temp.data.update(
+            {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": constraint_type})
+        du.add_no_study_hours(ProblemData, nsh_temp)
+
+    # We need to verifz at the end that all data has been generated correctly
+    # If I got a nsh withoutdate I have to ask for it, but if it is for everyday
+    # I have to assign it and copy it in every day
+
+    return response_str
 
 
 def str_in_subject(sentence: str, subject_list: list):

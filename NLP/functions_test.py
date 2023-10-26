@@ -182,10 +182,18 @@ class FunctionsTest(unittest.TestCase):
         self.assertEqual(response, assertion)
 
     def test_tag_time(self):
-        sentence = "The meeting is from 3 PM"
+        sentence = "The meeting is from 3 PM to 5 PM"
         print("test_tag_time")
         response = pre.tag_time(sentence)
         print(response)
+        self.assertTrue(type(sentence), str)
+
+    def test_tag_date_and_time(self):
+        sentence = "I can't study after 7 PM"
+        print("test_tag_date_and_time")
+        time_list = pre.tag_time(sentence)
+        # print("time_list: "+str(time_list)+" date_list: "+str(date_list))
+        print(str(time_list))
         self.assertTrue(type(sentence), str)
 
     def test_spacy(self):

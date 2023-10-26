@@ -28,13 +28,14 @@ class no_study_day:
 
 
 class no_study_hours:
-    REQUIRED_FIELDS = ["day", "hour_range", "repeating_event"]
+    REQUIRED_FIELDS = ["hour_range", "everyday", "constraint_type"]
 
     def __init__(self):
         self.data = {
-            "day": None,
+            "dates": None,
             "hour_range": None,  # Has to be a range of hours
-            "repeating_event": False
+            "everyday": False,
+            "constraint_type": None
         }
 
     def validate_data(self):
