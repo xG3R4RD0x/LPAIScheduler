@@ -271,6 +271,7 @@ def handle_input(new_context, current_context, context_temp=None, current_contex
         return handle_context_back_to_main(current_context, context_temp)
 
     elif "Main" in new_context:
+        print("handle_input_Main")
         return handle_context_main(new_context, ProblemData, input_sentence)
 
     elif new_context == "Subject":
@@ -363,6 +364,7 @@ def handle_context_back_to_main(current_context, context_temp):
             "{subject_from_context}", subject_from_context)
         return response_string
 # redireccionar bien esto
+# TODO ask for confirmation to leave the current context
     if context_temp in field_names:
         context_string = field_names.get(context_temp)
         response_string = "we can add more information here later.\n Are you sure you want to add information to {context_string}?"
@@ -379,7 +381,8 @@ def handle_context_denial(context_temp, Problem_data):
     return response
 
 
-def handle_context_main(new_context, ProblemData, sentence: str):
+def handle_context_main(new_context, ProblemData: pd, sentence: str):
+    print("dentro del handle_context main")
     if "-total_time" in new_context:
         field = readable_field("total_time")
         total_time = pre.number_from_text(sentence)
@@ -409,9 +412,11 @@ def handle_context_main(new_context, ProblemData, sentence: str):
 
     missing_fields = ProblemData.validate_data()
     response = generate_response(missing_fields)
-    added_info_response = "You just added: " + field + "\n" + response
+    if new_context != "Main":
+        added_info_response = "You just added: " + field + "\n" + response
+        return added_info_response
 
-    return added_info_response
+    return response
 
 
 def handle_context_subject(input_sentence, ProblemData: pd):

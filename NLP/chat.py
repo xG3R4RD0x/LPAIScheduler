@@ -110,9 +110,10 @@ while True:
             print(
                 f"new_context:{new_context}, current_context:{problem_data.current_context}")
             print(f"{botname}: no pasó el check context ")
-            cu.handle_input(
-                "Back_to_Main", problem_data.current_context, problem_data.context_temp)
-            current_context = "Back_to_Main"
+            response = cu.handle_input(
+                "Main", problem_data.current_context, problem_data.context_temp, None, problem_data)
+            print(response)
+            current_context = "Main"
     else:
         # cuando no se entiende el contexto
         # mostramos el string con los datos que faltan y pedimos que se los llene
