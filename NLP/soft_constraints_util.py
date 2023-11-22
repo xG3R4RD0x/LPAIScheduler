@@ -23,19 +23,19 @@ def process_dates(date_list: list):
     result_dates = []
 
     for item in date_list:
-        if isinstance(item, list):  # Si es una lista, es un rango de fechas
-            start_date, end_date = item  # Extraer las fechas de inicio y fin del rango
+        if isinstance(item, list):  # If it is a list, it is a range of dates
+            start_date, end_date = item  # Extract start and end dates from the range
 
-            # Generar todas las fechas en el rango y agregarlas a una lista
+            # Generate all dates in the range and add them to a list
             date_range = []
             current_date = start_date
             while current_date <= end_date:
                 date_range.append(current_date)
                 current_date += timedelta(days=1)
 
-            # Agregar la lista de rango de fechas al resultado
+            # Add the list of date range to the result
             result_dates.append(date_range)
-        elif isinstance(item, datetime):  # Si es un objeto datetime, es una fecha individual
+        elif isinstance(item, datetime):  # If it is a datetime object, it is an individual date
             result_dates.append(item)
 
     return result_dates

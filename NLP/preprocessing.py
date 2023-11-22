@@ -3,6 +3,7 @@ import numpy as np
 import re
 from datetime import datetime
 from word2number import w2n
+import soft_constraints_util as scu
 # load pre trained tokenization spanish model
 # nlp = spacy.load("es_core_news_sm")
 
@@ -49,40 +50,41 @@ def tag_date(sentence):
         tag_date(new_str)
     else:
         return date_list
+# NO OLVIDAR usar extract_dates() de soft_constraints_util al final para transformar todo en formato datetime
 
 
 def tag_time(text):
-    # Expresión regular para buscar horas y minutos en diversos formatos
+    # Regular expression to find hours and minutes in various formats
     time_pattern = r"(\d{1,2}(?::\d{2})?(?: ?[APap][Mm])?)"
 
-    # Expresión regular para buscar rangos de horas
+    # Regular expression to find ranges of hours
     range_pattern = rf"{time_pattern}\s*(?:to|–|-)\s*{time_pattern}"
 
-    # Buscar todas las coincidencias de horas y rangos de horas en el texto
+    # Find all matches of hours and ranges of hours in the text
     time_matches = re.findall(time_pattern, text)
     range_matches = re.findall(range_pattern, text)
 
-    # Inicializar una lista para almacenar las horas en formato time
+    # Initialize a list to store hours in time format
     hours = []
 
-    # Procesar las coincidencias de rangos de horas
+    # Process matches of ranges of hours
     for match in range_matches:
         start_time, end_time = match
 
-        # Convertir a formato de 24 horas si es necesario
+        # Convert to 24-hour format if necessary
         if "pm" in end_time.lower() and not "pm" in start_time.lower():
             start_time = convert_to_24_hour_format(start_time)
         if "am" in end_time.lower() and not "am" in start_time.lower():
             start_time = convert_to_24_hour_format(start_time)
 
-        # Crear objetos time para las horas y agregarlos a la lista
+        # Create time objects for the hours and add them to the list
         start_time_obj = create_time_from_time(start_time)
         end_time_obj = create_time_from_time(end_time)
         hours.append(f"{start_time_obj} - {end_time_obj}")
 
-    # Procesar las coincidencias de horas individuales
+    # Process matches of individual hours
     for match in time_matches:
-        # Crear un objeto time para la hora y agregarlo a la lista
+        # Create a time object for the hour and add it to the list
         time_obj = create_time_from_time(match)
         hours.append(time_obj)
 
