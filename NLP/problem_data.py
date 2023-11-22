@@ -49,9 +49,9 @@ class ProblemData:
 
     def set_edit_flag(self, value: bool):
         self.edit = value
-        pass
 
     # returns a subject_list based on the saved info of the problem NOT the variable subject_list
+
     def get_subject(self, name: str):
         subject_list = self.data["hard_constraints"]["subjects"]
         for s in subject_list:

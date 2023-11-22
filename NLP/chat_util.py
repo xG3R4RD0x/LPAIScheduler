@@ -563,6 +563,7 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
     time_str = ""
     print(time_list)
     # check if range
+    # if not range we check the sentence from start or untill end of the day
     if type(time_list[0]) == str:
         time_str = time_list[0]
         time_list.pop(0)
@@ -648,6 +649,7 @@ def keep_editing(ProblemData: pd, subject: Subject):
         # si ya no se quiere seguir editando:
         if input["intent_tag"] == "Denial":
             # se quita la flag de edicion y se regresa a main
+            ProblemData.pop_subject_list()
             ProblemData.set_add_info_to_subject(False)
             ProblemData.set_edit_flag(False)
             ProblemData.current_context = "Main"

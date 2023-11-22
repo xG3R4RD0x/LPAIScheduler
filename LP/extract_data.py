@@ -72,4 +72,10 @@ example_data = {
             "total_time": 30,
             "hours_per_day": 8,
         "duration_of_hour": 45
-    }}
+    },
+    "soft_contraints":
+        {"no_study_days": [{"dates": [datetime.date(2023, 11, 16), datetime.date(2023, 11, 19)], "constraint_type": None}],
+         "no_study_hours": [{"hour_range": ["15:00:00", "18:00:00"],
+                             "everyday": False,
+                             "constraint_type": "strong"}]
+         }}
