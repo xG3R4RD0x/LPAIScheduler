@@ -539,6 +539,7 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
     print("LPAIbot: Is this weekly?")
     repeating_sentence = input('You: ')
     inps = input_sentence(repeating_sentence)
+    # print added for debugging purposes
     print("intent_tag:"+inps["intent_tag"])
     if inps["intent_tag"] == "Confirmation":
         repeating = True
@@ -561,6 +562,7 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
     # extraer la hora o el rango de horas del input
     time_list = pre.tag_time(sentence)
     time_str = ""
+    # print added for debugging
     print(time_list)
     # check if range
     # if not range we check the sentence from start or untill end of the day
@@ -578,7 +580,7 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
         response_str = "Cool, We are going to do this for everyday"
         Everyday = True
         dates = None
-    if date_question["intent_tag"] == "Denial":
+    elif date_question["intent_tag"] == "Denial":
         print("Can you tell me for which date or dates do you want this to be taken in consideration?")
         Everyday = False
         date_input = pre.tag_date(input("You: "))
