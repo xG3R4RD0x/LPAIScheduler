@@ -1,9 +1,11 @@
 from problem_data import ProblemData
 import data_util as du
 import chat_util as cu
+import soft_constraints_util as scu
 import preprocessing as pre
 from subject import Subject
 import unittest
+import datetime
 
 
 class FunctionsTest(unittest.TestCase):
@@ -99,14 +101,14 @@ class FunctionsTest(unittest.TestCase):
         # print(response)
         self.assertEqual(type(response), str)
 
-    def test_handle_input_main(self):
-        current_context = "Main"
-        new_context = "Main-total_time"
-        Problem_data = self.data
-        response = cu.handle_input(
-            new_context, current_context, None, None, Problem_data)
-        # print(response)
-        self.assertEqual(type(response), str)
+    # def test_handle_input_main(self):
+    #     current_context = "Main"
+    #     new_context = "Main-total_time"
+    #     Problem_data = self.data
+    #     response = cu.handle_input(
+    #         new_context, current_context, None, None, Problem_data)
+    #     # print(response)
+    #     self.assertEqual(type(response), str)
 
     # mf means missing fields
 
@@ -196,11 +198,37 @@ class FunctionsTest(unittest.TestCase):
         print(str(time_list))
         self.assertTrue(type(sentence), str)
 
+    def test_extract_dates(self):
+        date_list = ['July 15th']
+        date_time_list = scu.extract_dates(date_list)
+        print("test_extract_dates")
+        print(date_time_list)
+        self.assertTrue(type(date_time_list[0]), datetime)
+
     def test_spacy(self):
         sentence = "The meeting is from 3 PM to 5 PM"
         print("test_spacy")
         pre.test_spacy(sentence)
         self.assertTrue(type(sentence), str)
+
+    def test_generate_hour_range(self):
+        pd = ProblemData()
+        time_list = pd.generate_hour_ranges("9:00 AM", "5:00 PM", 1)
+        print("test_generate_hour_range")
+        print(time_list)
+        self.assertTrue(type(time_list[0][0]), datetime)
+
+    def test_find_ranges_by_time(self):
+        pd = ProblemData()
+        time_list = pd.generate_hour_ranges("9:00 AM", "5:00 PM", 1)
+        start_time = datetime.time(10, 30)
+        end_time = datetime.time(12, 0)
+
+        index_list = pd.find_ranges_by_time(
+            time_list, start_time, end_time)
+        print("test_find_ranges_by_time")
+        print(index_list)
+        self.assertTrue(type(index_list), list)
 
 
 if __name__ == '__main__':

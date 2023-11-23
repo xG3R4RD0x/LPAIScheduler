@@ -1,5 +1,6 @@
 from dateutil import parser
 from datetime import datetime, timedelta
+import problem_data as pd
 
 
 def extract_dates(dates: list):
@@ -41,6 +42,16 @@ def process_dates(date_list: list):
     return result_dates
 
 
+def generate_total_time_datetime_list(ProblemData: pd):
+
+    start_date = pd.data["hard_constraints"]["start_date"]
+    total_days = pd.data["hard_constraints"]["total_time"]
+
+    date_list = [start_date + timedelta(days=d) for d in range(total_days)]
+
+    return date_list
+
+
 def generate_dates_response_string(date_list: list):
     response = "Thanks for your input, I will take in mind that you won't be able to study on the following dates:\n"
     for d in date_list:
@@ -50,6 +61,13 @@ def generate_dates_response_string(date_list: list):
         else:
             response += d+"\n"
     response
+
+
+def flatten_list(list):
+    flat_list = []
+    for sub_list in list:
+        flat_list.extend(sub_list)
+    return flat_list
 
 
 # TODO realizar función para extraer horas

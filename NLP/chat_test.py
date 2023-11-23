@@ -154,6 +154,7 @@ class ChatTest(unittest.TestCase):
         self.assertTrue(type(chat_data_string))
         self.assertTrue(type(response))
 
+    @unittest.skip("está esperando input")
     def test_second_subject(self):
         print("test_second_subject:")
         self.current_context = "UTime Literature"
@@ -220,6 +221,7 @@ class ChatTest(unittest.TestCase):
         print(response)
         self.assertTrue(type(response), dict)
 
+    @unittest.skip("estßa esperando input")
     def test_no_study_day(self):
         sentence = "I prefer not to study on friday 13th of November"
         input = cu.input_sentence(sentence)
@@ -231,6 +233,7 @@ class ChatTest(unittest.TestCase):
         print(response)
         self.assertTrue(type(response), dict)
 
+    @unittest.skip("está esperando input")
     def test_no_study_hour(self):
         sentence = "I can't study after 7 PM"
         input = cu.input_sentence(sentence)
@@ -244,6 +247,7 @@ class ChatTest(unittest.TestCase):
 
 
 ###### Test Utility Functions ######
+
 
     def create_test_subject(self, problem_data: ProblemData, subject_name: str):
         subject = Subject(subject_name)

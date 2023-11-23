@@ -532,7 +532,7 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
     for d in dates:
         nsd_temp = no_study_day()
         nsd_temp.data.update(
-            {"dates": d, "constraint_type": constraint_type, "repeating_event": None})
+            {"dates": [d], "constraint_type": constraint_type, "repeating_event": None})
         du.add_no_study_day(ProblemData, nsd_temp)
     # ask_if_repeating event
     repeating = False
@@ -580,6 +580,7 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
         dates = None
     if date_question["intent_tag"] == "Denial":
         print("Can you tell me for which date or dates do you want this to be taken in consideration?")
+        Everyday = False
         date_input = pre.tag_date(input("You: "))
         dates_str_list = []
         dates = scu.extract_dates(date_input)
@@ -600,6 +601,8 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
     if len(time_list) < 2:
         end_of_day_time = datetime.time(23, 59)
         time_list.append(end_of_day_time)
+    # si es un rango de fechas creamos un no study hours contraint object para cada fecha
+    # y lo agregamos al problem data
     if type(dates) == list:
         for d in dates:
             nsh_temp = no_study_hours()

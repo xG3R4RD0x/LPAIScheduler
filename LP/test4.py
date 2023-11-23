@@ -25,10 +25,17 @@ hours_per_day = 8
 horas_por_materia = {"Math": 85,
                      "Literature": 90, "Chemistry": 65}
 
-soft_constraints = {
-    "min_math_hours_per_day": {"weight": 3, "limit": 1}
-    # Puedes ajustar el peso según qué tan estricta quieras que sea esta restricción
-}
+# I use a set to avoid duplicates
+no_study_days_constraints = [
+    {"weight": 5, "day": 8},
+    {"weight": 5, "day": 4}
+]
+no_study_hours_constraints = [
+    {"weight": 5, "day": 1, "hour": 1},
+    {"weight": 5, "day": 1, "hour": 2},
+    {"weight": 5, "day": 1, "hour": 3},
+    {"weight": 5, "day": 1, "hour": 4}
+]
 
 
 # creamos el problema
@@ -79,16 +86,32 @@ for dia in total_time:
         problema += pulp.lpSum(x[(dia, materia, hora)]
                                for materia in subjects) <= 1
 
+for nsd in no_study_days_constraints:
+    for dia in total_time:
+        # definimos el día a no estudiar
+        if dia == nsd["day"]:
 
-# soft constraints
+            # se revisa la sumatoria de todas las materias para todas las horas del día especificado
+            # esto tiene que matchear con el valor que pongamos
+            # un día que no se estudia tiene todas las materias y horas en 0
+            # así que el problema se premia cuando es cero
+            # si la suma da 0 se le suma el peso y este valor debe ser igual al peso
+            # eso quiere decir que 0+peso == peso
+            # y se recompensa al problema con ese valor
+            problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
+                1, hours_per_day + 1))+nsd["weight"] == nsd["weight"], f"No_study_day_constraint_{dia}"
 
-# Restricciones suaves
-for constraint, config in soft_constraints.items():
-    if "limit" in config:
-        for dia in total_time:
-            # Asegura que se estudie al menos 1 hora de Matemáticas cada día
-            problema += pulp.lpSum(x[(dia, 'Math', hora)] for hora in range(
-                1, hours_per_day + 1)) >= config["limit"], f"RestriccionSuave_{constraint}_{dia}"
+
+# no_study_hours
+for nsh in no_study_hours_constraints:
+    for dia in total_time:
+        # definimos el día a no estudiar
+        if dia == nsh["day"]:
+            for materia in subjects:
+                for hora in range(1, hours_per_day):
+                    if hora == nsh["hour"]:
+                        problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
+                            1, hours_per_day + 1))+nsh["weight"] == nsh["weight"], f"No_study_hours_constraint_{dia}_{hora}_{materia}"
 
 
 # Resolver el problema

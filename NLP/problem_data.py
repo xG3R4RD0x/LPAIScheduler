@@ -1,5 +1,6 @@
 # an object which has a dictionary to store the parsed data from the chatbot
-import subject
+import soft_constraints_util as scu
+from datetime import datetime, timedelta
 
 
 class ProblemData:
@@ -24,7 +25,7 @@ class ProblemData:
                 "no_study_hours": []
             }
         }
-
+        self.time_list = self.generate_hour_ranges("9:00 AM", "5:00 PM", 1)
         self.current_context = None
         self.context_temp = None
         self.current_context_temp = None
@@ -99,7 +100,102 @@ class ProblemData:
         return self.data["hard_constraints"]["total_time"]
 
     def get_start_date(self):
-        return self.data["hard_constraints"]["start_date"]
+        date = [self.data["hard_constraints"]["start_date"]]
+        return scu.extract_dates(date)
+
+    def get_no_study_days(self):
+        # we get a list with the no study days
+        nsd = self.data["soft_constraints"]["no_study_days"]
+        total_datetime_list = scu.generate_total_time_datetime_list(self)
+        new_nsd = []
+        for item in nsd:
+            i = item.data
+            # all dates are going to be flatten to a unique list
+            date_list = scu.flatten_list(i["dates"])
+            for date in date_list:
+                if i["constraint_type"] == "strong":
+                    weight = 50
+                else:
+                    weight = 5
+                constraint = {"weight": weight, "day": (
+                    total_datetime_list.index(date)+1)}
+                new_nsd.append(constraint)
+        return new_nsd
+    # falta transformar de fechas a numero de días
+
+    def get_no_study_hours(self):
+
+        #  {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": constraint_type})
+
+        # we get a list with the no study days
+        nsd = self.data["soft_constraints"]["no_study_days"]
+        total_datetime_list = scu.generate_total_time_datetime_list(self)
+        total_time = self.data["hard_constraints"]["total_time"]
+        hour_list = self.time_list
+        new_nsd = []
+        for item in nsd:
+
+            i = item.data
+
+            if i["everyday"] == False:
+                # all dates are going to be flatten to a unique list
+                date_list = scu.flatten_list(i["dates"])
+            elif i["everyday"] == True:
+                date_list = range(1, total_time+1)
+
+            for date in date_list:
+                date_num = date
+                if type(date_num) == datetime:
+                    date_num = total_datetime_list.index(date_num)+1
+
+                if i["constraint_type"] == "strong":
+                    weight = 50
+                else:
+                    weight = 5
+
+                hour_range = self.find_ranges_by_time(
+                    total_datetime_list, i["hour_range"][0], i["hour_range"][1])
+
+                for h in hour_range:
+
+                    constraint = {"weight": weight,
+                                  "day": date_num, "hour": h}
+                    new_nsd.append(constraint)
+
+        return new_nsd
+
+    def generate_hour_ranges(self, start, end, duration):
+        # Convert start and end hours to datetime objects
+        start_time = datetime.strptime(start, "%I:%M %p")
+        end_time = datetime.strptime(end, "%I:%M %p")
+
+        # Initialize the list of lists
+        ranges = []
+
+        # Create the hour ranges
+        while start_time <= end_time:
+            # Get the current and end time of the range
+            current_time = start_time.time()
+            end_hour = (start_time + timedelta(hours=duration)).time()
+
+            # Add the range to the list
+            ranges.append([current_time, end_hour])
+
+            # Move to the next range
+            start_time += timedelta(hours=duration)
+
+        return ranges
+
+    # this function transforms the hour range from the soft constraints into
+    # the number of the hour in the study plan
+    def find_ranges_by_time(self, original_ranges, target_start, target_end):
+        indices = []
+
+        for i, (start, end) in enumerate(original_ranges):
+            if start <= target_start <= end or start < target_end <= end:
+                indices.append(i+1)
+
+        return indices
 
     def validate_data(self):
         missing_fields = []
