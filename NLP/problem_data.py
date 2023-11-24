@@ -195,7 +195,7 @@ class ProblemData:
         indices = []
 
         for i, (start, end) in enumerate(original_ranges):
-            if start <= target_start <= end or start < target_end <= end:
+            if start <= target_start < end or start < target_end <= end or (start > target_start and end <= target_end):
                 indices.append(i+1)
 
         return indices

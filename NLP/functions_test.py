@@ -220,9 +220,9 @@ class FunctionsTest(unittest.TestCase):
 
     def test_find_ranges_by_time(self):
         pd = ProblemData()
-        time_list = pd.generate_hour_ranges("9:00 AM", "5:00 PM", 1)
-        start_time = datetime.time(10, 30)
-        end_time = datetime.time(12, 0)
+        time_list = pd.time_list
+        start_time = datetime.time(14, 00)
+        end_time = datetime.time(18, 0)
 
         index_list = pd.find_ranges_by_time(
             time_list, start_time, end_time)

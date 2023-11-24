@@ -30,7 +30,7 @@ class LPTest(unittest.TestCase):
 
     def create_test_nsh(self, problem_data: ProblemData):
         pd = problem_data
-        sentence = "I can't study after 7 PM"
+        sentence = "I can't study after 2 PM"
         time_list = pre.tag_time(sentence)
         time_str = ""
         # print added for debugging
@@ -121,3 +121,7 @@ class LPTest(unittest.TestCase):
         self.create_test_nsd(pd)
         self.create_test_nsh(pd)
         return pd
+
+
+if __name__ == '__main__':
+    unittest.main()
