@@ -8,7 +8,7 @@ import data_util as du
 import datetime
 import soft_constraints_util as scu
 from soft_constraints import no_study_day, no_study_hours
-import LP.extract_data as ed
+import extract_data as ed
 
 
 class LPTest(unittest.TestCase):
@@ -114,6 +114,9 @@ class LPTest(unittest.TestCase):
         du.update_subject(subject, info)
         # total_time
         du.add_total_time(pd, 30)
+        # start_date
+        start_date = scu.extract_dates(pre.tag_date("July 1st"))
+        du.add_start_date(pd, start_date)
         # Constraints
         self.create_test_nsd(pd)
         self.create_test_nsh(pd)

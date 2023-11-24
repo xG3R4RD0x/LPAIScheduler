@@ -5,6 +5,7 @@ from datetime import datetime
 from problem_data import ProblemData
 import data_util as du
 from soft_constraints import no_study_day as nsd, no_study_hours
+import preprocessing as pre
 
 
 class SoftConstraintsTest(unittest.TestCase):
@@ -28,6 +29,13 @@ class SoftConstraintsTest(unittest.TestCase):
         assertion = [[datetime(2023, 7, 15, 0, 0), datetime(2023, 7, 16, 0, 0), datetime(2023, 7, 17,
                                                                                          0, 0), datetime(2023, 7, 18, 0, 0), datetime(2023, 7, 19, 0, 0), datetime(2023, 7, 20, 0, 0)], datetime(2023, 7, 25, 0, 0)]
         self.assertEqual(response, assertion)
+
+    def test_process_dates_start_date(self):
+        dates = pre.tag_date("July 1st")
+        print(dates)
+        start_date = scu.extract_dates(dates)
+        print(start_date)
+        self.assertTrue(type(start_date[0]), datetime)
 
     def test_get_nsd_by_date(self):
         date = datetime(2023, 8, 18, 0, 0)

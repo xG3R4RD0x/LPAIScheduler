@@ -397,6 +397,9 @@ class ChatTest(unittest.TestCase):
         du.update_subject(subject, info)
         # total_time
         du.add_total_time(pd, 30)
+        # start_date
+        start_date = scu.extract_dates(pre.tag_date("July 1st"))
+        du.add_start_date(pd, start_date)
         # Constraints
         self.create_test_nsd(pd)
         self.create_test_nsh(pd)

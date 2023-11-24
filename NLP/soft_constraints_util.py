@@ -9,12 +9,14 @@ def extract_dates(dates: list):
         if type(date) == list:
             date_range = []
             for d in date:
-                parsed_date = parser.parse(d, fuzzy=True)
+                if type(d) != datetime:
+                    parsed_date = parser.parse(d, fuzzy=True)
                 date_range.append(parsed_date)
             date_list.append(date_range)
         else:
-            parsed_date = parser.parse(date, fuzzy=True)
-            date_list.append(parsed_date)
+            if type(date) != datetime:
+                date = parser.parse(date, fuzzy=True)
+            date_list.append(date)
     date_list = process_dates(date_list)
 
     return date_list
@@ -44,10 +46,10 @@ def process_dates(date_list: list):
 
 def generate_total_time_datetime_list(ProblemData: pd):
 
-    start_date = pd.data["hard_constraints"]["start_date"]
-    total_days = pd.data["hard_constraints"]["total_time"]
+    start_date = ProblemData.data["hard_constraints"]["start_date"]
+    total_days = ProblemData.data["hard_constraints"]["total_time"]
 
-    date_list = [start_date + timedelta(days=d) for d in range(total_days)]
+    date_list = [start_date[0] + timedelta(days=d) for d in range(total_days)]
 
     return date_list
 

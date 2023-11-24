@@ -1,5 +1,5 @@
 from datetime import datetime
-from NLP.problem_data import ProblemData as pd
+from problem_data import ProblemData as pd
 
 
 def extract_data(ProblemData: pd):

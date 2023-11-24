@@ -5,7 +5,7 @@ class no_study_day:
         self.data = {
             "day": None,  # Has to be a string with the Name of the day
             "dates": None,
-            "repeating_event": False,
+            "everyday": False,
             "constraint_type": None
         }
         # la intención es que trate de leer el tipo de constraint directo desde el input

@@ -13,7 +13,7 @@ class ProblemData:
         self.data = {
             "hard_constraints": {
                 "start_date": None,  # esto debe ser una fecha con string
-                "end_date": None,  # Fecha limite
+                # "end_date": None,  # Fecha limite
                 "number_of_subjects": None,
                 "subjects": [],
                 "total_time": None,  # default 30 days
@@ -100,7 +100,7 @@ class ProblemData:
         return self.data["hard_constraints"]["total_time"]
 
     def get_start_date(self):
-        date = [self.data["hard_constraints"]["start_date"]]
+        date = self.data["hard_constraints"]["start_date"]
         return scu.extract_dates(date)
 
     def get_no_study_days(self):
@@ -127,19 +127,22 @@ class ProblemData:
 
         #  {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": constraint_type})
 
-        # we get a list with the no study days
-        nsd = self.data["soft_constraints"]["no_study_days"]
+        # we get a list with the no study hours
+        nsh = self.data["soft_constraints"]["no_study_hours"]
         total_datetime_list = scu.generate_total_time_datetime_list(self)
         total_time = self.data["hard_constraints"]["total_time"]
         hour_list = self.time_list
-        new_nsd = []
-        for item in nsd:
+        new_nsh = []
+        for item in nsh:
 
             i = item.data
 
             if i["everyday"] == False:
                 # all dates are going to be flatten to a unique list
-                date_list = scu.flatten_list(i["dates"])
+                if type(i["dates"]) == list:
+                    date_list = i["dates"]
+                elif type(i["dates"]) == datetime:
+                    date_list = [i["dates"]]
             elif i["everyday"] == True:
                 date_list = range(1, total_time+1)
 
@@ -154,15 +157,15 @@ class ProblemData:
                     weight = 5
 
                 hour_range = self.find_ranges_by_time(
-                    total_datetime_list, i["hour_range"][0], i["hour_range"][1])
+                    hour_list, i["hour_range"][0], i["hour_range"][1])
 
                 for h in hour_range:
 
                     constraint = {"weight": weight,
                                   "day": date_num, "hour": h}
-                    new_nsd.append(constraint)
+                    new_nsh.append(constraint)
 
-        return new_nsd
+        return new_nsh
 
     def generate_hour_ranges(self, start, end, duration):
         # Convert start and end hours to datetime objects
