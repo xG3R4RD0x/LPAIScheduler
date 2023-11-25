@@ -16,32 +16,8 @@ from subject import Subject
 from soft_constraints import no_study_day, no_study_hours
 import soft_constraints_util as scu
 import datetime
-# TODO estructurar el chatbot workflow haciendo un arbol de decisiones
-# tiene que entrar en un estado diferente por cada rama del arbol
 
-# ------pesudo code---
-#
-# if "new_context" is in (following_context_list):
-#       do: guardar contexto//este es el estado del chatbot
-#           if context_guardado == Complete || ok || back: //el escape del contexto actual al Main
-#               mandar a que se validen los datos
-#               if datos validos is True:
-#                   print(mensaje de perfecto,)
-#                   return problem_data //confirma los datos y manda a hacer el horario
-#               else:
-#                   generar respuesta con missing_fields
-#           else: //si es un contexto normal
-#               hacer un handler que haga lo que tiene que hacer según el contexto
-#
-#
-#
-#
-#
-# TODO ver como hago para que edite las cosas
-#
-#
-#
-#
+
 # model
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

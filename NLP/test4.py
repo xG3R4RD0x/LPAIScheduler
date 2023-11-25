@@ -141,11 +141,10 @@ for nsh in no_study_hours_constraints:
     for dia in total_time:
         if dia == nsh["day"]:
             for materia in subjects:
-                for hora in range(1, hours_per_day):
+                for hora in range(1, hours_per_day+1):
                     if hora == nsh["hour"]:
-                        problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects) + \
-                            nsh["weight"] == nsh[
-                                "weight"], f"No_study_hours_constraint_{dia}_{hora}_{materia}"
+                        problema += (pulp.lpSum(x[(dia, materia, hora)]
+                                                for materia in subjects) + nsh["weight"]) == nsh["weight"], f"No_study_hours_constraint_{dia}_{hora}_{materia}"
 
 
 # Resolver el problema

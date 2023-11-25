@@ -46,12 +46,12 @@ def create_test_nsh(problem_data: ProblemData):
         for d in dates:
             nsh_temp = no_study_hours()
             nsh_temp.data.update(
-                {"hour_range": time_list, "dates": d, "everyday": Everyday, "constraint_type": "weak"})
+                {"hour_range": time_list, "dates": d, "everyday": Everyday, "constraint_type": "strong"})
             du.add_no_study_hours(pd, nsh_temp)
     else:
         nsh_temp = no_study_hours()
         nsh_temp.data.update(
-            {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": "weak"})
+            {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": "strong"})
         du.add_no_study_hours(pd, nsh_temp)
 
 
@@ -59,7 +59,7 @@ def create_test_nsd(problem_data: ProblemData,):
     sentence = "I prefer not to study from July 15th to July 20th "
     print("test_no_study_day\n")
     pd = problem_data
-    constraint_type = "soft"
+    constraint_type = "weak"
     dates = pre.tag_date(sentence)
 
     dates_w_range = dates
@@ -104,6 +104,6 @@ def create_test_problem_data():
     start_date = scu.extract_dates(pre.tag_date("July 1st"))
     du.add_start_date(pd, start_date)
     # Constraints
-    # create_test_nsd(pd)
+    create_test_nsd(pd)
     create_test_nsh(pd)
     return pd

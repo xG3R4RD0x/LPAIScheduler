@@ -25,7 +25,9 @@ class ProblemData:
                 "no_study_hours": []
             }
         }
-        self.time_list = self.generate_hour_ranges("9:00 AM", "5:00 PM", 1)
+        # day ranges until 4 pm because the generator makes 8 slots
+        # las slot should be 4pm to 5pm
+        self.time_list = self.generate_hour_ranges("9:00 AM", "4:00 PM", 1)
         self.current_context = None
         self.context_temp = None
         self.current_context_temp = None
