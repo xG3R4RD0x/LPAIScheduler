@@ -222,7 +222,7 @@ class FunctionsTest(unittest.TestCase):
         pd = ProblemData()
         time_list = pd.time_list
         start_time = datetime.time(14, 00)
-        end_time = datetime.time(18, 0)
+        end_time = datetime.time(23, 59)
 
         index_list = pd.find_ranges_by_time(
             time_list, start_time, end_time)
