@@ -17,6 +17,9 @@ horas_por_materia = extracted_data["hours_per_subject"]
 no_study_days_constraints = extracted_data["no_study_days"]
 no_study_hours_constraints = extracted_data["no_study_hours"]
 
+horario_matriz = [[None for _ in range(hours_per_day)]
+                  for _ in range(len(total_time))]
+
 # subjects = ["Math", "Literature", "Chemistry"]
 # total_time = range(1, 60+1)
 # hours_per_day = 8
@@ -49,28 +52,6 @@ data = {
         "duration_of_hour": 45
     }
 }
-
-# definicion de variables basadas en datos proporcionados
-# me baso en esto para crear las variables
-
-# subjects = ["Math", "Literature", "Chemistry"]
-# total_time = range(1, 60+1)
-# hours_per_day = 8
-# horas_por_materia = {"Math": 85,
-#                      "Literature": 90, "Chemistry": 65}
-
-# I use a set to avoid duplicates
-# no_study_days_constraints = [
-#     {"weight": 5, "day": 8},
-#     {"weight": 5, "day": 4}
-# ]
-# no_study_hours_constraints = [
-#     {"weight": 5, "day": 1, "hour": 1},
-#     {"weight": 5, "day": 1, "hour": 2},
-#     {"weight": 5, "day": 1, "hour": 3},
-#     {"weight": 5, "day": 1, "hour": 4}
-# ]
-
 
 # creamos el problema
 problema = pulp.LpProblem("PlanificacionEstudio", pulp.LpMaximize)
@@ -153,12 +134,22 @@ problema.solve()
 # Imprimir resultados
 print("Estado:", pulp.LpStatus[problema.status])
 
-# Imprimir el horario de estudio
-print("\nHorario de Estudio:")
+# Llenar la matriz con el horario
 for dia in total_time:
-    print(f"Día {dia}:")
-    for materia in subjects:
-        print(f"{materia}: ", end="")
-        horas_asignadas = [hora for hora in range(
-            1, hours_per_day + 1) if x[(dia, materia, hora)].varValue == 1]
-        print(horas_asignadas)
+    for hora in range(1, hours_per_day + 1):
+        for materia in subjects:
+            if x[(dia, materia, hora)].varValue == 1:
+                horario_matriz[dia - 1][hora - 1] = materia
+
+print(len(horario_matriz))
+
+
+# # Imprimir el horario de estudio
+# print("\nHorario de Estudio:")
+# for dia in total_time:
+#     print(f"Día {dia}:")
+#     for materia in subjects:
+#         print(f"{materia}: ", end="")
+#         horas_asignadas = [hora for hora in range(
+#             1, hours_per_day + 1) if x[(dia, materia, hora)].varValue == 1]
+#         print(horas_asignadas)
