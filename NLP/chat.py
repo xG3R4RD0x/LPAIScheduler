@@ -2,9 +2,11 @@ import chat_util as cu
 from problem_data import ProblemData
 from preprocessing import bag_of_words, preprocess_text
 from model import NeuralNet
+from generate_plan import PlanGenerator as pg
 import random
 import json
 import torch
+
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -41,6 +43,9 @@ problem_data = ProblemData()
 problem_data.set_current_context("Main")
 
 while True:
+    if problem_data.complete == True:
+        break
+
     sentence = input('You: ')
     if sentence == "quit":
         break
@@ -90,16 +95,12 @@ while True:
             # current_context_update
             problem_data.set_current_context(new_context)
 
-            # tengo que hacer una función que revise los datos que se acaban
-            # de ingresar, los analice y agregue al problem data
-            # por ejemplo si ingresa el nombre de las materias que les haga tokens
-            # y las ingrese uno por uno y cambie a un nuevo contexto
-
             # tengo que hacer una función que devuelva una respuesta en base
             # al contexto que se acaba de ingresar
 
             print(
                 f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type})\n"+response)
+
         else:
             # siempre que se salga del arbol asumimos que quiere regresarse a Main
             # guardamos el contexto que acaba de entrar para después de que el usuario confirme el back_to_main
@@ -120,6 +121,10 @@ while True:
         missing_fields = problem_data.validate_data()
         # revisar la respuesta anterior basada en el current context
 
-        response = cu.generate_response(missing_fields)
+        response = cu.generate_response(missing_fields, problem_data)
 
         print(f"{botname}: Sorry... I didn't get that.\n{response}")
+
+if problem_data.complete == True:
+    # Generate Study Plan
+    generated_plan = pg(problem_data)

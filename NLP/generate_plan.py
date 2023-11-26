@@ -45,8 +45,8 @@ class PlanGenerator:
 
         # Define las variables de decisión: horas libres por día
         # es un valor que indica el numero de horas libres por día
-        horas_libres = pulp.LpVariable.dicts(
-            "HorasLibres", total_time, lowBound=0, upBound=hours_per_day, cat=pulp.LpInteger)
+        # horas_libres = pulp.LpVariable.dicts(
+        #     "HorasLibres", total_time, lowBound=0, upBound=hours_per_day, cat=pulp.LpInteger)
 
         ## Hard Constraints##
 
@@ -57,10 +57,10 @@ class PlanGenerator:
                     problema += x[(dia, materia, hora)] + \
                         x[(dia, materia, hora + 1)] <= 1
 
-        # Restricción de disponibilidad de tiempo total por día
-        for dia in total_time:
-            problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
-                1, hours_per_day + 1)) == hours_per_day - horas_libres[dia]
+        # # Restricción de disponibilidad de tiempo total por día
+        # for dia in total_time:
+        #     problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
+        #         1, hours_per_day + 1)) == hours_per_day - horas_libres[dia]
 
         # Restricción de duración total de estudio por materia
         #

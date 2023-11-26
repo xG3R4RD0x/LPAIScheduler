@@ -36,9 +36,8 @@ class ProblemData:
         self.edit = False
         self.complete = False
 
-    # validate data does not validate the soft_constraints yet
-    # TODO validate also soft_constraints
     # subject_list is a list with the names of the subjects
+
     def set_subject_list(self, subject_list: list):
 
         for subject in subject_list:

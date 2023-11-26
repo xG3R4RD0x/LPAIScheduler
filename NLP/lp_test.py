@@ -18,7 +18,7 @@ class LPTest(unittest.TestCase):
 
     def test_extract_data(self):
         print("test_extract_data")
-        print(self.pd)
+        print(self.pd.data["soft_constraints"]["no_study_hours"][0].data)
         extracted_data = ed.extract_data(self.pd)
         print(extracted_data)
         self.assertTrue(type(extracted_data), dict)

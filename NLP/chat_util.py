@@ -127,20 +127,84 @@ def check_context(current_context, new_context):
     return False
 
 
-def generate_response(missing_fields):
+def validate_for_generator(problem_data: pd):
+    # total available hours
+    total_available_hours = problem_data.data["hard_constraints"]["total_time"] * \
+        problem_data.data["hard_constraints"]["hours_per_day"]
+    # total hours to study
+    study_hours = 0
+    subject_list = problem_data.get_subject_list()
+    for s in subject_list:
+        h = s.data["hours_per_unit"] * s.data["number_of_units"]
+        study_hours += h
+
+    nsh_number = 0
+    nsd_number = 0
+    # constraints_hours
+    # nsd_hours
+    if problem_data.data["soft_constraints"]["no_study_days"] != []:
+        no_study_day_list = problem_data.data["soft_constraints"]["no_study_days"]
+        for nsd in no_study_day_list:
+            nsd_number += len(nsd.data["dates"])
+    # nsh hours
+    if problem_data.data["soft_constraints"]["no_study_hours"] != []:
+        total_hour_list = problem_data.time_list
+        no_study_hours_list = problem_data.data["soft_constraints"]["no_study_hours"]
+        for nsh in no_study_hours_list:
+            hour_range = nsh.data["hour_range"]
+            # number of hours from hour range
+            hour_range_index_list = problem_data.find_ranges_by_time(
+                total_hour_list, hour_range[0], hour_range[1])
+            date_list = nsh.data["dates"]
+
+            nsh_number += len(hour_range_index_list)*len(date_list)
+    # overlapping constraint hours are counted double
+    constraint_hours = nsh_number+nsd_number
+
+    if total_available_hours < study_hours:
+        print("It looks like the hours needed to study exceed the hours in the plan.\n Please enter a bigger duration of the study plan.")
+        return False
+    elif (total_available_hours-constraint_hours) < study_hours:
+        print("It looks like the given restrictions make the needed hours to study exceed the hours in the plan.\n")
+        print("Should we create the plan without the restrictions?")
+        confirmation = ask_for_confirmation()
+
+        if confirmation == True:
+            problem_data.data["soft_constraints"]["no_study_days"] = []
+            problem_data.data["soft_constraints"]["no_study_hours"] = []
+            # aquí debe venir un return
+
+        else:
+            problem_data.data["soft_constraints"]["no_study_days"] = []
+            problem_data.data["soft_constraints"]["no_study_hours"] = []
+            print("The Restrictions have been erased, try to add them again")
+            return False
+
+    else:
+        return True
+
+    # "soft_contraints":
+#         {"no_study_days": [{"dates": [datetime.date(2023, 11, 16), datetime.date(2023, 11, 19)], "constraint_type": "soft"}],
+#          "no_study_hours": [{"hour_range": ["15:00:00", "18:00:00"],
+#                              "everyday": False,
+#                              "dates": [datetime.date(2023, 11, 20), datetime.date(2023, 11, 25)],
+#                              "constraint_type": "strong"}]
+#          }}
+
+
+def generate_response(missing_fields, problem_data: pd = None):
     if missing_fields is True:
         # insert a response that says that everything is correctly filled
 
         sentence = input(
             "It looks like I got all the information I need, do you want to add or change anything?")
-        input = input_sentence(sentence)
-        if input["intent_tag"] == "Confirmation":
+        confirmation = ask_for_confirmation()
+        if confirmation == False:
 
-            return "everything is fine"
-        else:
-            if input["intent_tag"] == "Denial":
-                response = "Perfect! I will start working on your study plan right away!"
-                return response
+            response = "Perfect! I will start working on your study plan right away!"
+            # aquí se llama al generador de horarios
+            problem_data.complete = True
+            return response
     if missing_fields is False:
         return "Error with Problem Data"
 
@@ -166,6 +230,9 @@ def generate_response(missing_fields):
         response = random.choice(response_options)
         response = response.replace("{checked_fields}", checked_fields_str)
 
+        return response
+    else:
+        response = "Fell free to change any information you want :)"
         return response
 
 
@@ -385,9 +452,9 @@ def handle_context_main(new_context, ProblemData: pd, sentence: str):
             hours_per_day = abs(pre.number_from_text(input("You: ")))
         print("We are going to plan your days with " +
               str(hours_per_day)+"h for studying")
-
+# aqui debe ser validado
     missing_fields = ProblemData.validate_data()
-    response = generate_response(missing_fields)
+    response = generate_response(missing_fields, ProblemData)
     if new_context != "Main":
         added_info_response = "You just added: " + field + "\n" + response
         return added_info_response
@@ -508,10 +575,9 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
     for d in dates:
         nsd_temp = no_study_day()
         nsd_temp.data.update(
-            {"dates": [d], "constraint_type": constraint_type, "repeating_event": None})
+            {"dates": [d], "constraint_type": constraint_type, "everyday": None})
         du.add_no_study_day(ProblemData, nsd_temp)
     # ask_if_repeating event
-    repeating = False
     print("LPAIbot: Is this weekly?")
     repeating_sentence = input('You: ')
     inps = input_sentence(repeating_sentence)
@@ -522,7 +588,7 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
         # agregar flag a todas las fechas
         for d in dates:
             nsd = du.get_nsd_by_datetime(ProblemData, d)
-            nsd.data.update({"repeating_event": True})
+            nsd.data.update({"everyday": True})
     elif inps["intent_tag"] == "Denial":
         repeating = False
     # show nsd information
@@ -635,7 +701,7 @@ def keep_editing(ProblemData: pd, subject: Subject):
             ProblemData.set_edit_flag(False)
             ProblemData.current_context = "Main"
             missing_fields = ProblemData.validate_data()
-            return generate_response(missing_fields)
+            return generate_response(missing_fields, ProblemData)
 
 
 def readable_field(field):
@@ -696,9 +762,17 @@ def next_subject(ProblemData: pd):
         # if there are no more subjects in the list
         # we generate a string asking for the rest of missing fields
         missing_fields = ProblemData.validate_data()
-        response = generate_response(missing_fields)
+        response = generate_response(missing_fields, ProblemData)
         ProblemData.set_current_context("Main")
         return response
+
+
+def ask_for_confirmation():
+    confirmation = input("You: ")
+    if "no" in confirmation:
+        return False
+    else:
+        return True
 
 
 def input_sentence(sentence, all_words=all_words, device=device, tags=tags, constraint_types=constraint_types, model=model):
