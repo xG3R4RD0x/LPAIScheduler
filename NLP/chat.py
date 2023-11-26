@@ -3,7 +3,6 @@ from problem_data import ProblemData
 from preprocessing import bag_of_words, preprocess_text
 from model import NeuralNet
 from generate_plan import PlanGenerator as pg
-import random
 import json
 import torch
 
@@ -47,6 +46,12 @@ while True:
         break
 
     sentence = input('You: ')
+    # adding subject information hotfix
+    if "Name" in current_context or "UTime" in current_context:
+        sentence = cu.force_unit_string(sentence)
+    elif "Unit" in current_context:
+        sentence = cu.force_utime_string(sentence)
+
     if sentence == "quit":
         break
     # we save the input sentence to extract the information

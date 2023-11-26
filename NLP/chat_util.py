@@ -575,28 +575,12 @@ def handle_context_no_study_days(sentence: str, ProblemData: pd, constraint_type
     for d in dates:
         nsd_temp = no_study_day()
         nsd_temp.data.update(
-            {"dates": [d], "constraint_type": constraint_type, "everyday": None})
+            {"dates": [d], "constraint_type": constraint_type})
         du.add_no_study_day(ProblemData, nsd_temp)
-    # ask_if_repeating event
-    print("LPAIbot: Is this weekly?")
-    repeating_sentence = input('You: ')
-    inps = input_sentence(repeating_sentence)
-    # print added for debugging purposes
-    print("intent_tag:"+inps["intent_tag"])
-    if inps["intent_tag"] == "Confirmation":
-        repeating = True
-        # agregar flag a todas las fechas
-        for d in dates:
-            nsd = du.get_nsd_by_datetime(ProblemData, d)
-            nsd.data.update({"everyday": True})
-    elif inps["intent_tag"] == "Denial":
-        repeating = False
     # show nsd information
     response_str = "Got it, I am going to take in consideration these dates for you to not to study:"
     for d in dates_w_range:
         response_str += "\n-"+str(d)
-    if repeating == True:
-        response_str += "\nand it's going to be repeated weekly"
     return response_str
 
 
@@ -616,28 +600,22 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
             time_str += t.strftime("%I:%M %p")
 
     print("LPAIbot: Great!, well take in consideration not to assign you study time during these hours:\n"+time_str)
-    print("Do you want this for everyday?")
-    date_question = input_sentence(input("You: "))
-    if date_question["intent_tag"] == "Confirmation":
-        response_str = "Cool, We are going to do this for everyday"
-        Everyday = True
-        dates = None
-    elif date_question["intent_tag"] == "Denial":
-        print("Can you tell me for which date or dates do you want this to be taken in consideration?")
-        Everyday = False
-        date_input = pre.tag_date(input("You: "))
-        dates_str_list = []
-        dates = scu.extract_dates(date_input)
-        for d in date_input:
-            if type(d) == list:
-                dates_str = "from "+d[0] + "to "+d[1]
-                dates_str_list.append(dates_str)
-            else:
-                dates_str_list.append(d)
 
-        response_str = "Got it, I am going to take in consideration these dates:"
-        for d in dates_str_list:
-            response_str += "\n-"+d
+    print("Can you tell me for which date or dates do you want this to be taken in consideration?")
+    Everyday = False
+    date_input = pre.tag_date(input("You: "))
+    dates_str_list = []
+    dates = scu.extract_dates(date_input)
+    for d in date_input:
+        if type(d) == list:
+            dates_str = "from "+d[0] + "to "+d[1]
+            dates_str_list.append(dates_str)
+        else:
+            dates_str_list.append(d)
+
+    response_str = "Got it, I am going to take in consideration these dates:"
+    for d in dates_str_list:
+        response_str += "\n-"+d
 
     # creating the no_study_hour_object
     # we take out the first element of the list because it is a string with the time
@@ -659,7 +637,7 @@ def handle_context_no_study_hours(sentence: str, ProblemData: pd, constraint_typ
             {"hour_range": time_list, "dates": None, "everyday": Everyday, "constraint_type": constraint_type})
         du.add_no_study_hours(ProblemData, nsh_temp)
 
-    # We need to verifz at the end that all data has been generated correctly
+    # We need to verify at the end that all data has been generated correctly
     # If I got a nsh withoutdate I have to ask for it, but if it is for everyday
     # I have to assign it and copy it in every day
 
@@ -681,27 +659,26 @@ def str_in_subject(sentence: str, subject_list: list):
 def keep_editing(ProblemData: pd, subject: Subject):
     # aquí le preguntamos al usuario si quiere seguir editando
     keep_editing_str = "Do you want to keep editing?"
-    sentence = input(keep_editing_str)
+    print(keep_editing_str)
     # se debe dar un codigo que acepte valores solo de si o no
-    input = input_sentence(sentence)
+    confirmation = ask_for_confirmation()
 
     # si se quiere seguir editando
     # devolvemos un string con los fields de los subjects que se pueden editar
-    if input["intent_tag"] == "Confirmation":
+    if confirmation == True:
         fields = subject.get_fields()
         fields_str = "\n".join([f"- {valor}" for valor in fields])
 
         return "Nice, what do you want to change from the subject?\n"+fields_str
     else:
         # si ya no se quiere seguir editando:
-        if input["intent_tag"] == "Denial":
-            # se quita la flag de edicion y se regresa a main
-            ProblemData.pop_subject_list()
-            ProblemData.set_add_info_to_subject(False)
-            ProblemData.set_edit_flag(False)
-            ProblemData.current_context = "Main"
-            missing_fields = ProblemData.validate_data()
-            return generate_response(missing_fields, ProblemData)
+        # se quita la flag de edicion y se regresa a main
+        ProblemData.pop_subject_list()
+        ProblemData.set_add_info_to_subject(False)
+        ProblemData.set_edit_flag(False)
+        ProblemData.current_context = "Main"
+        missing_fields = ProblemData.validate_data()
+        return generate_response(missing_fields, ProblemData)
 
 
 def readable_field(field):
@@ -773,6 +750,18 @@ def ask_for_confirmation():
         return False
     else:
         return True
+
+
+def force_unit_string(sentence):
+    number_of_units = str(pre.number_from_text(sentence))
+    sentence = "I'm studying a topic that consists of "+number_of_units + " units"
+    return sentence
+
+
+def force_utime_string(sentence):
+    hours_per_units = str(pre.number_from_text(sentence))
+    sentence = "I need "+hours_per_units+" hours to complete one unit"
+    return sentence
 
 
 def input_sentence(sentence, all_words=all_words, device=device, tags=tags, constraint_types=constraint_types, model=model):
