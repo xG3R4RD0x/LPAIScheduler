@@ -30,7 +30,14 @@ def tag_date(sentence):
 
     for ent in doc.ents:
         if ent.label_ == "DATE":
-            current_date = ent.text
+            # hotfix fow when "days" comes into the input
+            if "day" in ent.text.lower():
+                today = datetime.now()
+                current_date = today.strftime("%b %d %Y")
+
+            else:
+                current_date = ent.text
+
             for token in ent:
                 if token.pos_ == "ADP":
                     current_date = current_date.replace(token.text, ", ")
@@ -44,10 +51,11 @@ def tag_date(sentence):
                 date_list.append(current_date_range)
             else:
                 date_list.append(current_date_range[0].strip())
+
     if date_list == []:
-        print("LPAIbot: Sorry I didn't get the dates could you write them again please?")
+        print("LPAIbot: Sorry I didn't get the date...\n can you please write like this: January 4th?")
         new_str = input("You: ")
-        tag_date(new_str)
+        return tag_date(new_str)
     else:
         return date_list
 # NO OLVIDAR usar extract_dates() de soft_constraints_util al final para transformar todo en formato datetime

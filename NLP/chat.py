@@ -42,14 +42,12 @@ problem_data = ProblemData()
 problem_data.set_current_context("Main")
 
 while True:
-    if problem_data.complete == True:
-        break
 
     sentence = input('You: ')
     # adding subject information hotfix
-    if "Name" in current_context or "UTime" in current_context:
+    if "Name" in problem_data.current_context or "UTime" in problem_data.current_context:
         sentence = cu.force_unit_string(sentence)
-    elif "Unit" in current_context:
+    elif "Unit" in problem_data.current_context:
         sentence = cu.force_utime_string(sentence)
 
     if sentence == "quit":
@@ -98,11 +96,15 @@ while True:
             response = cu.handle_input(new_context, problem_data.current_context, problem_data.context_temp,
                                        problem_data.current_context_temp, problem_data, input_str)
             # current_context_update
-            problem_data.set_current_context(new_context)
+            if problem_data.subject_list == [] and ("Unit" in problem_data.current_context or "UTime" in problem_data.current_context):
+                problem_data.set_current_context("Main")
+            else:
+                problem_data.set_current_context(new_context)
 
-            # tengo que hacer una función que devuelva una respuesta en base
-            # al contexto que se acaba de ingresar
-
+            # breaks while and goes to generator if everything is complete
+            if problem_data.complete == True:
+                break
+            # print handler responses
             print(
                 f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type})\n"+response)
 
@@ -119,7 +121,7 @@ while True:
             response = cu.handle_input(
                 "Main", problem_data.current_context, problem_data.context_temp, None, problem_data)
             print(response)
-            current_context = "Main"
+            problem_data.set_current_context = "Main"
     else:
         # cuando no se entiende el contexto
         # mostramos el string con los datos que faltan y pedimos que se los llene

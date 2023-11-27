@@ -5,35 +5,363 @@
             "context": "Main-total_time",
             "patterns": [
                 {
-                    "text": "My study plan spans 8 months",
+                    "text": "I've planned my study for 30 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm committed to studying for 9 months",
+                    "text": "My commitment is to study for 45 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I have allocated 12 months for my studies",
+                    "text": "I've allocated 60 days for my studies",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I intend to study for a short 3 months",
+                    "text": "I plan to study for a brief 15 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I want to complete my studies in just 2 months",
+                    "text": "I aim to complete my studies in just 10 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm considering a study duration of 6 months",
+                    "text": "I'm contemplating a study duration of 20 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "My Exams are in 6 months",
+                    "text": "My exams are in 25 days",
                     "constraint_type": "strong"
                 },
                 {
-                    "text": "I'm considering a study duration of 6 months",
+                    "text": "I'm considering a study duration of 18 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to a 21-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I have set aside 28 days for studying",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to finish my studies within 12 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've planned for an intensive 5-day study session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've scheduled a 40-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm targeting a study duration of 7 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking of a study period lasting 14 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my course in 3 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 50 days straight",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to dedicate 35 days to my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided on a 16-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm allocating 22 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "My goal is to study for 9 days continuously",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've set a study duration of 27 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 24-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning for a 19-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to achieve my study goals in 8 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've dedicated 11 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to a 33-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 25 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my studies in just 6 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 13-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've planned for an intensive 4-day study session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm targeting a study duration of 15 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've allocated 32 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to dedicate 23 days to my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking of a study period lasting 17 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my course in 5 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 55 days straight",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided on a 26-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 29-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning for a 21-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to achieve my study goals in 7 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've dedicated 14 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to a 38-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 28 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my studies in just 10 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for an 18-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've planned for an intensive 6-day study session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm targeting a study duration of 22 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've allocated 36 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to dedicate 31 days to my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking of a study period lasting 16 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my course in 4 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 48 days straight",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided on a 25-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 30-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning for a 20-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to achieve my study goals in 6 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've dedicated 13 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to a 34-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 24 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my studies in just 9 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 15-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've planned for an intensive 7-day study session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm targeting a study duration of 23 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've allocated 37 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to dedicate 33 days to my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking of a study period lasting 19 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my course in 5 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 52 days straight",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided on a 27-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 31-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning for a 22-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to achieve my study goals in 8 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've dedicated 15 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to a 40-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm considering a study duration of 29 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my studies in just 11 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 17-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've planned for an intensive 5-day study session",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm targeting a study duration of 21 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've allocated 35 days for my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I plan to dedicate 30 days to my studies",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm thinking of a study period lasting 15 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to complete my course in 4 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm committed to studying for 47 days straight",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've decided on a 24-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm aiming for a 28-day study plan",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I'm planning for a 19-day study duration",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I want to achieve my study goals in 7 days",
+                    "constraint_type": "strong"
+                },
+                {
+                    "text": "I've dedicated 14 days for my studies",
                     "constraint_type": "strong"
                 }
             ]
@@ -191,91 +519,7 @@
             "context": "Unit",
             "patterns": [
                 {
-                    "text": "it has 4 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "chemistry has 4 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Math has 4 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "the subject has 2 units ",
-                    "constraint_type": "strong"
-                },
-                {
                     "text": "I'm studying a topic that consists of 4 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to cover 9 sections for Literature",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 5 modules in this Literature",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "Biology comprises 10 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The syllabus is composed of 8 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be studying 6 parts in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I have to complete 5 divisions of this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This chapter includes 7 units to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 12 segments to cover in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be tackling 6 chapters in this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This topic has 9 divisions",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The course contains 4 modules to complete",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need to go through 7 sections of this subject",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "There are 5 stages in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "This topic is divided into 8 units to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "The syllabus is divided into 10 units",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'll be studying 6 parts in this course",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I have to complete 5 divisions of this subject",
                     "constraint_type": "strong"
                 }
             ]
@@ -285,87 +529,7 @@
             "context": "UTime",
             "patterns": [
                 {
-                    "text": "I usually spend a week on each unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "It takes me about 10 days per unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm studying 4 hours per Unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "A chapter takes me 2 hours to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I can study an Unit in 2 days",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "On average, it takes me a day for each unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I allocate 6 hours per unit for studying",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm efficient, I need only 1 hour per unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "It usually takes me 3 days to cover one unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I aim for 5 hours of study for each unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I can finish a unit in 2 hours",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "It generally takes me 8 days to study one unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I prefer to study for 12 hours per unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "A unit usually takes me a week to study",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I allocate 2 days for each unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I need 3 hours to complete one unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "On average, I spend 4 days on one unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I aim to study 7 hours for each unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I'm quite fast, it takes me only 1.5 hours for a unit",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I usually finish a unit in 3 days",
-                    "constraint_type": "strong"
-                },
-                {
-                    "text": "I allocate 10 hours for each unit",
+                    "text": "I need 3 hours to complete each unit",
                     "constraint_type": "strong"
                 }
             ]

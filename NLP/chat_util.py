@@ -193,21 +193,26 @@ def validate_for_generator(problem_data: pd):
 
 
 def generate_response(missing_fields, problem_data: pd = None):
-    if missing_fields is True:
+    if missing_fields is True or missing_fields == [{'subjects': []}] or missing_fields == []:
         # insert a response that says that everything is correctly filled
 
-        sentence = input(
+        print(
             "It looks like I got all the information I need, do you want to add or change anything?")
         confirmation = ask_for_confirmation()
         if confirmation == False:
+            if validate_for_generator(problem_data) == True:
+                response = "Perfect! I will start working on your study plan right away!"
+                # aquí se llama al generador de horarios
+                problem_data.complete = True
+                return response
 
-            response = "Perfect! I will start working on your study plan right away!"
-            # aquí se llama al generador de horarios
-            problem_data.complete = True
-            return response
+            else:
+                response = "Feel free to change or add all the information that you need :)"
+                return response
+
     if missing_fields is False:
         return "Error with Problem Data"
-
+    print(missing_fields)
     if type(missing_fields) is list:
         checked_fields = read_missing_fields(missing_fields)
         checked_fields_str = ""
@@ -425,16 +430,22 @@ def handle_context_denial(context_temp, Problem_data):
 
 
 def handle_context_main(new_context, ProblemData: pd, sentence: str):
-    print("dentro del handle_context main")
+
     if "-total_time" in new_context:
         field = readable_field("total_time")
         total_time = pre.number_from_text(sentence)
         du.add_total_time(ProblemData, total_time)
-        print("LPAIbot: When do you want to start?(date)")
-        date_input = input("You: ")
-        date = pre.tag_date(date_input)
-        print("LPAIbot: We are going to start from:"+date[0])
-        du.add_start_date(ProblemData, date[0])
+        print("LPAIbot: When do you want to start?(For Example: July 10th)")
+        while True:
+            date_input = input("You: ")
+            date = pre.tag_date(date_input)
+            if type(date[0]) != list:
+                print("LPAIbot: We are going to start from: "+date[0])
+                du.add_start_date(ProblemData, date[0])
+                break
+            else:
+                print(
+                    "LPAIbot: Sorry I didn't get the date...\n can you please write like this: January 4th?")
 
     elif "-duration_of_hour" in new_context:
         field = readable_field("duration_of_hour")
@@ -464,6 +475,8 @@ def handle_context_main(new_context, ProblemData: pd, sentence: str):
 
 def handle_context_subject(input_sentence, ProblemData: pd):
     number_of_subjects = pre.number_from_text(input_sentence)
+    if number_of_subjects == 0:
+        number_of_subjects = 1
     du.add_info(ProblemData, "number_of_subjects", number_of_subjects)
     response_str = "Great! you are working on " + \
         str(number_of_subjects)+" subjects.\nHow are these subjects called?"
@@ -471,9 +484,6 @@ def handle_context_subject(input_sentence, ProblemData: pd):
 
 
 def handle_context_name(input_sentence, ProblemData: pd):
-    # TODO necesito una función que identifique los subjects y los meta en un array
-    # quiero que de este array se actualice el numero de subjects
-
     # subjects_list tiene una lista de los nombres de los subjects
     subjects_list = pre.tag_subjects(input_sentence)
     # subject_list is a string list with the names of the subjects
@@ -740,7 +750,7 @@ def next_subject(ProblemData: pd):
         # we generate a string asking for the rest of missing fields
         missing_fields = ProblemData.validate_data()
         response = generate_response(missing_fields, ProblemData)
-        ProblemData.set_current_context("Main")
+        ProblemData.set_add_info_to_subject(False)
         return response
 
 
@@ -760,7 +770,7 @@ def force_unit_string(sentence):
 
 def force_utime_string(sentence):
     hours_per_units = str(pre.number_from_text(sentence))
-    sentence = "I need "+hours_per_units+" hours to complete one unit"
+    sentence = "I need "+hours_per_units+" hours to complete each unit"
     return sentence
 
 

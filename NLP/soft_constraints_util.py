@@ -5,6 +5,9 @@ import problem_data as pd
 
 def extract_dates(dates: list):
     date_list = []
+    if type(dates) == str:
+        dates = [dates]
+
     for date in dates:
         if type(date) == list:
             date_range = []
@@ -46,9 +49,9 @@ def process_dates(date_list: list):
 
 def generate_total_time_datetime_list(ProblemData: pd):
 
-    start_date = ProblemData.data["hard_constraints"]["start_date"]
+    start_date = extract_dates(
+        ProblemData.data["hard_constraints"]["start_date"])
     total_days = ProblemData.data["hard_constraints"]["total_time"]
-
     date_list = [start_date[0] + timedelta(days=d) for d in range(total_days)]
 
     return date_list
