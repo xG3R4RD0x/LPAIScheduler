@@ -20,6 +20,9 @@ class PlanGenerator:
         self.generated_plan = [[None for _ in range(
             hours_per_day)] for _ in range(len(total_time))]
 
+        hard_constraint_weight = 5
+        soft_constraint_weigth = 1
+
         # Datos proporcionados
         data = {
             "hard_constraints": {
@@ -53,22 +56,23 @@ class PlanGenerator:
         # Restricción para evitar estudiar más de dos horas seguidas de la misma materia
         for dia in total_time:
             for materia in subjects:
-                for hora in range(1, hours_per_day):
-                    problema += x[(dia, materia, hora)] + \
-                        x[(dia, materia, hora + 1)] <= 1
-
-        # # Restricción de disponibilidad de tiempo total por día
-        # for dia in total_time:
-        #     problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
-        #         1, hours_per_day + 1)) == hours_per_day - horas_libres[dia]
+                for hora in range(1, hours_per_day-1):
+                    problema += soft_constraint_weigth*(x[(dia, materia, hora)] +
+                                                        x[(dia, materia, hora + 1)] +
+                                                        x[(dia, materia, hora + 2)] <= 2)
 
         # Restricción de duración total de estudio por materia
         #
         # pupl.lpSum lo que hace es sumar todas las variables de decisión y compararla con el valor deseado
         # en este caso hacemos esto para cada materia y sumamos todas las variables de decision y deben dar el numero max por materia
-        for materia in subjects:
-            problema += pulp.lpSum(x[(dia, materia, hora)] for dia in total_time for hora in range(
-                1, hours_per_day + 1)) == horas_por_materia[materia]
+            for materia in subjects:
+                problema += hard_constraint_weight * (
+                    pulp.lpSum(
+                        x[(dia, materia, hora)]
+                        for dia in total_time
+                        for hora in range(1, hours_per_day + 1)
+                    ) == horas_por_materia[materia]
+                )
 
         # Restricción para evitar que se estudie más de una materia a la vez
         # es una restriccion que se ejerce en cada hora para comprobar que no se
@@ -77,8 +81,13 @@ class PlanGenerator:
         # en este caso solo puede haber una materia en ese día y hora así que debe ser igual o menor a 1
         for dia in total_time:
             for hora in range(1, hours_per_day + 1):
-                problema += pulp.lpSum(x[(dia, materia, hora)]
-                                       for materia in subjects) <= 1
+                problema += hard_constraint_weight * (
+                    pulp.lpSum(
+                        x[(dia, materia, hora)] for materia in subjects
+                    ) <= 1
+                )
+
+        # No study days
 
         for nsd in no_study_days_constraints:
             for dia in total_time:
@@ -92,8 +101,8 @@ class PlanGenerator:
                     # si la suma da 0 se le suma el peso y este valor debe ser igual al peso
                     # eso quiere decir que 0+peso == peso
                     # y se recompensa al problema con ese valor
-                    problema += pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
-                        1, hours_per_day + 1))+nsd["weight"] == nsd["weight"], f"No_study_day_constraint_{dia}"
+                    problema += nsd["weight"]*(pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
+                        1, hours_per_day + 1)) == 0), f"No_study_day_constraint_{dia}"
 
         # no_study_hours
         for nsh in no_study_hours_constraints:
@@ -102,8 +111,8 @@ class PlanGenerator:
                     for materia in subjects:
                         for hora in range(1, hours_per_day+1):
                             if hora == nsh["hour"]:
-                                problema += (pulp.lpSum(x[(dia, materia, hora)]
-                                                        for materia in subjects) + nsh["weight"]) == nsh["weight"], f"No_study_hours_constraint_{dia}_{hora}_{materia}"
+                                problema += nsh["weight"]*(pulp.lpSum(x[(dia, materia, hora)]
+                                                                      for materia in subjects)) == 0, f"No_study_hours_constraint_{dia}_{hora}_{materia}"
 
         # Resolver el problema
         problema.solve()

@@ -115,9 +115,9 @@ class ProblemData:
             date_list = scu.flatten_list(i["dates"])
             for date in date_list:
                 if i["constraint_type"] == "strong":
-                    weight = 50
-                else:
                     weight = 5
+                else:
+                    weight = 1
                 constraint = {"weight": weight, "day": (
                     total_datetime_list.index(date)+1)}
                 new_nsd.append(constraint)
@@ -153,9 +153,9 @@ class ProblemData:
                     date_num = total_datetime_list.index(date_num)+1
 
                 if i["constraint_type"] == "strong":
-                    weight = 50
-                else:
                     weight = 5
+                else:
+                    weight = 1
 
                 hour_range = self.find_ranges_by_time(
                     hour_list, i["hour_range"][0], i["hour_range"][1])
