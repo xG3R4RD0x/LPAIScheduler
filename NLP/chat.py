@@ -175,8 +175,9 @@ def start_chat(socket_from_front_end):
 
             response = cu.generate_response(
                 missing_fields, problem_data)
+            response_string = "Sorry... I didn't get that.\n" + response
 
-            send_output("Sorry... I didn't get that.\n{response}")
+            send_output(response_string)
 
     if problem_data.complete == True:
         # Generate Study Plan
