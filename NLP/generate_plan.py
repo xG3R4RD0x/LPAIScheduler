@@ -91,18 +91,11 @@ class PlanGenerator:
 
         for nsd in no_study_days_constraints:
             for dia in total_time:
-                # definimos el día a no estudiar
                 if dia == nsd["day"]:
-
-                    # se revisa la sumatoria de todas las materias para todas las horas del día especificado
-                    # esto tiene que matchear con el valor que pongamos
-                    # un día que no se estudia tiene todas las materias y horas en 0
-                    # así que el problema se premia cuando es cero
-                    # si la suma da 0 se le suma el peso y este valor debe ser igual al peso
-                    # eso quiere decir que 0+peso == peso
-                    # y se recompensa al problema con ese valor
-                    problema += nsd["weight"]*(pulp.lpSum(x[(dia, materia, hora)] for materia in subjects for hora in range(
-                        1, hours_per_day + 1)) == 0), f"No_study_day_constraint_{dia}"
+                    sum_hours = pulp.lpSum(
+                        x[(dia, materia, hora)] for materia in subjects for hora in range(1, hours_per_day + 1))
+                    problema += nsd["weight"] * \
+                        (sum_hours == 0), f"No_study_day_constraint_{dia}"
 
         # no_study_hours
         for nsh in no_study_hours_constraints:
@@ -149,3 +142,5 @@ class PlanGenerator:
         #                 'no_study_hours': [{'weight': 50, 'day': 25, 'hour': 6},
         #                                    {'weight': 50, 'day': 25, 'hour': 7},
         #                                    {'weight': 50, 'day': 25, 'hour': 8}]}
+# matriz = [['Math', None, 'Math', 'Chemistry', 'Math', 'Math', None, None], [None, 'Chemistry', 'Chemistry', 'Literature', 'Math', 'Literature', 'Chemistry', 'Literature'], [None, None, 'Chemistry', 'Math', 'Literature', 'Math', None, 'Chemistry'], ['Math', 'Literature', 'Math', None, None, 'Math', 'Chemistry', 'Math'], ['Literature', 'Literature', 'Math', 'Literature', None, None, 'Chemistry', 'Chemistry'], [None, 'Chemistry', 'Math', 'Math', 'Chemistry', 'Math', 'Literature', 'Math'], ['Literature', 'Literature', 'Chemistry', None, 'Literature', 'Literature', None, 'Math'], ['Math', 'Chemistry', 'Literature', 'Math', None, 'Math', None, None], ['Literature', 'Math', 'Literature', None, 'Math', 'Chemistry', None, None],
+#           [None, 'Math', 'Literature', 'Chemistry', None, 'Chemistry', 'Literature', None], ['Math', 'Chemistry', 'Chemistry', 'Literature', 'Chemistry', None, 'Literature', None], ['Literature', None, 'Math', 'Literature', 'Chemistry', 'Chemistry', None, None], [None, None, 'Chemistry', 'Chemistry', None, None, 'Math', 'Math'], ['Math', 'Chemistry', 'Chemistry', None, None, 'Math', 'Literature', 'Chemistry'], [None, None, None, None, None, None, None, None], [None, None, None, None, None, None, None, None], [None, None, None, None, None, None, None, None], [None, None, None, None, None, None, None, None], [None, None, None, None, None, None, None, None], [None, None, None, None, None, None, None, None], ['Literature', 'Literature', 'Chemistry', 'Math', None, 'Math', 'Math', 'Literature'], ['Chemistry', 'Literature', 'Math', 'Math', None, 'Math', 'Math', 'Chemistry'], ['Math', 'Math', None, 'Math', 'Math', 'Literature', None, 'Literature'], ['Chemistry', 'Math', None, None, 'Math', None, 'Literature', None], ['Literature', 'Chemistry', None, 'Chemistry', 'Math', None, None, None], ['Math', 'Literature', 'Math', None, None, None, None, None], ['Chemistry', 'Math', 'Chemistry', None, 'Math', None, None, None], ['Chemistry', None, 'Chemistry', 'Literature', 'Chemistry', None, None, None], ['Math', 'Literature', 'Math', None, 'Math', None, None, None], ['Chemistry', 'Literature', 'Literature', 'Chemistry', 'Chemistry', None, None, None]]
