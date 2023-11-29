@@ -1,17 +1,18 @@
-import chat_util as cu
-from problem_data import ProblemData
-from preprocessing import bag_of_words, preprocess_text
-from model import NeuralNet
-from generate_plan import PlanGenerator as pg
+from NLP import chat_util_web as cu
+from NLP.problem_data import ProblemData
+from NLP.preprocessing_web import bag_of_words, preprocess_text
+from NLP.model import NeuralNet
+from NLP.generate_plan import PlanGenerator as pg
 import json
 import torch
-from flask_socketio import SocketIO
 import threading
+from flask import jsonify
 
 
 message_in = False
 message = None
 condition = threading.Condition()
+socket = None
 
 
 def enter_message(input_text):
@@ -33,11 +34,18 @@ def await_for_message():
         return message
 
 
-def send_output(socket, output):
+def send_output(output):
     socket.emit('chatbot_output', output)
 
 
-def start_chat():
+def send_generated_plan(study_plan):
+    study_plan_json = jsonify(study_plan)
+    socket.emit('generated_plan', study_plan_json)
+
+
+def start_chat(socket_from_front_end):
+    global socket
+    socket = socket_from_front_end
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
     with open('./NLP/intents.json', 'r') as f:
@@ -62,16 +70,14 @@ def start_chat():
     model.load_state_dict(model_state)
     model.eval()
 
-    botname = "LPAIbot"
-
-    print("Let's chat!, Let me help you, build your study plan")
+    send_output("Let's chat!, Let me help you, build your study plan")
 
     problem_data = ProblemData()
     problem_data.set_current_context("Main")
 
     while True:
 
-        sentence = input('You: ')
+        sentence = await_for_message()
         # adding subject information hotfix
         if "Name" in problem_data.current_context or "UTime" in problem_data.current_context:
             sentence = cu.force_unit_string(sentence)
@@ -132,9 +138,9 @@ def start_chat():
                 # breaks while and goes to generator if everything is complete
                 if problem_data.complete == True:
                     break
-                # print handler responses
-                print(
-                    f"{botname} (Tag: {intent_tag}, Constraint: {constraint_type})\n"+response)
+                # print input info
+                print(f"Tag: {intent_tag}, Constraint: {constraint_type}")
+                send_output(response)
 
             else:
                 # siempre que se salga del arbol asumimos que quiere regresarse a Main
@@ -144,12 +150,12 @@ def start_chat():
                 problem_data.set_context_temp(new_context)
                 problem_data.set_current_context_temp(
                     problem_data.current_context)
-                print(
+                send_output(
                     f"new_context:{new_context}, current_context:{problem_data.current_context}")
-                print(f"{botname}: no pasó el check context ")
+                print(f"check context failed ")
                 response = cu.handle_input(
                     "Main", problem_data.current_context, problem_data.context_temp, None, problem_data)
-                print(response)
+                send_output(response)
                 problem_data.set_current_context = "Main"
         else:
             # cuando no se entiende el contexto
@@ -160,8 +166,9 @@ def start_chat():
             response = cu.generate_response(
                 missing_fields, problem_data)
 
-            print(f"{botname}: Sorry... I didn't get that.\n{response}")
+            send_output("Sorry... I didn't get that.\n{response}")
 
     if problem_data.complete == True:
         # Generate Study Plan
         generated_plan = pg(problem_data)
+        send_generated_plan(generated_plan)

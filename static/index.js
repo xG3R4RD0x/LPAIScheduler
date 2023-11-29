@@ -43,7 +43,6 @@
             var li = document.createElement('li');
             li.appendChild(document.createTextNode("LPAIbot: "+ output));
             ul.appendChild(li);
-            // socket.emit('get_user_input');
         });
 
         socket.on('user_input', function (inputText) {
@@ -54,4 +53,11 @@
             ul.appendChild(li);
             socket.emit('get_response',inputText);
         });
+
+        socket.on('generated_plan', function(study_plan){
+            
+
+
+        });
+
     

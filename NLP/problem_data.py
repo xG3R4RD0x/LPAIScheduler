@@ -1,5 +1,5 @@
 # an object which has a dictionary to store the parsed data from the chatbot
-import soft_constraints_util as scu
+from NLP import soft_constraints_util as scu
 from datetime import datetime, timedelta
 
 

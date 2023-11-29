@@ -1,6 +1,6 @@
 import pulp
-from problem_data import ProblemData
-import extract_data as ed
+from NLP.problem_data import ProblemData
+from NLP import extract_data as ed
 
 
 class PlanGenerator:
@@ -111,7 +111,7 @@ class PlanGenerator:
         problema.solve()
 
         # Imprimir resultados
-        print("Estado:", pulp.LpStatus[problema.status])
+        # print("Estado:", pulp.LpStatus[problema.status])
 
         # Llenar la matriz con el horario
         for dia in total_time:
@@ -120,7 +120,7 @@ class PlanGenerator:
                     if x[(dia, materia, hora)].varValue == 1:
                         self.generated_plan[dia - 1][hora - 1] = materia
 
-        print(self.generated_plan)
+        # print(self.generated_plan)
 
         # # Imprimir el horario de estudio
         # print("\nHorario de Estudio:")

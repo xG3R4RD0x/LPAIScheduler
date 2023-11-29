@@ -1,6 +1,6 @@
-import problem_data as pd
-from subject import Subject
-from soft_constraints import no_study_day, no_study_hours
+from NLP import problem_data as pd
+from NLP.subject import Subject
+from NLP.soft_constraints import no_study_day, no_study_hours
 from datetime import datetime
 
 # utility functions to update the Problem Data Dictionary

@@ -1,6 +1,6 @@
 from dateutil import parser
 from datetime import datetime, timedelta
-import problem_data as pd
+from NLP import problem_data as pd
 
 
 def extract_dates(dates: list):

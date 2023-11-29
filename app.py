@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO
-from backend_test import test
+from NLP import chat as chatbot
 
 app = Flask(__name__)
 socketio = SocketIO(app)
@@ -35,7 +35,7 @@ def get_user_input():
 def send_user_input(input_text):
 
     # send input from frontend to backend
-    test.enter_message(input_text)
+    chatbot.enter_message(input_text)
 
     # # Envia la entrada del usuario al cliente
     socketio.emit('user_input', input_text)
@@ -46,7 +46,7 @@ def chatbot_start():
     # es el evento inicial que inicia el chatbot después de cargar la pagina
     # iniciar chatbot
     socket = socketio
-    socketio.start_background_task(test.chatbot_dummy_dos, socket)
+    socketio.start_background_task(chatbot.start_chat, socket)
 
 
 if __name__ == '__main__':
