@@ -1,11 +1,10 @@
 #chat-messages {
+    display: flex;
+    flex-direction: column-reverse;
     max-height: 200px;
-    /* ajusta la altura máxima según tus preferencias */
     overflow-y: auto;
     border: 1px solid #ccc;
-    /* opcional: añade un borde */
     padding: 10px;
-    /* opcional: añade relleno */
 }
 
 #messages {
@@ -30,4 +29,40 @@
 #send-button {
     margin-top: 10px;
     padding: 5px;
+}
+
+#studyplan-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 10% 10px 10%;
+
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    padding: 10%;
+}
+
+th,
+td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+    width: 4em;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+td:empty {
+    background-color: #f1f1f1;
+}
+
+.day-number {
+    background-color: #d9e7da;
+    color: rgb(73, 65, 65);
 }

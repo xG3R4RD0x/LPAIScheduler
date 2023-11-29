@@ -24,10 +24,54 @@
             console.log('Chatbot started');
             socket.emit('chatbot_start');
         }
+
+        function generarTabla(horario) {
+            horario = JSON.parse(horario);
+            horario = transpose(horario);
+            
+            // Crear el contenedor de la tabla
+            var tableContainer = document.getElementById('studyplan-container');
+        
+            // Crear la tabla
+            var table = document.createElement('table');
+            var tbody = document.createElement('tbody');
+        
+            for (var i = 0; i < horario.length; i++) {
+                if (i ==0){
+                    var header = document.createElement('tr');
+                    header.className="day-number";
+                    for(var d=0;d<horario[i].length; d++){
+                        var day_header = document.createElement('td');
+                        day_header.textContent= "day " + (d+1).toString();
+                        header.appendChild(day_header);
+                    }
+                    tbody.appendChild(header);
+                }
+                var row = document.createElement('tr');
+                
+                for (var j = 0; j < horario[i].length; j++) {
+                    var cell = document.createElement('td');
+                    cell.textContent = horario[i][j] || '---'; // si es nulo, mostramos un guion
+                    row.appendChild(cell);
+                }
+        
+                tbody.appendChild(row);
+            }
+        
+            table.appendChild(tbody);
+        
+            tableContainer.appendChild(table);
+        
+        }
+
+          function transpose(matrix) {
+            return matrix[0].map((col, i) => matrix.map(row => row[i]));
+        }
+
         
 //Event handlers
 
-        socket.once('chatbot_start_from_server', function(output){
+        socket.on('chatbot_start_from_server', function(output){
             //output of initial message
             var ul = document.getElementById('messages');
             var li = document.createElement('li');
@@ -55,9 +99,7 @@
         });
 
         socket.on('generated_plan', function(study_plan){
-            
-
-
+            generarTabla(study_plan);
         });
 
     

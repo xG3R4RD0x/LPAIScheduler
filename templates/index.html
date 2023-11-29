@@ -9,7 +9,8 @@
 </head>
 
 <body onload="page_loaded()">
-    <h1>Chatbot Backend</h1>
+    <h1>LPAIbot</h1>
+    <h2>Let's build your study plan!</h2>
 
     <div>
         <div id="chat-container">
@@ -18,9 +19,11 @@
 
             </div>
         </div>
-        <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
-        <button id="send-button" onclick="send_user_input()">Enviar</button>
+        <input type="text" id="message-input" placeholder="Write zour message...">
+        <button id="send-button" onclick="send_user_input()">Send</button>
     </div>
+
+    <div id="studyplan-container"></div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>

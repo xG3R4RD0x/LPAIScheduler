@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 from flask_socketio import SocketIO
 from NLP import chat as chatbot
 
@@ -51,3 +51,8 @@ def chatbot_start():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
+
+
+def plan_to_json(plan: list):
+    list_json = jsonify(plan)
+    return list_json

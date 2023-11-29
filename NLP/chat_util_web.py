@@ -216,7 +216,7 @@ def generate_response(missing_fields, problem_data: pd = None):
 
     if missing_fields is False:
         return "Error with Problem Data"
-    c.send_output(missing_fields)
+    # c.send_output(missing_fields)
     if type(missing_fields) is list:
         checked_fields = read_missing_fields(missing_fields)
         checked_fields_str = ""

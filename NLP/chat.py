@@ -6,7 +6,7 @@ from NLP.generate_plan import PlanGenerator as pg
 import json
 import torch
 import threading
-from flask import jsonify
+import json
 
 
 message_in = False
@@ -39,8 +39,18 @@ def send_output(output):
 
 
 def send_generated_plan(study_plan):
-    study_plan_json = jsonify(study_plan)
+
+    study_plan_json = plan_to_json(study_plan)
     socket.emit('generated_plan', study_plan_json)
+
+
+def plan_to_json(study_plan: list):
+    try:
+        json_data = json.dumps(study_plan)
+        return json_data
+    except Exception as e:
+        print(f"Error converting list to JSON: {e}")
+        return None
 
 
 def start_chat(socket_from_front_end):
@@ -170,5 +180,5 @@ def start_chat(socket_from_front_end):
 
     if problem_data.complete == True:
         # Generate Study Plan
-        generated_plan = pg(problem_data)
-        send_generated_plan(generated_plan)
+        Studyplan = pg(problem_data)
+        send_generated_plan(Studyplan.generated_plan)
