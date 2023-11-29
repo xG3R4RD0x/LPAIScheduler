@@ -112,7 +112,10 @@ class ProblemData:
         for item in nsd:
             i = item.data
             # all dates are going to be flatten to a unique list
-            date_list = scu.flatten_list(i["dates"])
+            if type(i["dates"]) == datetime:
+                date_list = [i["dates"]]
+            else:
+                date_list = scu.flatten_list(i["dates"])
             for date in date_list:
                 if i["constraint_type"] == "strong":
                     weight = 5

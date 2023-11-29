@@ -71,7 +71,10 @@ def generate_dates_response_string(date_list: list):
 def flatten_list(list):
     flat_list = []
     for sub_list in list:
-        flat_list.extend(sub_list)
+        if type(sub_list) == list:
+            flat_list.extend(sub_list)
+        else:
+            flat_list.append(sub_list)
     return flat_list
 
 

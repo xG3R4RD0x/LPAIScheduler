@@ -143,6 +143,7 @@ def start_chat(socket_from_front_end):
                 if problem_data.subject_list == [] and ("Unit" in problem_data.current_context or "UTime" in problem_data.current_context):
                     problem_data.set_current_context("Main")
                 else:
+                    print(intent_tag)
                     problem_data.set_current_context(new_context)
 
                 # breaks while and goes to generator if everything is complete
