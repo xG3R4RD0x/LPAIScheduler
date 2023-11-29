@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot Backend</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+
+<body onload="page_loaded()">
+    <h1>Chatbot Backend</h1>
+
+    <div>
+        <div id="chat-container">
+            <div id="chat-messages">
+                <ul id="messages"></ul>
+
+            </div>
+        </div>
+        <input type="text" id="message-input" placeholder="Escribe tu mensaje...">
+        <button id="send-button" onclick="send_user_input()">Enviar</button>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="../static/index.js"></script>
+</body>
+
+</html>
