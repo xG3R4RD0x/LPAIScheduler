@@ -9,8 +9,6 @@ This is a README file for the repository LPAIScheduler
 
 IMPORTANT: I'm not using a virtual enviroment so I installed the dependencies globally
 
-
-
 3rd. download the language model for spaCy
     python -m spacy download en_core_web_sm
 

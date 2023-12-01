@@ -82,7 +82,7 @@
         });
 
         socket.on('chatbot_output', function (output) {
-            // Muestra la entrada del usuario en la página
+            // Shows Chatbot output in Frontend
             var ul = document.getElementById('messages');
             var li = document.createElement('li');
             li.appendChild(document.createTextNode("LPAIbot: "+ output));
@@ -90,7 +90,7 @@
         });
 
         socket.on('user_input', function (inputText) {
-            // Muestra la entrada del usuario en la página
+            // Shows User Input on Frontend
             var ul = document.getElementById('messages');
             var li = document.createElement('li');
             li.appendChild(document.createTextNode("You: "+ inputText));

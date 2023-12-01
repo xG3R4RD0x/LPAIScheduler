@@ -3,7 +3,7 @@ import numpy as np
 import re
 from datetime import datetime
 from word2number import w2n
-import soft_constraints_util as scu
+
 # load pre trained tokenization spanish model
 # nlp = spacy.load("es_core_news_sm")
 

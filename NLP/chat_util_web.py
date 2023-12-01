@@ -66,12 +66,6 @@ hierarchy = [
         "context": "UTime", "subcontext": ["Unit", "UTime", "Main"]
     },
     {
-        "context": "Confirmation", "subcontext": ["Main", "UTime", "Unit"]
-    },
-    {
-        "context": "Denial", "subcontext": ["Main", "UTime", "Unit"]
-    },
-    {
         "context": "Edit", "subcontext": ["Back", "UTime", "Unit"]
     },
     {
@@ -310,16 +304,7 @@ def read_missing_fields(missing_fields):
 
 def handle_input(new_context, current_context, context_temp=None, current_context_temp=None, ProblemData=None, input_sentence=None, constraint_type=None):
 
-    if new_context == "Denial":
-        # necesito un string para cuando sea un subject para recordarle lo que le falta
-        return handle_context_denial(context_temp, ProblemData)
-
-    elif new_context == "Confirmation":
-        # we handle the context_temp as if it was the new_context
-        ProblemData.set_add_info_to_subject(False)
-        return handle_input(context_temp, current_context)
-
-    elif new_context == "Back":
+    if new_context == "Back":
         return handle_context_back_to_main(current_context, context_temp)
 
     elif "Main" in new_context:
