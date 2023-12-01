@@ -84,10 +84,27 @@ def start_chat(socket_from_front_end):
 
     problem_data = ProblemData()
     problem_data.set_current_context("Main")
+    new_context = "Main"
 
     while True:
 
         sentence = await_for_message()
+
+        if sentence == "":
+            # cuando no se entiende el contexto
+            # mostramos el string con los datos que faltan y pedimos que se los llene
+            missing_fields = problem_data.validate_data()
+            # revisar la respuesta anterior basada en el current context
+
+            response = cu.generate_response(
+                missing_fields, problem_data)
+            response_string = "Sorry... I didn't get that.\n" + response
+            print(problem_data.current_context+" "+new_context)
+            if problem_data.complete == True:
+                break
+            send_output(response_string)
+            continue
+
         # adding subject information hotfix
         if "Name" in problem_data.current_context or "UTime" in problem_data.current_context:
             sentence = cu.force_unit_string(sentence)
@@ -177,7 +194,8 @@ def start_chat(socket_from_front_end):
             response = cu.generate_response(
                 missing_fields, problem_data)
             response_string = "Sorry... I didn't get that.\n" + response
-
+            if problem_data.complete == True:
+                break
             send_output(response_string)
 
     if problem_data.complete == True:

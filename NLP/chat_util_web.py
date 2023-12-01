@@ -151,8 +151,11 @@ def validate_for_generator(problem_data: pd):
             hour_range_index_list = problem_data.find_ranges_by_time(
                 total_hour_list, hour_range[0], hour_range[1])
             date_list = nsh.data["dates"]
-
-            nsh_number += len(hour_range_index_list)*len(date_list)
+            if type(date_list) == datetime.datetime:
+                length_date_list = 1
+            else:
+                length_date_list = len(date_list)
+            nsh_number += len(hour_range_index_list)*length_date_list
     # overlapping constraint hours are counted double
     constraint_hours = nsh_number+nsd_number
 
@@ -193,23 +196,26 @@ def validate_for_generator(problem_data: pd):
 def generate_response(missing_fields, problem_data: pd = None):
     if missing_fields is True or missing_fields == [{'subjects': []}] or missing_fields == []:
         # insert a response that says that everything is correctly filled
+        if problem_data.get_subject_list_from_data != []:
+            c.send_output(
+                "It looks like I got all the information I need, do you want to add or change anything?")
+            confirmation = ask_for_confirmation()
+            if confirmation == False:
+                if validate_for_generator(problem_data) == True:
+                    response = "Perfect! I will start working on your study plan right away!"
+                    # aquí se llama al generador de horarios
+                    problem_data.complete = True
+                    return response
 
-        c.send_output(
-            "It looks like I got all the information I need, do you want to add or change anything?")
-        confirmation = ask_for_confirmation()
-        if confirmation == False:
-            if validate_for_generator(problem_data) == True:
-                response = "Perfect! I will start working on your study plan right away!"
-                # aquí se llama al generador de horarios
-                problem_data.complete = True
-                return response
-
+                else:
+                    response = "Feel free to change or add all the information that you need :)"
+                    return response
             else:
-                response = "Feel free to change or add all the information that you need :)"
-                return response
-
+                return "feel free to add or change all the information you need"
+        else:
+            return "there are no subjects to study"
     if missing_fields is False:
-        return "Error with Problem Data"
+        return "There are no subjects added"
     # c.send_output(missing_fields)
     if type(missing_fields) is list:
         checked_fields = read_missing_fields(missing_fields)
@@ -755,42 +761,16 @@ def ask_for_confirmation():
 
 
 def force_unit_string(sentence):
+    if sentence == "":
+        sentence = "2"
     number_of_units = str(pre.number_from_text(sentence))
     sentence = "I'm studying a topic that consists of "+number_of_units + " units"
     return sentence
 
 
 def force_utime_string(sentence):
+    if sentence == "":
+        sentence = "2"
     hours_per_units = str(pre.number_from_text(sentence))
     sentence = "I need "+hours_per_units+" hours to complete each unit"
     return sentence
-
-
-def input_sentence(sentence, all_words=all_words, device=device, tags=tags, constraint_types=constraint_types, model=model):
-    sentence = pre.preprocess_text(sentence)
-    x = pre.bag_of_words(sentence, all_words)
-    x = x.reshape(1, x.shape[0])
-    x = torch.from_numpy(x).to(device)
-
-    intent_output, constraint_output = model(x)
-    _, predicted_intent = torch.max(intent_output, dim=1)
-    intent_tag = tags[predicted_intent.item()]
-    _, predicted_constraint = torch.max(constraint_output, dim=1)
-    # Obtén el tipo de restricción
-    constraint_type = constraint_types[predicted_constraint.item()]
-
-    # check the probabilities
-    intent_probs = torch.softmax(intent_output, dim=1)
-    intent_prob = intent_probs[0][predicted_intent.item()]
-
-    # Revisa las probabilidades para el tipo de restricción
-    constraint_probs = torch.softmax(constraint_output, dim=1)
-    constraint_prob = constraint_probs[0][predicted_constraint.item()]
-
-    if intent_prob.item() > 0.75:
-        return {"intent_tag": intent_tag, "constraint_type": constraint_type}
-    else:
-        c.send_output(
-            "Sorry, I didn't get that... can you type that again?")
-        sentence = c.await_for_message()
-        input_sentence(sentence)
